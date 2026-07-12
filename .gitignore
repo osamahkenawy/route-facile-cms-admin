@@ -22,3 +22,6 @@ npm-debug.log*
 yarn-debug.log* 
 yarn-error.log*
 new_theme/
+
+# PuTTY private keys - never commit
+*.ppk
