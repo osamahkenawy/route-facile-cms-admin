@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Backend API (NestJS) - Running locally, connected to staging DB
+  backend:
+    build:
+      context: ../arc-backend/ARC
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - TZ=Asia/Dubai
+      - NODE_ENV=staging
+      - IS_STAGING=true
+      - SWAGGER_API_KEY=${SWAGGER_API_KEY:-staging_JP9g4aIbZn7D3}
+      - TSD_API_KEY=${TSD_API_KEY:-TSD_AUTOEUROPE_2026_xK9mP2nL7qR4sT8v}
+      # Staging Database Connection (from server)
+      - MYSQL_HOST=${STAGING_DB_HOST}
+      - MYSQL_PORT=${STAGING_DB_PORT:-3306}
+      - MYSQL_USER=${STAGING_DB_USER}
+      - MYSQL_PASSWORD=${STAGING_DB_PASSWORD}
+      - MYSQL_DATABASE=${STAGING_DB_NAME}
+      # Redis (optional - can use staging redis or local)
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+    volumes:
+      - ../arc-backend/ARC/src:/usr/src/app/src
+      - ../arc-backend/ARC/uploads:/usr/src/app/uploads
+      - ../arc-backend/ARC/dist/mail/templates:/usr/src/app/dist/mail/templates
+    networks:
+      - autostrad-network
+    restart: unless-stopped
+    command: npm run start:dev
+
+  # Local Redis
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - autostrad-network
+    restart: unless-stopped
+
+  # Frontend (Admin Portal) - Development mode
+  admin-frontend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_NODE_HOST=http://backend:3000/api/v1/
+      - REACT_APP_FILE_SERVER=${REACT_APP_FILE_SERVER}
+      - REACT_APP_API_KEY=${REACT_APP_API_KEY}
+      - REACT_APP_LOCAL_ENCRYPTION_KEY=${REACT_APP_LOCAL_ENCRYPTION_KEY}
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - autostrad-network
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+    command: npm start
+
+networks:
+  autostrad-network:
+    driver: bridge
+
+

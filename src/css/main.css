@@ -1,0 +1,599 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   Modern Sidebar Styles - Horizontal Layout
+   ========================================= */
+
+/* Sidebar base styling */
+.sidebar {
+  font-family: 'Wix Madefor Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff !important;
+  border-right: 1px solid #eaedf1 !important;
+}
+
+.sidebar-header {
+  border-bottom: 1px solid #eaedf1;
+  background: transparent !important;
+}
+
+.sidebar-brand {
+  background: transparent !important;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #eaedf1;
+  background: transparent !important;
+}
+
+.sidebar-toggler {
+  background: transparent !important;
+}
+
+.sidebar-toggler:hover {
+  background: #f3f1fa !important;
+}
+
+/* Force horizontal flex layout for nav links */
+.sidebar-nav .nav-link,
+.sidebar-nav .nav-group-toggle {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 12px;
+  padding: 10px 20px !important;
+  font-size: 15px;
+  font-weight: 400;
+  color: #8486a7;
+  background: transparent;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Icon styling - inline flex */
+.sidebar-nav .nav-icon {
+  display: inline-flex !important;
+  flex-shrink: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  font-size: 18px !important;
+  margin-right: 0 !important;
+  color: inherit;
+}
+
+/* Hover effects */
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-group-toggle:hover {
+  color: #3d4756;
+  background-color: #f3f1fa;
+  background-image: linear-gradient(90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(246, 246, 246, 0.1) 35%,
+    transparent 100%);
+}
+
+/* Active state */
+.sidebar-nav .nav-link.active {
+  color: #3d4756;
+  background-color: #f3f1fa;
+  border-left-color: #1c84ee !important;
+  font-weight: 500;
+}
+
+.sidebar-nav .nav-link.active .nav-icon {
+  color: #1c84ee !important;
+}
+
+/* Active state for dark sidebar */
+.accounts-sidebar.sidebar .sidebar-nav .nav-link.active {
+  color: #ffffff !important;
+  background: #2563EB !important;
+  border-left-color: #2563EB !important;
+  font-weight: 500;
+}
+
+.accounts-sidebar.sidebar .sidebar-nav .nav-link.active .nav-icon {
+  color: #ffffff !important;
+}
+
+/* Group expanded state */
+.sidebar-nav .show > .nav-group-toggle,
+.sidebar-nav .nav-group.show > .nav-group-toggle {
+  color: #3d4756;
+}
+
+/* Group expanded state for dark sidebar */
+.accounts-sidebar.sidebar .sidebar-nav .show > .nav-group-toggle,
+.accounts-sidebar.sidebar .sidebar-nav .nav-group.show > .nav-group-toggle {
+  color: #ffffff !important;
+  background: #1E293B !important;
+}
+
+.sidebar-nav .show > a > svg,
+.sidebar-nav .nav-group.show > .nav-group-toggle svg {
+  color: #1c84ee !important;
+}
+
+.accounts-sidebar.sidebar .sidebar-nav .show > a > svg,
+.accounts-sidebar.sidebar .sidebar-nav .nav-group.show > .nav-group-toggle svg {
+  color: #60a5fa !important;
+}
+
+/* Arrow styling */
+.sidebar-nav .nav-group-toggle::after {
+  margin-left: auto !important;
+  opacity: 0.6;
+  transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-nav .nav-group.show > .nav-group-toggle::after {
+  transform: rotate(-180deg);
+  opacity: 1;
+}
+
+/* Submenu items */
+.sidebar-nav .nav-group-items .nav-link {
+  padding-left: 52px !important;
+  font-size: 14px;
+  border-left: none !important;
+  position: relative;
+}
+
+/* Hide icon in submenu items */
+.sidebar-nav .nav-group-items .nav-icon {
+  display: none !important;
+}
+
+/* Bullet point for submenu items */
+.sidebar-nav .nav-group-items .nav-link::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #8486a7;
+  opacity: 0.4;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-nav .nav-group-items .nav-link:hover::before,
+.sidebar-nav .nav-group-items .nav-link.active::before {
+  background-color: #1c84ee;
+  opacity: 1;
+}
+
+/* Submenu styles for dark sidebar */
+.accounts-sidebar.sidebar .sidebar-nav .nav-group-items .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: transparent !important;
+}
+
+.accounts-sidebar.sidebar .sidebar-nav .nav-group-items .nav-link::before {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.accounts-sidebar.sidebar .sidebar-nav .nav-group-items .nav-link:hover {
+  color: #ffffff !important;
+  background: #1E293B !important;
+}
+
+.accounts-sidebar.sidebar .sidebar-nav .nav-group-items .nav-link:hover::before,
+.accounts-sidebar.sidebar .sidebar-nav .nav-group-items .nav-link.active::before {
+  background-color: #ffffff !important;
+  opacity: 1;
+}
+
+.accounts-sidebar.sidebar .sidebar-nav .nav-group-items .nav-link.active {
+  color: #ffffff !important;
+  background: rgba(37, 99, 235, 0.15) !important;
+}
+
+.sidebar-nav .nav-group-items .nav-link:hover {
+  padding-left: 57px !important;
+  background: transparent !important;
+}
+
+/* Nested submenu */
+.sidebar-nav .nav-group-items .nav-group-items .nav-link {
+  padding-left: 72px !important;
+}
+
+.sidebar-nav .nav-group-items .nav-group-items .nav-link::before {
+  left: 52px;
+}
+
+.sidebar-nav .nav-group-items .nav-group-items .nav-link:hover {
+  padding-left: 77px !important;
+}
+
+/* =============================================
+   NARROW/COLLAPSED SIDEBAR STATE
+   ============================================= */
+
+/* Base narrow state - set width and hide overflow */
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  width: 75px !important;
+  min-width: 75px !important;
+}
+
+/* Nav link and group toggle in narrow mode */
+.sidebar-narrow .sidebar-nav .nav-link,
+.sidebar-narrow .sidebar-nav .nav-group-toggle,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-group-toggle {
+  justify-content: center !important;
+  padding: 15px 0 !important;
+  width: 75px !important;
+  text-indent: -9999px !important;
+}
+
+/* Show only icons - reset text-indent for icons */
+.sidebar-narrow .sidebar-nav .nav-icon,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-icon {
+  display: inline-flex !important;
+  text-indent: 0 !important;
+  margin: 0 auto !important;
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 20px !important;
+}
+
+/* Hide SVG icon text-indent issue */
+.sidebar-narrow .sidebar-nav svg.nav-icon,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav svg.nav-icon {
+  text-indent: 0 !important;
+}
+
+/* Hide submenus */
+.sidebar-narrow .sidebar-nav .nav-group-items,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-group-items {
+  display: none !important;
+}
+
+/* Hide dropdown arrow */
+.sidebar-narrow .sidebar-nav .nav-group-toggle::after,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-group-toggle::after {
+  display: none !important;
+}
+
+/* =============================================
+   LOGO HANDLING FOR NARROW SIDEBAR
+   ============================================= */
+
+/* Hide full logo when narrow */
+.sidebar-narrow .sidebar-brand-full,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-brand-full {
+  display: none !important;
+}
+
+/* Show small logo when narrow */
+.sidebar-narrow .sidebar-brand-narrow,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-brand-narrow {
+  display: block !important;
+}
+
+/* Default: show full logo, hide narrow logo when expanded */
+.sidebar:not(.sidebar-narrow):not(.sidebar-narrow-unfoldable) .sidebar-brand-narrow,
+.sidebar-narrow-unfoldable:hover .sidebar-brand-narrow {
+  display: none !important;
+}
+
+.sidebar:not(.sidebar-narrow):not(.sidebar-narrow-unfoldable) .sidebar-brand-full,
+.sidebar-narrow-unfoldable:hover .sidebar-brand-full {
+  display: block !important;
+}
+
+/* Center the logo in narrow mode */
+.sidebar-narrow .sidebar-header,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-header {
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.sidebar-narrow .sidebar-brand,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-brand {
+  margin: 0 auto !important;
+}
+
+/* Additional: clip text and set font-size to 0 for text hiding */
+.sidebar-narrow .sidebar-nav .nav-link,
+.sidebar-narrow .sidebar-nav .nav-group-toggle,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-group-toggle {
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+/* Restore icon size */
+.sidebar-narrow .sidebar-nav .nav-icon,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-icon {
+  font-size: 20px !important;
+  color: #ffffff !important;
+}
+
+/* Active icon color */
+.sidebar-narrow .sidebar-nav .nav-link.active .nav-icon,
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-nav .nav-link.active .nav-icon {
+  color: #1c84ee !important;
+}
+
+/* Scrollbar styling */
+.sidebar .simplebar-scrollbar::before {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.sidebar .simplebar-track.simplebar-vertical {
+  width: 6px;
+}
+
+/* ========================================= */
+/* .breadcrumb > .breadcrumb-item > a,
+.breadcrumb > .breadcrumb-item.active,
+.breadcrumb-item + .breadcrumb-item::before {
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+} */
+
+.header {
+  .header-toggler {
+    color: #1b13ff !important;
+  }
+  h6 {
+    font-size: 17px;
+  }
+}
+@media (min-width: 992px) {
+  .sidebar.sidebar-fixed:not(.sidebar-end) {
+    left: 5px;
+  }
+}
+.wrapper {
+  .body {
+    background-color: #ddeaf3 !important;
+    max-width: 100% !important;
+  }
+}
+.simplebar-content .nav-item .nav-link:hover {
+  background-color: #fff !important;
+}
+.simplebar-content .nav-item .nav-link:focus {
+  background-color: #fff !important;
+}
+.simplebar-content .nav-group .nav-link:hover {
+  background-color: #fff !important;
+}
+.table-responsive > thead > tr > th {
+  background-color: #53b7e8;
+  color: white;
+}
+.btn-def {
+  background-color: #53b7e8;
+  color: #fff;
+  border: none;
+  
+}
+.btn-def:hover {
+  background-color: #53b7e8;
+  color: #fff;
+  border: none;
+}
+.btn-def:active {
+  background-color: #53b7e8 !important;
+  color: #fff;
+  border: none;
+}
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+  background-color: #53b7e8 !important;
+  color: #fff;
+  border: none;
+}
+
+.btn:focus-visible {
+  background-color: #53b7e8 !important;
+  color: #fff;
+  border: none;
+}
+
+.active_box {
+  /* border: 1px solid #53B7E8; */
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #53b7e8;
+  color: #f1f3f5;
+  font-size: 12px;
+  max-width: 7rem;
+}
+.inactive_box {
+  /* border: 1px solid #ff6b6b; */
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #ff6b6b;
+  color: #f1f3f5;
+  font-size: 12px;
+  max-width: 7rem;
+}
+
+.font-size-14px{
+  font-size: 16px;
+}
+
+.calender-field-width {
+  max-width: 17rem;
+}
+.clear-btn {
+  margin-top: 0.3rem;
+}
+.hidden-search-text{
+  margin-top: 0;
+  margin-bottom: 8px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+.search-icon{
+  width: 1.5rem;
+  height: 1.5rem;
+ margin-right: 8px;
+
+}
+
+.btn-icon{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#root > div {
+  /* Default width */
+}
+
+#root.logs-page > div {
+  width: max-content;
+}
+/* Header Admin Dropdown - positioned relative to header */
+.header-admin-dropdown {
+  position: relative;
+  z-index: 1031;
+}
+
+/* Header navbar styles */
+.header-navbar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1030;
+}
+
+/* Admin dropdown menu */
+.admin-dropdown-menu {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.admin-dropdown-overlay {
+  background: transparent;
+}
+
+/* Ensure body has padding-top to account for fixed header */
+body:has(.header-navbar) {
+  padding-top: 65px;
+}
+
+/* Fallback for browsers without :has() support */
+.header-navbar ~ .body,
+.header-navbar ~ * .body {
+  padding-top: 65px;
+}
+
+.Booked_box {
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #0ae73a;
+  color: #f1f3f5;
+  font-size: 12px;
+  text-align: center;
+}
+
+.Edited_box {
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #e3e70a;
+  color: #f1f3f5;
+  font-size: 12px;
+  text-align: center;
+}
+
+.Extended_box {
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #0a71e7;
+  color: #f1f3f5;
+  font-size: 12px;
+  text-align: center;
+}
+
+.Cancelled_box {
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #ff0800;
+  color: #f1f3f5;
+  font-size: 12px;
+  text-align: center;
+}
+.car-listing-img-div-px{
+  width: 80px;
+}
+.car-listing-img-div{
+  width: 40%;
+ 
+
+}
+.car-listing-img{
+  width: 100%;
+  height: 100%;
+}
+
+.img-close-btn{
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #dc3545;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.img-close-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.border-line{
+  border-bottom: 1px dotted #999;
+  margin: 2rem 0 1rem 0 ;
+}
+
+.admin-page-tabs .nav-item {
+  width: 50%;
+ 
+}
+
+.view-document-container{
+  width: 100%;
+ 
+}
+.view-doc-img{
+  width: 100%;
+ 
+}
+.view-doc-txt{
+  color:#53B7E8;
+  cursor: pointer;
+}
+.grey-background{
+  background-color: #999;
+}

@@ -1,0 +1,21 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "@coreui/coreui/scss/coreui";
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+// Vendors
+@import "vendors/simplebar";
+
+// Custom styles for this theme
+@import "theme";
+
+// Modern Sidebar Styles (migrated from new_theme)
+@import "sidebar";
+
+// If you want to add custom CSS you can put it here
+@import "custom";
+@import "login.scss";
+@import "addpost.scss";
+// @import "pagination.scss";

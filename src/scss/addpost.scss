@@ -1,0 +1,59 @@
+.container{
+  
+  // border: 3px solid red;
+  padding: 0 ;
+  margin: 0 ;
+  
+}
+
+.post_header{
+  // border: 3px solid red;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.form{
+  background-color: #fff;
+  padding: 40px;
+}
+// .sample_download_button{
+//   background-color: #53B7E8;
+// }
+
+.separator {
+  border-right: 2px solid #dee2e6; /* Add a thicker border on the right of Weekday last cell */
+}
+
+.separator + th {
+  border-left: 2px solid #dee2e6; /* Add a thicker border on the left of Weekend first cell */
+}
+
+.container-xxl .container-xl .container-lg .container{
+  max-width: 100% !important;
+}
+
+@media (min-width: 1200px) {
+  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+      max-width: 100%;
+  }
+}
+@media (max-width: 1600px) {
+ .table_input {
+      max-width: 100px;
+  }
+}
+
+.custom_error{
+  width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #e55353;
+}
+
+.was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+  color: black;
+}

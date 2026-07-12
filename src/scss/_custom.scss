@@ -1,0 +1,408 @@
+// Here you can add other styles
+
+// ============================================
+// Modern Sidebar Styles - Like Reback Theme
+// ============================================
+
+// Google Font
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:wght@400;500;600;700&display=swap');
+
+// CSS Variables for sidebar theming
+:root {
+  --sidebar-bg: #ffffff;
+  --sidebar-width: 260px;
+  --sidebar-width-narrow: 75px;
+  --sidebar-item-color: #8486a7;
+  --sidebar-item-hover-color: #3d4756;
+  --sidebar-item-hover-bg: #f3f1fa;
+  --sidebar-item-active-color: #1c84ee;
+  --sidebar-border-color: #eaedf1;
+  --sidebar-font-size: 15px;
+  --sidebar-icon-size: 20px;
+}
+
+// Main Sidebar Override
+.sidebar {
+  font-family: 'Wix Madefor Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  background: var(--sidebar-bg) !important;
+  border-right: 1px solid var(--sidebar-border-color) !important;
+  
+  // Sidebar Header
+  .sidebar-header {
+    border-bottom: 1px solid var(--sidebar-border-color);
+    background: transparent !important;
+    height: 70px;
+    padding: 0 20px;
+  }
+
+  // Sidebar Brand
+  .sidebar-brand {
+    background: transparent !important;
+    
+    img {
+      max-height: 32px;
+    }
+  }
+
+  // Sidebar Footer
+  .sidebar-footer {
+    border-top: 1px solid var(--sidebar-border-color);
+    background: transparent !important;
+  }
+
+  // Sidebar Toggler
+  .sidebar-toggler {
+    background: transparent !important;
+    
+    &:hover {
+      background: var(--sidebar-item-hover-bg) !important;
+    }
+  }
+}
+
+// Sidebar Navigation
+.sidebar-nav {
+  padding: 0.5rem 0;
+  background: transparent !important;
+
+  // All nav links base style
+  .nav-link {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px;
+    padding: 10px 20px !important;
+    margin: 2px 0;
+    font-size: var(--sidebar-font-size);
+    font-weight: 400;
+    color: var(--sidebar-item-color) !important;
+    background: transparent !important;
+    border: none !important;
+    border-left: 3px solid transparent !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+
+    // Nav Icon
+    .nav-icon {
+      display: flex !important;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: var(--sidebar-icon-size);
+      height: var(--sidebar-icon-size);
+      font-size: var(--sidebar-icon-size);
+      margin-right: 0 !important;
+      color: inherit;
+      transition: color 0.3s ease-in-out;
+    }
+
+    // Hover State
+    &:hover {
+      color: var(--sidebar-item-hover-color) !important;
+      background: var(--sidebar-item-hover-bg) !important;
+      background-image: linear-gradient(90deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(246, 246, 246, 0.1) 35%,
+        transparent 100%) !important;
+    }
+
+    // Active State
+    &.active {
+      color: var(--sidebar-item-hover-color) !important;
+      background: var(--sidebar-item-hover-bg) !important;
+      border-left-color: var(--sidebar-item-active-color) !important;
+      font-weight: 500;
+
+      .nav-icon {
+        color: var(--sidebar-item-active-color) !important;
+      }
+    }
+  }
+
+  // Nav Group (Collapsible)
+  .nav-group {
+    // Group Toggle Button
+    .nav-group-toggle {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 12px;
+      padding: 10px 20px !important;
+      margin: 2px 0;
+      font-size: var(--sidebar-font-size);
+      font-weight: 400;
+      color: var(--sidebar-item-color) !important;
+      background: transparent !important;
+      border: none !important;
+      border-left: 3px solid transparent !important;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      white-space: nowrap;
+
+      .nav-icon {
+        display: flex !important;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: var(--sidebar-icon-size);
+        height: var(--sidebar-icon-size);
+        font-size: var(--sidebar-icon-size);
+        margin-right: 0 !important;
+        color: inherit;
+      }
+
+      // Arrow indicator
+      &::after {
+        margin-left: auto !important;
+        opacity: 0.6;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      &:hover {
+        color: var(--sidebar-item-hover-color) !important;
+        background: var(--sidebar-item-hover-bg) !important;
+      }
+    }
+
+    // When group is expanded
+    &.show {
+      .nav-group-toggle {
+        color: var(--sidebar-item-hover-color) !important;
+        
+        &::after {
+          transform: rotate(-180deg);
+          opacity: 1;
+        }
+      }
+    }
+
+    // Group Items (Submenu)
+    .nav-group-items {
+      background: transparent !important;
+
+      .nav-link {
+        padding: 8px 20px 8px 52px !important;
+        font-size: 14px;
+        position: relative;
+        border-left: none !important;
+
+        // Remove default icon
+        .nav-icon {
+          display: none !important;
+        }
+
+        // Bullet point indicator
+        &::before {
+          content: '';
+          position: absolute;
+          left: 32px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: var(--sidebar-item-color);
+          opacity: 0.4;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+          padding-left: 57px !important;
+          background: transparent !important;
+
+          &::before {
+            background-color: var(--sidebar-item-hover-color);
+            opacity: 1;
+          }
+        }
+
+        &.active {
+          background: transparent !important;
+          font-weight: 500;
+
+          &::before {
+            background-color: var(--sidebar-item-active-color);
+            opacity: 1;
+          }
+        }
+      }
+
+      // Nested submenu
+      .nav-group {
+        .nav-group-toggle {
+          padding: 8px 20px 8px 52px !important;
+          font-size: 14px;
+
+          .nav-icon {
+            display: none !important;
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--sidebar-item-color);
+            opacity: 0.4;
+          }
+        }
+
+        .nav-group-items .nav-link {
+          padding-left: 72px !important;
+
+          &::before {
+            left: 52px;
+          }
+
+          &:hover {
+            padding-left: 77px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sidebar Narrow State
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-nav {
+    .nav-link,
+    .nav-group-toggle {
+      justify-content: center !important;
+      padding: 12px !important;
+      
+      // Hide text in narrow mode
+      &::after {
+        display: none !important;
+      }
+    }
+
+    // Hide submenu items
+    .nav-group-items {
+      display: none !important;
+    }
+  }
+}
+
+// Sidebar unfoldable hover state
+.sidebar-narrow-unfoldable:hover {
+  .sidebar-nav {
+    .nav-link,
+    .nav-group-toggle {
+      justify-content: flex-start !important;
+      padding: 10px 20px !important;
+      
+      &::after {
+        display: block !important;
+      }
+    }
+
+    .nav-group-items {
+      display: block !important;
+    }
+  }
+}
+
+// Simplebar scrollbar styling
+.sidebar .simplebar-scrollbar::before {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.sidebar .simplebar-track.simplebar-vertical {
+  width: 6px;
+}
+
+// Hide nav-icon-bullet (we use ::before pseudo element instead)
+.nav-icon-bullet {
+  display: none !important;
+}
+
+// Fix icon display to be inline with text
+.sidebar .sidebar-nav .nav-link .nav-icon,
+.sidebar .sidebar-nav .nav-group-toggle .nav-icon {
+  display: inline-flex !important;
+  flex-shrink: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  font-size: 20px !important;
+  margin-right: 0 !important;
+  float: none !important;
+}
+
+// Ensure the nav-link and nav-group-toggle are flex rows
+.sidebar .sidebar-nav .nav-link,
+.sidebar .sidebar-nav .nav-group-toggle {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+}
+
+// Make sure text doesn't wrap to new line
+.sidebar .sidebar-nav .nav-link > *,
+.sidebar .sidebar-nav .nav-group-toggle > * {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+// Override any CoreUI styles that might be causing vertical stacking
+.sidebar .sidebar-nav {
+  .nav-item,
+  .nav-group {
+    .nav-link,
+    .nav-group-toggle {
+      // Force horizontal flex layout
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      
+      // Icon styling - ensure inline display
+      > .nav-icon,
+      > svg,
+      > span.nav-icon {
+        display: inline-flex !important;
+        flex: 0 0 auto !important;
+        width: 20px !important;
+        height: 20px !important;
+        margin-right: 12px !important;
+        font-size: 18px !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      
+      // Icon from react-icons
+      > svg.nav-icon {
+        display: inline-block !important;
+        vertical-align: middle !important;
+      }
+    }
+  }
+}
+
+// Specific fix for CIcon component
+.sidebar .sidebar-nav .nav-icon.icon {
+  display: inline-flex !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 12px !important;
+}
+
+// Fix for submenu items - they should NOT have the icon
+.sidebar .sidebar-nav .nav-group-items {
+  .nav-link .nav-icon,
+  .nav-link svg.nav-icon {
+    display: none !important;
+  }
+}

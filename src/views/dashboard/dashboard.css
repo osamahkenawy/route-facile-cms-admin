@@ -1,0 +1,447 @@
+/* Analytics Dashboard - Matching new_theme exactly */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap');
+
+/* CSS Variables */
+:root {
+  --primary: #1c84ee;
+  --secondary: #5d7186;
+  --success: #22c55e;
+  --warning: #f9b931;
+  --danger: #ef5f5f;
+  --info: #4ecac2;
+  --purple: #7f56da;
+  --body-bg: #f8f8fa;
+  --body-color: #5d7186;
+  --card-bg: #ffffff;
+  --border-color: #eaedf1;
+  --headings-color: #323a46;
+  --text-muted: #8486a7;
+}
+
+/* Main Dashboard Container */
+.analytics-dashboard {
+  background-color: var(--body-bg);
+  min-height: 100vh;
+  padding: 0;
+  font-family: 'Wix Madefor Text', sans-serif;
+}
+
+/* Page Title Box - Modified layout */
+.page-title-box {
+  padding: 1rem 20px;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--headings-color);
+  margin-bottom: 0;
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 0.8125rem;
+}
+
+.breadcrumb-item a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--primary);
+}
+
+.breadcrumb-item.active {
+  color: var(--text-muted);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+  color: var(--text-muted);
+  padding: 0 0.5rem;
+}
+
+/* Cards - Exactly matching new_theme */
+.card {
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.25rem;
+  background-color: var(--card-bg);
+}
+
+.card-height-100 {
+  height: calc(100% - 1.25rem);
+}
+
+.card-header {
+  background-color: transparent;
+  padding: 0.9375rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Chart Card Header - No border at all */
+.chart-card-header {
+  background-color: transparent;
+  padding: 0.9375rem 1.25rem;
+  border: none !important;
+  border-bottom: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Ensure chart cards have no borders */
+.card .chart-card-header,
+.card-header.chart-card-header {
+  border: none !important;
+  border-bottom: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title-analytics {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--headings-color);
+}
+
+/* Stat Cards */
+.analytics-stat-card {
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+
+.analytics-stat-card .card-body {
+  padding: 1.25rem;
+}
+
+.analytics-stat-card h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--headings-color);
+  margin: 0;
+}
+
+.analytics-stat-card .text-muted {
+  color: var(--text-muted) !important;
+  font-size: 0.875rem;
+}
+
+/* Avatar Sizes */
+.avatar-xs {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.avatar-sm {
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.avatar-md {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+.avatar-lg {
+  height: 4.5rem;
+  width: 4.5rem;
+}
+
+/* Border Utilities */
+.border-start {
+  border-left: 1px solid var(--border-color) !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* Remove dashed borders globally for chart cards */
+.border-dashed {
+  border-style: solid !important;
+}
+
+/* Text Colors */
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-success {
+  color: var(--success) !important;
+}
+
+.text-warning {
+  color: var(--warning) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.text-info {
+  color: var(--info) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-dark {
+  color: var(--headings-color) !important;
+}
+
+/* Arrow none for dropdowns */
+.arrow-none::after {
+  display: none !important;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  border: 1px solid var(--border-color);
+  border-radius: 0.3rem;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1.25rem;
+  color: var(--body-color);
+}
+
+.dropdown-item:hover {
+  background-color: rgba(28, 132, 238, 0.08);
+  color: var(--primary);
+}
+
+/* Filter Card */
+.filter-card {
+  border: none;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.5rem !important;
+}
+
+.filter-card .card-body {
+  padding: 0.75rem 1.25rem;
+}
+
+/* Buttons */
+.btn-light {
+  background-color: #eef2f7;
+  border-color: #eef2f7;
+  color: var(--body-color);
+}
+
+.btn-light:hover {
+  background-color: #d8dfe7;
+  border-color: #d8dfe7;
+}
+
+.btn-outline-light {
+  border-color: var(--border-color);
+  color: var(--body-color);
+  background: transparent;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.btn-sm {
+  padding: 0.348rem 0.625rem;
+  font-size: 0.7875rem;
+}
+
+/* Alert */
+.alert-info {
+  background-color: rgba(78, 202, 194, 0.15);
+  border: none;
+  color: #4ecac2;
+  border-radius: 0.3rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+/* Font Size Utilities */
+.fs-13 {
+  font-size: 0.8125rem;
+}
+
+.fs-14 {
+  font-size: 0.875rem;
+}
+
+.fs-16 {
+  font-size: 1rem;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Date Range Filter */
+.react-aria-DateRangePicker {
+  color: #333;
+}
+
+.react-aria-DateRangePicker .react-aria-Group {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-width: 220px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  padding: 4px 4px 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.react-aria-DateRangePicker .react-aria-Group[data-focus-within] {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+  border-color: var(--primary);
+}
+
+.react-aria-DateRangePicker [slot="start"] + span {
+  padding: 0 4px;
+}
+
+.react-aria-DateRangePicker [slot="end"] {
+  margin-right: 2rem;
+  flex: 1;
+}
+
+.react-aria-DateRangePicker .react-aria-Button {
+  background: var(--primary);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  margin-left: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  font-size: 0.857rem;
+  box-sizing: content-box;
+  flex-shrink: 0;
+  position: sticky;
+  right: 0;
+  cursor: pointer;
+}
+
+.react-aria-DateRangePicker .react-aria-Button:hover {
+  background: #1672d0;
+}
+
+.react-aria-DateRangePicker .react-aria-DateInput {
+  width: unset;
+  min-width: unset;
+  padding: unset;
+  border: unset;
+  outline: unset;
+}
+
+/* Popover z-index */
+.react-aria-Popover[data-trigger="DateRangePicker"] {
+  max-width: unset;
+  z-index: 9999 !important;
+  position: absolute !important;
+}
+
+.dropdown-menu.show,
+.react-aria-Popover[data-placement] {
+  z-index: 9999 !important;
+}
+
+.react-aria-Dialog,
+.react-aria-Modal,
+.react-aria-ModalOverlay {
+  z-index: 9999 !important;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .border-start {
+    border-left: none !important;
+    border-top: 1px solid var(--border-color) !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .analytics-dashboard {
+    padding: 0;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .avatar-md {
+    height: 2.75rem;
+    width: 2.75rem;
+  }
+  
+  .analytics-stat-card h3 {
+    font-size: 1.25rem;
+  }
+  
+  .page-title-box .row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .page-title-box .breadcrumb {
+    justify-content: flex-start !important;
+  }
+}
+
+/* Animation */
+.card {
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.08);
+}
+
+/* Chart Container */
+canvas {
+  max-width: 100%;
+}
+
+/* Rounded utilities */
+.rounded {
+  border-radius: 0.3rem !important;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+/* Height utilities */
+.h-100 {
+  height: 100% !important;
+}

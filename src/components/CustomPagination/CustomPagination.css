@@ -1,0 +1,10 @@
+.pagination {
+  --cui-pagination-focus-color: #53b7e8;
+  --cui-pagination-active-border-color:  #53b7e8;
+  --cui-pagination-color:  #53b7e8;
+  --cui-pagination-hover-color :  #53b7e8;
+  --cui-pagination-active-bg:  #53b7e8;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+}

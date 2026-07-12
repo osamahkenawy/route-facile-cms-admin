@@ -1,0 +1,230 @@
+/* Homepage Banner Styles */
+
+/* Filter Card Styles */
+.homepage-banner-filters {
+  transition: all 0.3s ease;
+}
+
+.homepage-banner-filters:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Custom Switch Styles */
+.custom-switch .form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.custom-switch .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+/* Active Filter Badge Animation */
+.badge.bg-primary {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Table Row Hover Effect */
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.table tbody tr.table-active {
+  background-color: rgba(40, 167, 69, 0.1);
+  border-left: 4px solid #28a745;
+}
+
+/* Add icon to active rows when filtered */
+.table tbody tr.table-active td:first-child::before {
+  content: '✓ ';
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Order Badge Styles - Complete Override */
+.table .badge,
+.badge {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border: none !important;
+  filter: none !important;
+  -webkit-text-stroke: 0 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  outline: none !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Specific badge overrides */
+.badge.bg-info,
+.table .badge.bg-info {
+  background-color: #17a2b8 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: #ffffff !important;
+  font-weight: normal !important;
+}
+
+.badge.bg-warning,
+.table .badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  font-weight: normal !important;
+}
+
+/* Override Bootstrap badge text shadow */
+.badge::before,
+.badge::after {
+  display: none !important;
+}
+
+/* Ensure no inherited shadows from Bootstrap */
+.table tbody tr td .badge {
+  text-shadow: 0 0 0 transparent !important;
+  box-shadow: 0 0 0 transparent !important;
+  filter: drop-shadow(0 0 0 transparent) !important;
+}
+
+/* Remove any table cell shadows */
+.table td {
+  text-shadow: none !important;
+}
+
+/* Sort Icons Animation */
+.fa-sort-amount-up,
+.fa-sort-amount-down {
+  transition: all 0.3s ease;
+}
+
+/* Filter Icon Styles */
+.text-primary {
+  animation: colorShift 3s ease-in-out infinite;
+}
+
+@keyframes colorShift {
+  0%, 100% {
+    color: #007bff;
+  }
+  50% {
+    color: #0056b3;
+  }
+}
+
+/* Button Hover Effects */
+.btn-def {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-def:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Clear Filter Button */
+.btn-outline-secondary {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #dc3545;
+}
+
+.btn-outline-secondary:hover .text-danger {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+/* Card Header Styles */
+.card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Form Control Focus Styles */
+.form-select:focus,
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Status Box Enhanced Styles */
+.active_box {
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #d4edda !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb;
+}
+
+.inactive_box {
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb;
+}
+
+.active_box::before,
+.inactive_box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.active_box:hover::before,
+.inactive_box:hover::before {
+  left: 100%;
+}
+
+/* Image Hover Effect */
+.car-listing-img {
+  transition: transform 0.3s ease;
+}
+
+.car-listing-img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-header h5 {
+    width: 100%;
+  }
+}

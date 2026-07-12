@@ -1,0 +1,237 @@
+================================================================================
+KYC ADMIN — HOW THE ATTACHMENT PREVIEW & DOWNLOAD WORK
+File:  src/views/base/kyc/KycSubmissionDetail.js
+Notes: This document walks through the attachment preview/download pipeline
+       on the Admin KYC submission detail page.
+================================================================================
+
+
+1. WHY WE CAN'T JUST USE <img src="..."> OR <a href="...">
+--------------------------------------------------------------------------------
+The KYC attachment endpoints are protected. Every request MUST include:
+   - Authorization: Bearer <admin_jwt>
+   - x-api-key:     <REACT_APP_API_KEY>
+
+The browser does NOT attach those headers when it loads <img src> or follows
+an <a href>. So a naive approach gives us a 401/403.
+
+Solution:
+   - We make an authenticated `fetch()` call ourselves.
+   - We read the response as a `Blob` (binary).
+   - We turn the Blob into a temporary, in-memory URL via
+     `URL.createObjectURL(blob)`.
+   - We hand that object URL to <img src=...>, <iframe src=...>, or
+     <a href=...>. The browser is happy because the URL is local
+     (blob:https://admin.autostrad.com/<uuid>) — no extra headers needed.
+   - We free the memory afterwards with `URL.revokeObjectURL(...)`.
+
+
+2. HOW THE AUTH HEADERS ARE BUILT
+--------------------------------------------------------------------------------
+File: src/views/base/kyc/kycHelpers.js
+
+   getAccessToken()
+     - Reads localStorage["token"] (a JSON string saved at login).
+     - Parses it and returns parsed.access_token.
+
+   authHeaders()
+     - { Accept: "application/json" }
+     - + Authorization: "Bearer <token>"   (when present)
+     - + x-api-key:     <REACT_APP_API_KEY> (when present)
+
+Both `previewAttachment` and `downloadAttachment` call `authHeaders()` so
+the request is properly authenticated.
+
+
+3. THE ENDPOINTS WE HIT
+--------------------------------------------------------------------------------
+Defined in: src/components/config.js/ConfigWeb.js
+
+   GET_KYC_ATTACHMENT_DOWNLOAD(submissionId, attachmentId)
+       =>  /api/v1/admin/kyc/submissions/:id/attachments/:attachmentId/download
+
+There is ONE endpoint that serves the binary file. We use it for both
+"preview" and "download". The only difference between the two is what we
+do with the resulting Blob:
+   - PREVIEW : turn into object URL, render inside a Mantine <Modal>
+   - DOWNLOAD: turn into object URL, programmatically click an <a download>
+
+
+4. PREVIEW — STEP BY STEP
+--------------------------------------------------------------------------------
+Function: previewAttachment(att) inside KycSubmissionDetail.js
+
+Step 1 — Decide whether the file is previewable
+   const mime = (att.file_type || att.mime_type || "").toLowerCase();
+   const isPdf   = mime.includes("pdf");
+   const isImage = mime.startsWith("image/");
+   if (!isPdf && !isImage) {
+     // For unknown types (zip, docx, etc.) just trigger a normal download.
+     downloadAttachment(att);
+     return;
+   }
+
+Step 2 — Mark the UI as "loading" so the preview button gets disabled
+   setPreviewLoading(true);
+
+Step 3 — Authenticated fetch
+   const url = configWeb.GET_KYC_ATTACHMENT_DOWNLOAD(id, att.id);
+   const res = await fetch(url, { method: "GET", headers: authHeaders() });
+
+Step 4 — Bail on errors
+   if (!res.ok) {
+     notifyError(`Preview failed (${res.status})`);
+     return;
+   }
+
+Step 5 — Read the body as a Blob
+   const blob = await res.blob();
+   // `blob` is a binary chunk; its `type` is whatever Content-Type the
+   // server returned (e.g. "application/pdf" or "image/jpeg").
+
+Step 6 — Convert the Blob into a temporary same-origin URL
+   const objUrl = URL.createObjectURL(blob);
+   // Example output: "blob:https://admin.autostrad.com/8c0a-..."
+   // The browser keeps the bytes in memory and serves them when this URL
+   // is requested. There are NO additional network calls.
+
+Step 7 — Save metadata into React state
+   setPreviewUrl(objUrl);
+   setPreviewType(isPdf ? "pdf" : "image");
+   setPreviewName(att.original_name || att.file_name || "Attachment");
+   openPreview();   // Mantine useDisclosure opens the Modal
+
+Step 8 — Render the right element inside the Modal
+   {previewType === "pdf" && previewUrl ? (
+     <iframe src={previewUrl} ... />          // PDF rendered by browser
+   ) : previewType === "image" && previewUrl ? (
+     <img src={previewUrl} alt={previewName} ... />
+   ) : null}
+
+Step 9 — Re-enable the button
+   finally { setPreviewLoading(false); }
+
+
+5. CLEANING UP THE OBJECT URL
+--------------------------------------------------------------------------------
+A blob URL keeps its bytes in memory until you explicitly revoke it (or the
+tab is closed). If we don't revoke it, the binary stays there forever and
+the page slowly leaks memory.
+
+handleClosePreview() does the cleanup:
+
+   if (previewUrl) URL.revokeObjectURL(previewUrl);
+   setPreviewUrl(null);
+   setPreviewType(null);
+   setPreviewName("");
+   closePreview();
+
+This runs whenever the user closes the modal (X button, click outside,
+ESC key).
+
+NOTE: We deliberately DO NOT revoke the URL the moment we hand it to the
+<img>/<iframe>. Some browsers will refuse to render an already-revoked
+URL even if it's still attached to the DOM, so we wait for the modal to
+close first.
+
+
+6. DOWNLOAD — SAME IDEA, DIFFERENT DELIVERY
+--------------------------------------------------------------------------------
+Function: downloadAttachment(att) inside KycSubmissionDetail.js
+
+Step 1 — Authenticated fetch (identical to preview)
+   const res = await fetch(url, { method: "GET", headers: authHeaders() });
+
+Step 2 — Pull the filename out of Content-Disposition
+   We use a shared helper:
+     filenameFromDisposition(dispo, fallback)
+   It tries two patterns in order:
+     1) filename*=UTF-8''<percent-encoded-name>      (RFC 5987)
+     2) filename="..."                                (legacy)
+   …falling back to whatever we already had:
+     att.original_name || att.file_name || `attachment-${att.id}`
+
+Step 3 — Build a Blob URL just like preview
+   const objUrl = URL.createObjectURL(blob);
+
+Step 4 — Trigger the browser's "Save As…" dialog
+   const a = document.createElement("a");
+   a.href     = objUrl;
+   a.download = filename;
+   document.body.appendChild(a);
+   a.click();
+   a.remove();
+
+   // The <a download> attribute tells the browser "treat this as a file
+   // download instead of navigating to the URL". We add the link to the
+   // DOM, click it, then remove it immediately — invisible to the user.
+
+Step 5 — Free the memory after a brief delay
+   setTimeout(() => URL.revokeObjectURL(objUrl), 1000);
+   // Some browsers need a moment to actually start the download before
+   // we can revoke; 1 second is generous and safe.
+
+
+7. WHICH FILES ARE PREVIEWABLE?
+--------------------------------------------------------------------------------
+The Preview button (FaSearchPlus icon) is rendered ONLY when:
+   const canPreview = mime.includes("pdf") || mime.startsWith("image/");
+
+For everything else (zip, docx, …) only the Download button is shown.
+If a user somehow triggers preview on a non-previewable file
+(e.g. via a stale cache), `previewAttachment` will fall through and call
+`downloadAttachment` instead.
+
+
+8. THE ICON / COLOR HINTS
+--------------------------------------------------------------------------------
+Helper at the top of KycSubmissionDetail.js:
+
+   attachmentVisual(mime) returns:
+     - PDF   -> { cls: "pdf",   icon: <FaFilePdf /> }       (red)
+     - IMAGE -> { cls: "image", icon: <FaFileImage /> }     (green)
+     - OTHER -> { cls: "",      icon: <FaFile /> }          (default blue)
+
+The CSS class is applied to a 44x44 rounded tile (.kyc-attachment-icon)
+so each row gets a colored, mime-aware glyph at a glance. See kyc.css:
+   .kyc-attachment-icon         (default blue)
+   .kyc-attachment-icon.pdf     (red gradient)
+   .kyc-attachment-icon.image   (green gradient)
+
+
+9. SECURITY NOTES
+--------------------------------------------------------------------------------
+- The blob URL is same-origin and ephemeral; it cannot be sent or shared.
+- The bearer token never leaks into the DOM — it lives only in the
+  outgoing fetch's Authorization header.
+- Even if a screenshot is taken of the modal, no token data is exposed.
+- The token is read from localStorage at request time, so a logout
+  immediately invalidates future previews.
+
+
+10. OBSERVABLE BEHAVIOUR THE USER SEES
+--------------------------------------------------------------------------------
+- Click the magnifier icon -> button gets disabled briefly while the
+  fetch is in flight.
+- A Mantine modal pops up centered, with the file name in the header.
+- For PDFs: full-height <iframe>, browser controls visible inside.
+- For images: a centered <img> with a soft drop shadow, capped at 75 vh.
+- Closing the modal frees memory and clears state.
+- Click the green "Download" pill -> the browser shows its native
+  "Save As…" prompt with the original server-provided filename.
+
+
+11. SHORT VERSION (TL;DR)
+--------------------------------------------------------------------------------
+1. fetch() the file with admin auth headers.
+2. Read response.blob().
+3. Wrap it in URL.createObjectURL(blob) to get a same-origin URL.
+4. Drop that URL into <iframe> (PDF) or <img> (image) inside a modal.
+5. Revoke the object URL when the modal closes.
+
+Same recipe for download, except step 4 is "click an invisible
+<a download> link" and step 5 happens 1 second later.
+
+================================================================================
+END
+================================================================================

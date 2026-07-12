@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  admin-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_NODE_HOST: ${REACT_APP_NODE_HOST}
+        REACT_APP_FILE_SERVER: ${REACT_APP_FILE_SERVER}
+        REACT_APP_API_KEY: ${REACT_APP_API_KEY}
+        REACT_APP_LOCAL_ENCRYPTION_KEY: ${REACT_APP_LOCAL_ENCRYPTION_KEY}
+    ports:
+      - "3031:3031"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - autostrad-network
+    restart: unless-stopped
+
+  # Optional: If you have a backend service that needs staging DB connection
+  # Uncomment and configure if needed
+  # admin-backend:
+  #   image: your-backend-image:staging
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     - NODE_ENV=staging
+  #     - DB_HOST=${STAGING_DB_HOST}
+  #     - DB_PORT=${STAGING_DB_PORT}
+  #     - DB_NAME=${STAGING_DB_NAME}
+  #     - DB_USER=${STAGING_DB_USER}
+  #     - DB_PASSWORD=${STAGING_DB_PASSWORD}
+  #   networks:
+  #     - autostrad-network
+  #   restart: unless-stopped
+
+networks:
+  autostrad-network:
+    driver: bridge
+

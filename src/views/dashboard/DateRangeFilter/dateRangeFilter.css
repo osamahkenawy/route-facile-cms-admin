@@ -1,0 +1,181 @@
+.date-range-filter {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  z-index: 1000;
+}
+
+/* Enhanced Filter Dropdown Button */
+.date-range-filter .dropdown-toggle {
+  background: linear-gradient(135deg, #1c84ee 0%, #0d6efd 100%);
+  border: none;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 8px rgba(28, 132, 238, 0.25);
+  transition: all 0.2s ease;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.date-range-filter .dropdown-toggle:hover {
+  background: linear-gradient(135deg, #1672d0 0%, #0b5ed7 100%);
+  box-shadow: 0 4px 12px rgba(28, 132, 238, 0.35);
+  transform: translateY(-1px);
+}
+
+.date-range-filter .dropdown-toggle:focus {
+  box-shadow: 0 0 0 3px rgba(28, 132, 238, 0.25), 0 2px 8px rgba(28, 132, 238, 0.25);
+}
+
+.date-range-filter .dropdown-toggle:active {
+  transform: translateY(0);
+}
+
+.date-range-filter .dropdown-toggle:disabled {
+  background: #b0b0bb;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.date-range-filter .dropdown-toggle::after {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  border-top: 0.35em solid;
+  border-right: 0.35em solid transparent;
+  border-left: 0.35em solid transparent;
+  transition: transform 0.2s ease;
+}
+
+.date-range-filter .dropdown.show .dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+/* Enhanced Dropdown Menu */
+.date-range-filter .dropdown-menu {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  min-width: 200px;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.date-range-filter .dropdown-item {
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: #5d7186;
+  border-radius: 0.375rem;
+  margin: 0.125rem 0;
+  transition: all 0.15s ease;
+}
+
+.date-range-filter .dropdown-item:hover {
+  background-color: rgba(28, 132, 238, 0.1);
+  color: #1c84ee;
+  transform: translateX(4px);
+}
+
+.date-range-filter .dropdown-item:active {
+  background-color: rgba(28, 132, 238, 0.15);
+}
+
+/* Loading Spinner */
+.date-range-filter .spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Custom Range Calendar */
+.custom-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.custom-range input[type="date"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.range-separator {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.postion-absolute {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 99999;
+  margin-top: 0.5rem;
+}
+
+.range-date-picker-wrapper-div {
+  z-index: 99999;
+  background-color: #fff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Calendar Selection Colors */
+.rdrSelected {
+  background-color: #1c84ee !important;
+}
+
+.DateRangePicker__CalendarSelection {
+  background-color: #1c84ee !important;
+  border: 1px solid #1c84ee !important;
+}
+
+.DateRangePicker__CalendarSelection--is-pending {
+  background-color: rgba(28, 132, 238, 0.3) !important;
+}
+
+.DateRangePicker__CalendarHighlight--single {
+  background-color: #fff;
+  border: 1px solid #1c84ee !important;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .date-range-filter {
+    justify-content: center;
+  }
+  
+  .date-range-filter .dropdown-toggle {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .postion-absolute {
+    left: 0;
+    right: 0;
+  }
+  
+  .range-date-picker-wrapper-div {
+    width: 100%;
+  }
+}

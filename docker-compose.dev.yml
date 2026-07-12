@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  admin-frontend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - REACT_APP_NODE_HOST=${REACT_APP_NODE_HOST:-http://localhost:3001/api/v1/}
+      - REACT_APP_FILE_SERVER=${REACT_APP_FILE_SERVER}
+      - REACT_APP_API_KEY=${REACT_APP_API_KEY}
+      - REACT_APP_LOCAL_ENCRYPTION_KEY=${REACT_APP_LOCAL_ENCRYPTION_KEY}
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - autostrad-network
+    stdin_open: true
+    tty: true
+    command: npm start
+
+networks:
+  autostrad-network:
+    driver: bridge
+
+
