@@ -1,0 +1,181 @@
+/* ============================================================
+   Route Facile — Car Brand list (catchy, navy + orange)
+   Scoped to .rf-brand-page
+   ============================================================ */
+.rf-brand-page {
+  padding-top: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+/* ---- Page header ---- */
+.rf-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.rf-page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+.rf-title-bar {
+  width: 6px;
+  height: 26px;
+  border-radius: 4px;
+  background: #ff8a00;
+  display: inline-block;
+}
+.rf-page-sub {
+  margin: 0.4rem 0 0 1.2rem;
+  color: #8492a6;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ---- Add button (brand orange) ---- */
+.rf-add-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff8a00, #e97c00) !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  padding: 0.6rem 1.4rem !important;
+  box-shadow: 0 6px 18px rgba(255, 138, 0, 0.35) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.rf-add-btn:hover,
+.rf-add-btn:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(255, 138, 0, 0.45) !important;
+  background: linear-gradient(135deg, #ff9416, #ef8200) !important;
+}
+.rf-add-plus {
+  font-size: 1.2rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* ---- Table card ---- */
+.rf-table-wrap {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(13, 27, 42, 0.07);
+  overflow: hidden;
+}
+.rf-table {
+  margin: 0 !important;
+  white-space: nowrap;
+}
+.rf-table thead tr {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1c3c5e 100%);
+}
+.rf-table thead th {
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border: none !important;
+  padding: 1rem 1.25rem !important;
+  vertical-align: middle;
+}
+.rf-table tbody td {
+  border: none !important;
+  border-bottom: 1px solid #eef1f5 !important;
+  padding: 0.85rem 1.25rem !important;
+  vertical-align: middle;
+  color: #334155;
+  font-weight: 500;
+  background: transparent !important;
+}
+.rf-table tbody tr {
+  transition: background 0.15s ease;
+}
+.rf-table tbody tr:hover td {
+  background: #fff8f0 !important; /* soft orange tint */
+}
+.rf-table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* ---- Brand logo frame ---- */
+.rf-brand-page .car-listing-img-div-px {
+  width: 66px;
+  height: 66px;
+  border-radius: 14px;
+  background: #f7f9fc;
+  border: 1px solid #eef1f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin: 0 auto;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.rf-table tbody tr:hover .car-listing-img-div-px {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(13, 27, 42, 0.1);
+}
+.rf-brand-page .car-listing-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ---- Status pill ---- */
+.rf-brand-page .active_box,
+.rf-brand-page .inactive_box {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 50px !important;
+  font-weight: 700;
+  font-size: 0.72rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.95rem !important;
+  width: fit-content;
+  margin: 0 auto;
+}
+.rf-brand-page .active_box {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #0f9d63 !important;
+}
+.rf-brand-page .active_box::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+}
+.rf-brand-page .inactive_box {
+  background: rgba(148, 163, 184, 0.16) !important;
+  color: #64748b !important;
+}
+.rf-brand-page .inactive_box::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+/* ---- Action icons ---- */
+.rf-brand-page tbody td svg {
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.rf-brand-page tbody td svg:hover {
+  transform: scale(1.2);
+}

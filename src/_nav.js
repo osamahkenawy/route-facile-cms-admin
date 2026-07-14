@@ -66,8 +66,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "Emirates",
-        to: "/cms/emirates",
+        name: "Cities",
+        to: "/cms/cities",
       },
       {
         component: CNavItem,
@@ -325,8 +325,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "Inter Emirate Charges",
-        to: "/misc-setting/inter-emirate-charges",
+        name: "Inter City Charges",
+        to: "/misc-setting/inter-city-charges",
       },
     ],
   },
@@ -411,58 +411,6 @@ const _nav = [
       },
     ],
   },
-  {
-    component: CNavItem,
-    name: "New Design Vote",
-    to: "/new-design-vote",
-    icon: <TfiViewListAlt className="nav-icon" />,
-  },
 ];
-
-// Memo Portal group - admin-only.
-_nav.push({
-    component: CNavGroup,
-    name: "Memo Portal",
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-    roles: ["admin"],
-    items: [
-      {
-        component: CNavItem,
-        name: "Dashboard",
-        to: "/memo/dashboard",
-        roles: ["admin"],
-      },
-      {
-        component: CNavItem,
-        name: "Documents",
-        to: "/memo/documents",
-        roles: ["admin"],
-      },
-      {
-        component: CNavItem,
-        name: "Categories",
-        to: "/memo/categories",
-        roles: ["admin"],
-      },
-      {
-        component: CNavItem,
-        name: "Audit Log",
-        to: "/memo/audit-log",
-        roles: ["admin"],
-      },
-      {
-        component: CNavItem,
-        name: "Settings",
-        to: "/memo/settings",
-        roles: ["admin"],
-      },
-      {
-        component: CNavItem,
-        name: "Staff View (Portal)",
-        href: "/memo-portal",
-        roles: ["admin"],
-      },
-    ],
-  });
 
 export default _nav;

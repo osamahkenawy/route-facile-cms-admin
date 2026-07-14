@@ -23,12 +23,12 @@ const CreateSpecialOffers = () => {
     start_date: "",
     end_date: "",
     image_alt_text: "",
-    emirate_id: "",
+    city_id: "",
     mobile: "",
     desktop: "",
    
   });
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
 
 
   const [errors, setErrors] = useState({});
@@ -76,7 +76,7 @@ const CreateSpecialOffers = () => {
     appendFormData.append("description_ae", formData?.description_ae)
     appendFormData.append("start_date", formData?.start_date)
     appendFormData.append("end_date", formData?.end_date)
-    appendFormData.append("emirate_id", formData?.emirate_id)
+    appendFormData.append("city_id", formData?.city_id)
     appendFormData.append("mobile", formData?.mobile)
     appendFormData.append("desktop", formData?.desktop)
     appendFormData.append("status", formData?.status)
@@ -137,7 +137,7 @@ const CreateSpecialOffers = () => {
               description_ae: res?.description_ae,
               start_date: res?.start_date,
               end_date: res?.end_date,
-              emirate_id: res?.emirate_id,
+              city_id: res?.city_id,
               mobile: res?.mobile,
               desktop: res?.desktop,
             }));
@@ -163,12 +163,12 @@ if(id){
 }
 },[id])
   
-const emiratesData = () => {
-  const url = `${configWeb.GET_EMIRATES}?page_size=9999`;
+const citiesData = () => {
+  const url = `${configWeb.GET_CITIES}?page_size=9999`;
 
   simpleGetCallAuth(url)
     .then((res) => {
-      setEmiratesArray(res?.data || []);
+      setCitiesArray(res?.data || []);
     })
     .catch((errr) => {
       console.log("errr", errr);
@@ -178,7 +178,7 @@ const emiratesData = () => {
     });
 };
 useEffect(() => {
-  emiratesData();
+  citiesData();
 }, []);
 
 const handleEditorChange = (name, content) => {
@@ -309,22 +309,22 @@ const handleEditorChange = (name, content) => {
         </Col>
         <Col sm={12} md={6} lg={4} xl={3} className="mb-4">
           <Form.Group>
-          <Form.Label>Emirate</Form.Label>
+          <Form.Label>City</Form.Label>
                 <Form.Select
-                  name="emirate_id"
-                  value={formData.emirate_id}
+                  name="city_id"
+                  value={formData.city_id}
                   onChange={handleChange}
-                  isInvalid={!!errors.emirate_id}
+                  isInvalid={!!errors.city_id}
                 >
-                  <option value="">Select Emirate</option>
-                  {emiratesArray?.length > 0 &&
-                    emiratesArray?.map((item) => (
+                  <option value="">Select City</option>
+                  {citiesArray?.length > 0 &&
+                    citiesArray?.map((item) => (
                       <option key={item.id} value={item.id}>
                         {item.name_en}{" "}
                       </option>
                     ))}
                 </Form.Select>
-            {errors.emirate_id && <span className="custom_error">{errors.emirate_id}</span>}
+            {errors.city_id && <span className="custom_error">{errors.city_id}</span>}
           </Form.Group>
         </Col>
       </Row>

@@ -120,7 +120,7 @@ const KycLogin = () => {
           {/* Left brand panel */}
           <div className="hr-login-brand">
             <div className="hr-login-brand-top">
-              <img src={logo} alt="Trasealla" className="hr-login-logo" />
+              <img src={logo} alt="Route Facile" className="hr-login-logo" />
               <span className="hr-login-pill">
                 <FaIdCard /> KYC Portal
               </span>
@@ -166,7 +166,7 @@ const KycLogin = () => {
           <div className="hr-login-form-side">
             <div className="hr-login-form-wrap">
               <div className="hr-login-mobile-logo">
-                <img src={logo} alt="Trasealla" />
+                <img src={logo} alt="Route Facile" />
               </div>
 
               <div className="hr-login-form-header">
@@ -188,7 +188,7 @@ const KycLogin = () => {
                     id="kyc-email"
                     type="email"
                     autoComplete="username"
-                    placeholder="you@trasealla.com"
+                    placeholder="you@routefacile.ma"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -257,7 +257,7 @@ const KycLogin = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setEmail("kyc@trasealla.com");
+                    setEmail("kyc@routefacile.ma");
                     setPassword("KycOfficer@1234");
                   }}
                   style={{
@@ -283,7 +283,7 @@ const KycLogin = () => {
             </div>
 
             <div className="hr-login-footer">
-              © {new Date().getFullYear()} Trasealla Solutions. All rights reserved.
+              © {new Date().getFullYear()} Route Facile. All rights reserved.
             </div>
           </div>
         </motion.div>

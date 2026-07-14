@@ -388,7 +388,7 @@ const CreateMemoModal = ({ opened, onClose, onCreated }) => {
               { value: "ALL", title: "Everyone", sub: "All admin and portal users with the link" },
               { value: "ROLE", title: "By user type", sub: "Admin / HR / KYC / Counter / Accounts" },
               { value: "USER", title: "Specific admin users", sub: "Pick one or more from the directory" },
-              { value: "EMAIL", title: "Specific portal users", sub: "By @trasealla.com email address" },
+              { value: "EMAIL", title: "Specific portal users", sub: "By @routefacile.ma email address" },
             ].map((opt) => {
               const selected = access === opt.value;
               return (

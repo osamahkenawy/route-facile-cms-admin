@@ -24,7 +24,7 @@ import {
 } from "../../../../components/notify/notify";
 import configWeb from "../../../../components/config.js/ConfigWeb";
 
-const EmiratesList = () => {
+const CitiesList = () => {
   const [loading, setLoading] = useState(false);
   const [locationListArray, setLocationListArray] = useState([]);
   const [showdel, setShowdel] = useState(false);
@@ -43,7 +43,7 @@ const EmiratesList = () => {
     params.append("page", 1);
     params.append("page_size", 1000);
 
-    const url = `${configWeb.GET_EMIRATE_LIST}?${params.toString()}`;
+    const url = `${configWeb.GET_CITY_LIST}?${params.toString()}`;
     simpleGetCallAuth(url)
       .then((res) => {
         if (!res?.error) {
@@ -94,7 +94,7 @@ const EmiratesList = () => {
 
 
   const handleEdit = (row) => {
-    navigate(`/cms/edit-emirate/${row.id}`);
+    navigate(`/cms/edit-city/${row.id}`);
   };
 
   const handleDelete = (row) => {
@@ -148,8 +148,8 @@ const EmiratesList = () => {
           lg="12"
           className="mt-4 d-flex justify-content-end align-items-center"
         >
-          {/* <Link to="/cms/edit-emirate">
-            <Button className="btn-def">Add Emirate</Button>
+          {/* <Link to="/cms/edit-city">
+            <Button className="btn-def">Add City</Button>
           </Link> */}
         </Col>
       </Row>
@@ -283,4 +283,4 @@ const EmiratesList = () => {
   );
 };
 
-export default EmiratesList;
+export default CitiesList;

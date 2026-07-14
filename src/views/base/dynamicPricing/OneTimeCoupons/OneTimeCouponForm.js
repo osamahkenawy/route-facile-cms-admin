@@ -34,7 +34,7 @@ const initialForm = {
   note: "",
   usage_limit: 1,
   car_ids: { ...blankScope },
-  emirate_ids: { ...blankScope },
+  city_ids: { ...blankScope },
   group_ids: { ...blankScope },
   location_ids: { ...blankScope },
 };
@@ -53,14 +53,14 @@ const OneTimeCouponForm = () => {
   const [warnRegular, setWarnRegular] = useState(false);
 
   // Lookup data
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [carArray, setCarArray] = useState([]);
   const [carGroupArray, setCarGroupArray] = useState([]);
   const [locationArray, setLocationArray] = useState([]);
 
   useEffect(() => {
-    simpleGetCallAuth(`${configWeb.GET_EMIRATES}?page_size=9999`)
-      .then((r) => setEmiratesArray(r?.data || []))
+    simpleGetCallAuth(`${configWeb.GET_CITIES}?page_size=9999`)
+      .then((r) => setCitiesArray(r?.data || []))
       .catch(() => {});
     simpleGetCallAuth(`${configWeb.GET_CAR}?page_size=9999`)
       .then((r) => setCarArray(r?.data || []))
@@ -98,7 +98,7 @@ const OneTimeCouponForm = () => {
           note: res.note || "",
           usage_limit: Number(res.usage_limit ?? 1),
           car_ids: res.car_ids || { ...blankScope },
-          emirate_ids: res.emirate_ids || { ...blankScope },
+          city_ids: res.city_ids || { ...blankScope },
           group_ids: res.group_ids || { ...blankScope },
           location_ids: res.location_ids || { ...blankScope },
         });
@@ -113,25 +113,25 @@ const OneTimeCouponForm = () => {
     ...(arr || []).map((x) => ({ value: x.id, label: x[labelKey] })),
   ];
 
-  const emirateOpts = useMemo(() => opts(emiratesArray), [emiratesArray]);
+  const cityOpts = useMemo(() => opts(citiesArray), [citiesArray]);
   const carOpts = useMemo(() => opts(carArray), [carArray]);
   const groupOpts = useMemo(() => opts(carGroupArray), [carGroupArray]);
 
-  // Filter locations by selected emirates (matches existing form behavior)
+  // Filter locations by selected cities (matches existing form behavior)
   const filteredLocations = useMemo(() => {
     if (!locationArray?.length) return [];
-    if (formData.emirate_ids.all) return locationArray;
-    if (formData.emirate_ids.ids?.length) {
+    if (formData.city_ids.all) return locationArray;
+    if (formData.city_ids.ids?.length) {
       return locationArray.filter((l) =>
-        formData.emirate_ids.ids.includes(l.emirate_id)
+        formData.city_ids.ids.includes(l.city_id)
       );
     }
     return locationArray;
-  }, [locationArray, formData.emirate_ids.all, formData.emirate_ids.ids]);
+  }, [locationArray, formData.city_ids.all, formData.city_ids.ids]);
 
   const locationOpts = useMemo(() => opts(filteredLocations), [filteredLocations]);
 
-  // Reconcile location_ids when the emirate scope narrows so previously-selected
+  // Reconcile location_ids when the city scope narrows so previously-selected
   // locations that are no longer visible in the dropdown are also dropped from
   // form state. Skip while still loading the coupon for edit (initial hydrate).
   useEffect(() => {
@@ -197,7 +197,7 @@ const OneTimeCouponForm = () => {
     if (formData.rate === "" || formData.rate === null)
       e.rate = "Rate is required";
 
-    ["car_ids", "emirate_ids", "group_ids", "location_ids"].forEach((k) => {
+    ["car_ids", "city_ids", "group_ids", "location_ids"].forEach((k) => {
       if (!formData[k].all && (formData[k].ids?.length ?? 0) === 0)
         e[k] = true;
     });
@@ -228,7 +228,7 @@ const OneTimeCouponForm = () => {
       note: formData.note || "",
       usage_limit: Number(formData.usage_limit),
       car_ids: formData.car_ids,
-      emirate_ids: formData.emirate_ids,
+      city_ids: formData.city_ids,
       group_ids: formData.group_ids,
       location_ids: formData.location_ids,
     };
@@ -488,17 +488,17 @@ const OneTimeCouponForm = () => {
               <div className="otc-form-grid">
                 <div className="otc-field span-6">
                   <label className="otc-label">
-                    Emirates<span className="req">*</span>
+                    Cities<span className="req">*</span>
                   </label>
                   <Select
                     isMulti
-                    options={emirateOpts}
-                    value={valueFor("emirate_ids", emirateOpts)}
-                    onChange={(s, m) => handleScope(s, "emirate_ids", m)}
-                    placeholder={`Pick from ${emiratesArray.length} emirate(s)…`}
+                    options={cityOpts}
+                    value={valueFor("city_ids", cityOpts)}
+                    onChange={(s, m) => handleScope(s, "city_ids", m)}
+                    placeholder={`Pick from ${citiesArray.length} city(s)…`}
                     classNamePrefix="select" menuPortalTarget={typeof document !== "undefined" ? document.body : null} menuPosition="fixed" styles={{ menuPortal: (b) => ({ ...b, zIndex: 9999 }) }}
                   />
-                  {validated && errors.emirate_ids && (
+                  {validated && errors.city_ids && (
                     <div className="otc-error">Select at least one or "All".</div>
                   )}
                 </div>

@@ -20,7 +20,7 @@ import traseallaLogo from "../../../assets/images/admin_sidebar_logo.png";
 import "./memoPortal.css";
 
 const EMAIL_RE = /^[^\s@]+@(trasealla\.com|trasealla\.ae|mwasalat\.ae)$/i;
-const ALLOWED_DOMAINS = "@trasealla.com, @trasealla.ae or @mwasalat.ae";
+const ALLOWED_DOMAINS = "@routefacile.ma, @trasealla.ae or @mwasalat.ae";
 
 const FEATURES = [
   { icon: <FaFileAlt />,   title: "Memos",          desc: "Read company memos & policies" },
@@ -158,7 +158,7 @@ const PortalLogin = () => {
           <div className="mp-auth__brandRow">
             <img
               src={traseallaLogo}
-              alt="Trasealla"
+              alt="Route Facile"
               className="mp-auth__brandLogo"
             />
             <div className="mp-auth__brandText">
@@ -173,7 +173,7 @@ const PortalLogin = () => {
             </h2>
             <p>
               A focused workspace for accessing company memos, circulars and policies.
-              Sign in with your Trasealla work email to get started.
+              Sign in with your Route Facile work email to get started.
             </p>
           </div>
 
@@ -191,7 +191,7 @@ const PortalLogin = () => {
 
           <div className="mp-auth__leftFoot">
             <span>Restricted access</span>
-            <span>Trasealla Staff</span>
+            <span>Route Facile Staff</span>
           </div>
         </aside>
 
@@ -208,7 +208,7 @@ const PortalLogin = () => {
               <div className="mp-auth__welcome">Welcome</div>
               <h1 className="mp-auth__title">Sign in to Memo Portal</h1>
               <p className="mp-auth__sub">
-                Use your work email (@trasealla.com, @trasealla.ae or @mwasalat.ae) to sign in.
+                Use your work email (@routefacile.ma, @trasealla.ae or @mwasalat.ae) to sign in.
               </p>
 
               <label className="mp-auth__label">Work email</label>
@@ -219,7 +219,7 @@ const PortalLogin = () => {
                   className="mp-auth__input"
                   autoComplete="email"
                   autoFocus
-                  placeholder="you@trasealla.com"
+                  placeholder="you@routefacile.ma"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && requestPin()}
@@ -241,7 +241,7 @@ const PortalLogin = () => {
               </div>
 
               <div className="mp-auth__rightFoot">
-                © {new Date().getFullYear()} Trasealla Solutions. All rights reserved.
+                © {new Date().getFullYear()} Route Facile. All rights reserved.
               </div>
             </motion.div>
           ) : (
@@ -310,7 +310,7 @@ const PortalLogin = () => {
               </div>
 
               <div className="mp-auth__rightFoot">
-                © {new Date().getFullYear()} Trasealla Solutions. All rights reserved.
+                © {new Date().getFullYear()} Route Facile. All rights reserved.
               </div>
             </motion.div>
           )}

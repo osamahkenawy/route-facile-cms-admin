@@ -18,7 +18,7 @@ const configWeb = {
   PUT_CHANGE_PASSWORD: BASE_URL + "admin/change-password",
 
   ///////////////////CMS////////////////////
-  GET_EMIRATES: BASE_URL + "admin/emirate",
+  GET_CITIES: BASE_URL + "admin/city",
   GET_LOCATIONS: BASE_URL + "admin/location",
   GET_CAR_GROUPS: BASE_URL + "admin/car-group",
   GET_CAR: BASE_URL + "admin/car",
@@ -79,10 +79,10 @@ const configWeb = {
   PUT_LOCATION_EXCEPTION_HOURS: (id) => `${BASE_URL}admin/location/opening/hour/exception/${id}`,
   DELETE_LOCATION_EXCEPTION_HOURS: (id) => `${BASE_URL}admin/location/opening/hour/exception/${id}`,
 
-  //////Emirate///////
-  GET_EMIRATE_LIST: BASE_URL + "admin/emirate",
-  GET_EMIRATE_DETAILS: (id) => `${BASE_URL}admin/emirate/${id}`,
-  PUT_EMIRATE_UPDATE: (id) => `${BASE_URL}admin/emirate/${id}`,
+  //////City///////
+  GET_CITY_LIST: BASE_URL + "admin/city",
+  GET_CITY_DETAILS: (id) => `${BASE_URL}admin/city/${id}`,
+  PUT_CITY_UPDATE: (id) => `${BASE_URL}admin/city/${id}`,
 
   ///Home page banner//////
   GET_HOMEPAGE_BANNER_LIST: BASE_URL + "admin/home/banner",
@@ -160,10 +160,10 @@ const configWeb = {
   GET_OTHER_CHARGES_LIST: BASE_URL + "admin/charges/other",
   PUT_OTHER_CHARGES: BASE_URL + "admin/charges/other",
 
-  GET_INTER_EMIRATE_CHARGES_LIST: BASE_URL + "admin/charges/inter_emirates",
-  PUT_INTER_EMIRATE_CHARGES: BASE_URL + "admin/charges/inter_emirates",
-  DELETE_INTER_EMIRATE_CHARGES: (id) =>
-    `${BASE_URL}admin/charges/inter_emirates/${id}`,
+  GET_INTER_CITY_CHARGES_LIST: BASE_URL + "admin/charges/inter_cities",
+  PUT_INTER_CITY_CHARGES: BASE_URL + "admin/charges/inter_cities",
+  DELETE_INTER_CITY_CHARGES: (id) =>
+    `${BASE_URL}admin/charges/inter_cities/${id}`,
 
   /////////////////////// DASHBOARD API ///////////////////////////////////////
   GET_DASHBOARD_STATS: (paramType, from, to) =>

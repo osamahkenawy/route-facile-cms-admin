@@ -34,7 +34,7 @@ const JobShareButtons = ({ jobId, title, publicUrl, compact = false }) => {
   }, [jobId, publicUrl]);
 
   const text = useMemo(
-    () => (title ? `We're hiring: ${title} at Trasealla` : "Job opportunity at Trasealla"),
+    () => (title ? `We're hiring: ${title} at Route Facile` : "Job opportunity at Route Facile"),
     [title]
   );
 

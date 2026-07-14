@@ -26,10 +26,10 @@ const [totalRecords, setTotalRecords] = useState(0);
 const [currentPage, setCurrentPage] = useState(1);
 const [type , setType] = useState("");
 const [duration , setDuration] = useState("");
-const [emirateID, setEmirateID] = useState("");
+const [cityID, setCityID] = useState("");
 const [carName, setCarName] = useState("");
 const [carArray, setCarArray] = useState([]);
-const [emiratesArray, setEmiratesArray] = useState([]);
+const [citiesArray, setCitiesArray] = useState([]);
 const [email, setEmail] = useState("");
 const types = [
  
@@ -50,7 +50,7 @@ const getPriceList =()=>{
     if (type) params.append("type", type);
     if (email) params.append("email", email);
     if (duration) params.append("duration", duration);
-    if (emirateID) params.append("emirate_id", emirateID);
+    if (cityID) params.append("city_id", cityID);
     params.append("page", currentPage)
     params.append("page_size", pageSize)
   
@@ -125,12 +125,12 @@ function formatDate(isoString) {
 
 }
 
-const emiratesData = () => {
-  const url = `${configWeb.GET_EMIRATES}?page_size=9999`
+const citiesData = () => {
+  const url = `${configWeb.GET_CITIES}?page_size=9999`
   
   simpleGetCallAuth(url)
     .then((res) => {
-      setEmiratesArray(res?.data || []) ;
+      setCitiesArray(res?.data || []) ;
     })
     .catch((errr) => {
       console.log("errr", errr);
@@ -154,7 +154,7 @@ const carData = () => {
     });
 };
 useEffect(()=>{
-emiratesData();
+citiesData();
 carData();
 },[])
 
@@ -216,15 +216,15 @@ const handleSearchList = ()=>{
         </Col>
         <Col lg="2">
           <Form.Group className="mb-3">
-            <Form.Label>Emirate</Form.Label>
+            <Form.Label>City</Form.Label>
             <Form.Select aria-label="Default select example"
-            name="emirateID"
-            value={emirateID}
-            onChange={(e)=>setEmirateID(e.target.value)}
+            name="cityID"
+            value={cityID}
+            onChange={(e)=>setCityID(e.target.value)}
             >
               
-              <option value="">Select Emirate</option>
-             {emiratesArray?.length > 0 && emiratesArray?.map((item)=>(
+              <option value="">Select City</option>
+             {citiesArray?.length > 0 && citiesArray?.map((item)=>(
               <option key={item.id} value={item.id} >{item.name_en} </option>
              ))}
             </Form.Select>
@@ -278,7 +278,7 @@ const handleSearchList = ()=>{
     <th scope="col" rowSpan="2">Type</th>
     <th scope="col" >Duration</th>
     <th scope="col">Car</th>
-    <th scope="col">Emirate</th>
+    <th scope="col">City</th>
     <th scope="col">Date</th>
     <th scope="col" >Details</th>
    </tr>
@@ -300,7 +300,7 @@ Array.isArray(priceListArray) && priceListArray?.length > 0 && priceListArray?.m
               </td>
               <td>{item.car?.name_en}</td>
               <td>
-              {item.emirate?.name_en}
+              {item.city?.name_en}
               </td>
              
               <td>

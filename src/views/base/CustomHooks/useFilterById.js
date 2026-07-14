@@ -6,7 +6,7 @@ const useFilterByIds = (array, ids) => {
 
   useEffect(() => {
     if (array && ids.length > 0) {
-      setFilteredArray(() => array.filter((item) => ids.includes(item.emirate_id)));
+      setFilteredArray(() => array.filter((item) => ids.includes(item.city_id)));
     } else {
       setFilteredArray([]); // Return an empty array if no data or ids are provided
     }

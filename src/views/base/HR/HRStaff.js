@@ -42,7 +42,7 @@ const INITIAL_FORM = {
   first_name: "",
   last_name: "",
   email: "",
-  country_code: "+971",
+  country_code: "+212",
   phone_number: "",
   type: "hr_recruitment",
 };
@@ -145,7 +145,7 @@ const HRStaff = () => {
       first_name: row.first_name || "",
       last_name: row.last_name || "",
       email: row.email || "",
-      country_code: row.country_code || "+971",
+      country_code: row.country_code || "+212",
       phone_number: row.phone_number || "",
       type: row.type || "hr_recruitment",
     });
@@ -509,7 +509,7 @@ const HRStaff = () => {
           </Col>
           <Col md={4}>
             <Form.Label>Country Code *</Form.Label>
-            <Form.Control value={form.country_code} onChange={(e) => setForm({ ...form, country_code: e.target.value })} placeholder="+971" />
+            <Form.Control value={form.country_code} onChange={(e) => setForm({ ...form, country_code: e.target.value })} placeholder="+212" />
           </Col>
           <Col md={8}>
             <Form.Label>Phone Number *</Form.Label>

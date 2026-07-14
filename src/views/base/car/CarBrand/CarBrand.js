@@ -10,6 +10,7 @@ import {
   Table,
 } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import "./CarBrand.css";
 import CustomPagination from "../../../../components/CustomPagination/CustomPagination";
 import { ImBin } from "react-icons/im";
 import {
@@ -126,24 +127,25 @@ const CarBrandList = () => {
     setShowdel(true);
   };
   return (
-    <Container>
-      <Row>
-        <Col
-          lg="12"
-          className="mt-4 d-flex justify-content-end align-items-center"
-        >
-          <Link to="/car/create-brand">
-            <Button className="btn-def">Add Brand</Button>
-          </Link>
-        </Col>
-      </Row>
+    <Container className="rf-brand-page">
+      <div className="rf-page-header">
+        <div className="rf-page-heading">
+          <h3 className="rf-page-title">
+            <span className="rf-title-bar" /> Car Brands
+          </h3>
+          <p className="rf-page-sub">{calculatePaginationMessage()}</p>
+        </div>
+        <Link to="/car/create-brand">
+          <Button className="rf-add-btn">
+            <span className="rf-add-plus">+</span> Add Brand
+          </Button>
+        </Link>
+      </div>
 
       <Col>
-        <div>
-          <p>{calculatePaginationMessage()}</p>
-        </div>
+        <div className="rf-table-wrap">
         <Table
-          className="table table-responsive table-striped"
+          className="rf-table"
           style={{ whiteSpace: "nowrap" }}
         >
           <thead className="">
@@ -225,7 +227,8 @@ const CarBrandList = () => {
             )}
           </tbody>
         </Table>
-        <div className="d-flex justify-content-between align-items-center">
+        </div>
+        <div className="d-flex justify-content-between align-items-center mt-3">
           <CustomPagination
             recordsPerPage={pageSize}
             totalRecords={totalRecords}

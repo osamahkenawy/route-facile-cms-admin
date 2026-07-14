@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Emiratewise = () => {
+const Citywise = () => {
   return (
    <>emirat wise</>
   )
 }
 
-export default Emiratewise
+export default Citywise

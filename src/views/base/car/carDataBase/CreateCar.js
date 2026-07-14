@@ -60,7 +60,7 @@ const CreateCar = () => {
   const [carFuelTypeArray, setCarFuelTypeArray] = useState([]);
   const [carGroupArray, setCarGroupArray] = useState([]);
   const [carTransmissionArray, setCarTransmissionArray] = useState([]);
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [editLoading, setEditLoading] = useState(id ? true : false);
   const [loading, setLoading] = useState(false);
 
@@ -93,9 +93,9 @@ const CreateCar = () => {
     image: null,
     banner_image: null,
     images: [],
-    // Special Rates fields (replaces old emirate_visibility_id and daily_specials_logo)
+    // Special Rates fields (replaces old city_visibility_id and daily_specials_logo)
     special_rates_selection: "none", // 'none', 'all', or 'specific'
-    special_rates_emirates_ids: [], // Array of selected emirate IDs when 'specific'
+    special_rates_cities_ids: [], // Array of selected city IDs when 'specific'
     special_rates_image: null,
   });
 
@@ -179,7 +179,7 @@ const CreateCar = () => {
     // Optional fields that don't require validation
     const optionalFields = [
       'special_rates_selection', 
-      'special_rates_emirates_ids', 
+      'special_rates_cities_ids', 
       'special_rates_image', 
       'images',
       // Feature toggles have default values, so they're essentially optional
@@ -258,19 +258,19 @@ const CreateCar = () => {
     
     // Special Rates fields
     if (formData?.special_rates_selection === 'none' || !formData?.special_rates_selection) {
-      // Don't send special_rates_emirates - backend will set it as NULL
+      // Don't send special_rates_cities - backend will set it as NULL
     } else if (formData?.special_rates_selection === 'all') {
-      // ALL emirates selected
-      appendFormData.append('special_rates_emirates', JSON.stringify({ all: true }));
+      // ALL cities selected
+      appendFormData.append('special_rates_cities', JSON.stringify({ all: true }));
       // Upload the special image
       if (formData?.special_rates_image && formData?.special_rates_image instanceof File) {
         appendFormData.append('special_rates_image', formData?.special_rates_image);
       }
     } else if (formData?.special_rates_selection === 'specific') {
-      // Specific emirates selected
-      appendFormData.append('special_rates_emirates', JSON.stringify({ 
+      // Specific cities selected
+      appendFormData.append('special_rates_cities', JSON.stringify({ 
         all: false, 
-        ids: formData?.special_rates_emirates_ids 
+        ids: formData?.special_rates_cities_ids 
       }));
       // Upload the special image
       if (formData?.special_rates_image && formData?.special_rates_image instanceof File) {
@@ -354,11 +354,11 @@ const CreateCar = () => {
       .catch((err) => console.error("Error fetching transmissions:", err));
   };
 
-  const getEmirates = () => {
-    const url = `${configWeb.GET_EMIRATE_LIST}?page=1&page_size=1000`;
+  const getCities = () => {
+    const url = `${configWeb.GET_CITY_LIST}?page=1&page_size=1000`;
     simpleGetCallAuth(url)
-      .then((res) => setEmiratesArray(res?.data || []))
-      .catch((err) => console.error("Error fetching emirates:", err));
+      .then((res) => setCitiesArray(res?.data || []))
+      .catch((err) => console.error("Error fetching cities:", err));
   };
 
   useEffect(() => {
@@ -367,7 +367,7 @@ const CreateCar = () => {
     carGroupData();
     getCarFuelType();
     getCarTransmission();
-    getEmirates();
+    getCities();
   }, []);
 
   const arabicNumbers = Array.from({ length: 10 }, (_, i) => ({
@@ -417,13 +417,13 @@ const CreateCar = () => {
               image: res?.image,
               banner_image: res?.banner_image,
               images: Array.isArray(res?.images) ? res?.images : stringToArray(res?.images),
-              // Parse special_rates_emirates from API response
-              special_rates_selection: !res?.special_rates_emirates 
+              // Parse special_rates_cities from API response
+              special_rates_selection: !res?.special_rates_cities 
                 ? 'none' 
-                : res?.special_rates_emirates?.all === true 
+                : res?.special_rates_cities?.all === true 
                   ? 'all' 
                   : 'specific',
-              special_rates_emirates_ids: res?.special_rates_emirates?.ids || [],
+              special_rates_cities_ids: res?.special_rates_cities?.ids || [],
               special_rates_image: res?.special_rates_image || null,
             }));
             resolve(true);
@@ -466,30 +466,30 @@ const CreateCar = () => {
     setFormData((prevData) => ({
       ...prevData,
       special_rates_selection: selection,
-      // Reset emirates selection when switching away from 'specific'
-      special_rates_emirates_ids: selection === 'specific' ? prevData.special_rates_emirates_ids : [],
+      // Reset cities selection when switching away from 'specific'
+      special_rates_cities_ids: selection === 'specific' ? prevData.special_rates_cities_ids : [],
       // Clear image when switching to 'none'
       special_rates_image: selection === 'none' ? null : prevData.special_rates_image,
     }));
   };
 
-  // Handle emirate checkbox toggle
-  const handleEmirateCheckboxChange = (emirateId) => {
+  // Handle city checkbox toggle
+  const handleCityCheckboxChange = (cityId) => {
     setFormData((prevData) => {
-      const currentIds = prevData.special_rates_emirates_ids || [];
-      const isSelected = currentIds.includes(emirateId);
+      const currentIds = prevData.special_rates_cities_ids || [];
+      const isSelected = currentIds.includes(cityId);
       return {
         ...prevData,
-        special_rates_emirates_ids: isSelected
-          ? currentIds.filter(id => id !== emirateId)
-          : [...currentIds, emirateId],
+        special_rates_cities_ids: isSelected
+          ? currentIds.filter(id => id !== cityId)
+          : [...currentIds, cityId],
       };
     });
   };
 
   // Check if image upload should be shown
   const showSpecialRatesImage = formData.special_rates_selection === 'all' || 
-    (formData.special_rates_selection === 'specific' && formData.special_rates_emirates_ids?.length > 0);
+    (formData.special_rates_selection === 'specific' && formData.special_rates_cities_ids?.length > 0);
 
   // Feature items configuration
   const featureItems = [
@@ -945,7 +945,7 @@ const CreateCar = () => {
           <div className="section-card special-rates-card">
             <SectionHeader 
               title="Special Rates Settings"
-              subtitle="Configure which emirates show promotional image for this car"
+              subtitle="Configure which cities show promotional image for this car"
             />
             <Row>
               <Col lg={6}>
@@ -965,7 +965,7 @@ const CreateCar = () => {
                       <span>No Special Rate</span>
                     </div>
 
-                    {/* All Emirates Option */}
+                    {/* All Cities Option */}
                     <div 
                       className={`special-rate-option ${formData.special_rates_selection === 'all' ? 'selected' : ''}`}
                       onClick={() => handleSpecialRatesSelectionChange('all')}
@@ -973,10 +973,10 @@ const CreateCar = () => {
                       <div className="radio-circle">
                         {formData.special_rates_selection === 'all' && <div className="radio-dot"></div>}
                       </div>
-                      <span>All Emirates</span>
+                      <span>All Cities</span>
                     </div>
 
-                    {/* Select Specific Emirates Option */}
+                    {/* Select Specific Cities Option */}
                     <div 
                       className={`special-rate-option ${formData.special_rates_selection === 'specific' ? 'selected' : ''}`}
                       onClick={() => handleSpecialRatesSelectionChange('specific')}
@@ -984,31 +984,31 @@ const CreateCar = () => {
                       <div className="radio-circle">
                         {formData.special_rates_selection === 'specific' && <div className="radio-dot"></div>}
                       </div>
-                      <span>Select Specific Emirates</span>
+                      <span>Select Specific Cities</span>
                     </div>
 
-                    {/* Emirates Checkboxes (shown when 'specific' is selected) */}
+                    {/* Cities Checkboxes (shown when 'specific' is selected) */}
                     {formData.special_rates_selection === 'specific' && (
-                      <div className="emirates-checkbox-list">
-                        {emiratesArray?.map((emirate) => (
+                      <div className="cities-checkbox-list">
+                        {citiesArray?.map((city) => (
                           <div 
-                            key={emirate.id} 
-                            className={`emirate-checkbox-item ${formData.special_rates_emirates_ids?.includes(emirate.id) ? 'checked' : ''}`}
-                            onClick={() => handleEmirateCheckboxChange(emirate.id)}
+                            key={city.id} 
+                            className={`city-checkbox-item ${formData.special_rates_cities_ids?.includes(city.id) ? 'checked' : ''}`}
+                            onClick={() => handleCityCheckboxChange(city.id)}
                           >
                             <div className="checkbox-box">
-                              {formData.special_rates_emirates_ids?.includes(emirate.id) && (
+                              {formData.special_rates_cities_ids?.includes(city.id) && (
                                 <span className="checkbox-check">✓</span>
                               )}
                             </div>
-                            <span>{emirate.name_en}</span>
+                            <span>{city.name_en}</span>
                           </div>
                         ))}
                       </div>
                     )}
                   </div>
                   <Form.Text className="text-muted" style={{ marginTop: '12px', display: 'block' }}>
-                    Select which emirates should display the special promotional image instead of the main car image.
+                    Select which cities should display the special promotional image instead of the main car image.
                   </Form.Text>
                 </Form.Group>
               </Col>
@@ -1046,7 +1046,7 @@ const CreateCar = () => {
                       </label>
                     </div>
                     <Form.Text className="text-muted" style={{ marginTop: '8px', display: 'block' }}>
-                      This image will replace the main car image when customers view from selected emirates.
+                      This image will replace the main car image when customers view from selected cities.
                     </Form.Text>
                     {errors.special_rates_image && <div className="error-message">{errors.special_rates_image}</div>}
                   </Form.Group>

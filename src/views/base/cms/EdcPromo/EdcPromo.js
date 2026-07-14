@@ -138,7 +138,7 @@ const EdcPromo = () => {
         <Col>
           <h4 className="mb-0">EDC Promo Code Management</h4>
           <small className="text-muted">
-            Manage the exclusive promo code for Emirates Driving Company members
+            Manage the exclusive promo code for Cities Driving Company members
           </small>
         </Col>
       </Row>
@@ -246,7 +246,7 @@ const EdcPromo = () => {
               ) : (
                 <Col xs={12} md={6} lg={4} className="mb-3">
                   <Form.Group controlId="fixed_discount_amount">
-                    <Form.Label>Fixed Discount Amount (AED)</Form.Label>
+                    <Form.Label>Fixed Discount Amount (MAD)</Form.Label>
                     <Form.Control
                       type="number"
                       name="fixed_discount_amount"

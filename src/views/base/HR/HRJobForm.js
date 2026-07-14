@@ -250,7 +250,7 @@ const HRJobForm = () => {
                     <Form.Control
                       value={formData.location_en}
                       onChange={(e) => handleChange("location_en", e.target.value)}
-                      placeholder="e.g. Dubai"
+                      placeholder="e.g. Casablanca"
                       style={{ borderRadius: 10 }}
                       required
                     />

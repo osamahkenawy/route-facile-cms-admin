@@ -30,13 +30,13 @@ const createDummyChartData = () => {
         },
       ],
     },
-    // Emirate distribution doughnut chart
-    emirate: {
-      labels: ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah", "Umm Al Quwain"],
+    // City distribution doughnut chart
+    city: {
+      labels: ["Casablanca", "Rabat", "Marrakech", "Fes", "Tangier", "Agadir", "Ouarzazate"],
       datasets: [
         {
           data: [245, 180, 95, 45, 30, 20, 15],
-          ...chartConfigMap.emirate,
+          ...chartConfigMap.city,
         },
       ],
     },
@@ -130,8 +130,8 @@ const createDummyChartData = () => {
     // Location distribution doughnut chart
     location: {
       labels: [
-        "Dubai International Airport", "Abu Dhabi Airport", "Dubai Mall",
-        "Mall of Emirates", "JBR Beach", "Downtown Dubai", "Dubai Marina",
+        "Casablanca Airport", "Rabat Airport", "Marrakech Medina",
+        "Casablanca Marina", "Agadir Beach", "Downtown Casablanca", "Tangier Port",
         "Business Bay", "Sharjah City Center", "Al Ain Mall"
       ],
       datasets: [
@@ -164,7 +164,7 @@ const Dashboard = () => {
     "dropoff_type",
     "type",
     "payment_type",
-    "emirate",
+    "city",
     "action",
     "booking_source",
     "car",
@@ -256,13 +256,13 @@ const Dashboard = () => {
         chartData.data = Object.values(paymentTypes);
         break;
 
-      case "emirate":
-        const emirates = {};
+      case "city":
+        const cities = {};
         bookings.forEach(booking => {
-          emirates[booking.pickup_emirate] = (emirates[booking.pickup_emirate] || 0) + 1;
+          cities[booking.pickup_city] = (cities[booking.pickup_city] || 0) + 1;
         });
-        chartData.labels = Object.keys(emirates);
-        chartData.data = Object.values(emirates);
+        chartData.labels = Object.keys(cities);
+        chartData.data = Object.values(cities);
         break;
 
       case "type":
@@ -433,7 +433,7 @@ const Dashboard = () => {
         console.log("Using booking data for charts, total bookings:", bookingsRes.length);
         
         // Generate charts from booking data
-        for (const paramType of ["booking_date", "booking_month", "payment_type", "emirate", "type", "car", "booking_source"]) {
+        for (const paramType of ["booking_date", "booking_month", "payment_type", "city", "type", "car", "booking_source"]) {
           const transformed = transformBookingDataToCharts(bookingsRes, paramType);
           setDashboardStats((prevStats) => ({
             ...prevStats,
@@ -449,7 +449,7 @@ const Dashboard = () => {
       // Try original dashboard API endpoints as fallback
       for (const paramType of PARAM_TYPES) {
         // Skip if already processed from bookings
-        if (bookingsRes && Array.isArray(bookingsRes) && ["booking_date", "booking_month", "payment_type", "emirate", "type", "car", "booking_source"].includes(paramType)) {
+        if (bookingsRes && Array.isArray(bookingsRes) && ["booking_date", "booking_month", "payment_type", "city", "type", "car", "booking_source"].includes(paramType)) {
           continue;
         }
         
@@ -530,12 +530,12 @@ const Dashboard = () => {
         "User Phone": b.user_phone || "",
         "Car Name": b.car_name || "",
         "Pickup Type": b.pickup_type || "",
-        "Pickup Emirate": b.pickup_emirate || "",
+        "Pickup City": b.pickup_city || "",
         "Pickup Location": b.pickup_location || "",
         "Pickup Address": b.pickup_address || "",
         "Pickup Date & Time": b.pickup_date || b.pickup_date_time || "",
         "Dropoff Type": b.dropoff_type || "",
-        "Dropoff Emirate": b.dropoff_emirate || "",
+        "Dropoff City": b.dropoff_city || "",
         "Dropoff Location": b.dropoff_location || "",
         "Dropoff Address": b.dropoff_address || "",
         "Dropoff Date & Time": b.dropoff_date || b.dropoff_date_time || "",
@@ -544,7 +544,7 @@ const Dashboard = () => {
         "LOR": b.booking_days ?? "",
         "Advanced": b.advanced ?? "",
         "Car Rate": b.car_rate ?? "",
-        "Inter Emirate Change": b.inter_emirates_charges ?? b.inter_emirate_charges ?? "",
+        "Inter City Change": b.inter_cities_charges ?? b.inter_city_charges ?? "",
         "Parking Charges": b.parking_charges ?? "",
         "VMD Charges": b.vmd_charges ?? "",
         "Delivery Charges": b.delivery_charges ?? "",
@@ -605,7 +605,7 @@ const Dashboard = () => {
       doc.rect(0, 0, pageW, 60, "F");
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(18);
-      doc.text("Trasealla - Dashboard Report", 40, 38);
+      doc.text("Route Facile - Dashboard Report", 40, 38);
       doc.setFontSize(10);
       doc.text(`Date Range: ${fromDate} to ${toDate}`, pageW - 40, 38, { align: "right" });
 
@@ -662,20 +662,20 @@ const Dashboard = () => {
       doc.text(`Date Range: ${fromDate} to ${toDate}`, pageW - 40, 38, { align: "right" });
 
       const page2Cols = [
-        "ARC Number", "Pickup Type", "Pickup Emirate", "Pickup Location", "Pickup Address", "Pickup Date & Time",
-        "Dropoff Type", "Dropoff Emirate", "Dropoff Location", "Dropoff Address", "Dropoff Date & Time",
-        "Payfort ID", "LOR", "Advanced", "Car Rate", "Inter Emirate Change", "Parking", "VMD",
+        "ARC Number", "Pickup Type", "Pickup City", "Pickup Location", "Pickup Address", "Pickup Date & Time",
+        "Dropoff Type", "Dropoff City", "Dropoff Location", "Dropoff Address", "Dropoff Date & Time",
+        "Payfort ID", "LOR", "Advanced", "Car Rate", "Inter City Change", "Parking", "VMD",
         "Delivery", "Collect", "Coupon", "Tax", "Adv Days"
       ];
       const page2Rows = res.data.map((b) => [
         b.booking_number || b.arc_number || "",
         b.pickup_type || "",
-        b.pickup_emirate || "",
+        b.pickup_city || "",
         b.pickup_location || "",
         b.pickup_address || "",
         b.pickup_date || b.pickup_date_time || "",
         b.dropoff_type || "",
-        b.dropoff_emirate || "",
+        b.dropoff_city || "",
         b.dropoff_location || "",
         b.dropoff_address || "",
         b.dropoff_date || b.dropoff_date_time || "",
@@ -683,7 +683,7 @@ const Dashboard = () => {
         b.booking_days ?? "",
         b.advanced ?? "",
         b.car_rate ?? "",
-        b.inter_emirates_charges ?? b.inter_emirate_charges ?? "",
+        b.inter_cities_charges ?? b.inter_city_charges ?? "",
         b.parking_charges ?? "",
         b.vmd_charges ?? "",
         b.delivery_charges ?? "",

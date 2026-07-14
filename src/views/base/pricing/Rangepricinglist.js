@@ -35,12 +35,12 @@ const Rangepricinglist = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [carGroupArray, setCarGroupArray] = useState([]);
   const [carArray, setCarArray] = useState([]);
   const [priceListArray, setPriceListArray] = useState([]);
   const [year, setYear] = useState("");
-  const [emirateID, setEmirateID] = useState("");
+  const [cityID, setCityID] = useState("");
   const [carGroup, setCarGroup] = useState("");
   const [location, setLocation] = useState("");
   const [pageSize, setPageSize] = useState(25);
@@ -57,12 +57,12 @@ const Rangepricinglist = () => {
     { value: 2030, name: "2030" },
   ];
 
-  const emiratesData = () => {
-    const url = `${configWeb.GET_EMIRATES}?page_size=9999`;
+  const citiesData = () => {
+    const url = `${configWeb.GET_CITIES}?page_size=9999`;
 
     simpleGetCallAuth(url)
       .then((res) => {
-        setEmiratesArray(res?.data || []);
+        setCitiesArray(res?.data || []);
       })
       .catch((errr) => {
         console.log("errr", errr);
@@ -114,7 +114,7 @@ const Rangepricinglist = () => {
       });
   };
   useEffect(() => {
-    emiratesData();
+    citiesData();
     carGroupData();
     locationData();
     // carData();
@@ -127,7 +127,7 @@ const Rangepricinglist = () => {
     // Add parameters only if they exist
 
     if (carGroup) params.append("group_id", carGroup);
-    if (emirateID) params.append("emirate_id", emirateID);
+    if (cityID) params.append("city_id", cityID);
     if (location) params.append("location_id", location);
     if (dateData.start_date) params.append("start_date", dateData.start_date);
     if (dateData.end_date) params.append("end_date", dateData.end_date);
@@ -225,16 +225,16 @@ const Rangepricinglist = () => {
         <Row className="mt-2 mb-4">
           <Col lg="2">
             <Form.Group className="mb-3">
-              <Form.Label>Emirate</Form.Label>
+              <Form.Label>City</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                name="emirateID"
-                value={emirateID}
-                onChange={(e) => setEmirateID(e.target.value)}
+                name="cityID"
+                value={cityID}
+                onChange={(e) => setCityID(e.target.value)}
               >
-                <option value="">Select Emirate</option>
-                {emiratesArray?.length > 0 &&
-                  emiratesArray?.map((item) => (
+                <option value="">Select City</option>
+                {citiesArray?.length > 0 &&
+                  citiesArray?.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name_en}{" "}
                     </option>
@@ -351,7 +351,7 @@ const Rangepricinglist = () => {
 
                 <th scope="col">Car Group</th>
                 <th scope="col">Location</th>
-                <th scope="col">Emirate</th>
+                <th scope="col">City</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
                 <th scope="col">Start Day</th>
@@ -379,7 +379,7 @@ const Rangepricinglist = () => {
 
                     <td>{item.car_group.name_en}</td>
                     <td>{item.location_id}</td>
-                    <td>{item.emirate.name_en}</td>
+                    <td>{item.city.name_en}</td>
                     <td>{item.start_date}</td>
 
                     <td>{item.end_date}</td>

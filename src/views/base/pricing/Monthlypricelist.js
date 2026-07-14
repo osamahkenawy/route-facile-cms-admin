@@ -35,13 +35,13 @@ const Monthlypricelist = () => {
 
 const [loading, setLoading] = useState(false);
 
-const [emiratesArray, setEmiratesArray] = useState([]);
+const [citiesArray, setCitiesArray] = useState([]);
 const [carGroupArray, setCarGroupArray] = useState([]);
 const [carArray, setCarArray] = useState([]);
 const [priceListArray, setPriceListArray] = useState([]);
 const [year, setYear] = useState("");
 const [vehicleModelYear, setVehicleModelYear] = useState("");
-const [emirateID, setEmirateID] = useState("");
+const [cityID, setCityID] = useState("");
 const [carGroup, setCarGroup] = useState("");
 const [carName, setCarName] = useState("");
 const [pageSize, setPageSize] = useState(25);
@@ -68,12 +68,12 @@ const vehicleModelYears = [
   {value: 2026, name: "2026" },
 ]
 
-const emiratesData = () => {
-  const url = `${configWeb.GET_EMIRATES}?page_size=9999`
+const citiesData = () => {
+  const url = `${configWeb.GET_CITIES}?page_size=9999`
   
   simpleGetCallAuth(url)
     .then((res) => {
-      setEmiratesArray(res?.data || []) ;
+      setCitiesArray(res?.data || []) ;
     })
     .catch((errr) => {
       console.log("errr", errr);
@@ -111,7 +111,7 @@ const carData = () => {
     });
 };
 useEffect(()=>{
-  emiratesData();
+  citiesData();
   carGroupData();
   carData();
 },[])
@@ -127,7 +127,7 @@ const getPriceList =()=>{
     if (year) params.append("year", year);
     if (vehicleModelYear) params.append("vehicle_model_year", vehicleModelYear);
     if (carGroup) params.append("group_id", carGroup);
-    if (emirateID) params.append("emirate_id", emirateID);
+    if (cityID) params.append("city_id", cityID);
     params.append("page", currentPage)
     params.append("page_size", pageSize)
   
@@ -248,15 +248,15 @@ const handlePageSizeChange = (newPageSize) => {
         </Col>
         <Col lg="2">
           <Form.Group className="mb-3">
-            <Form.Label>Emirate</Form.Label>
+            <Form.Label>City</Form.Label>
             <Form.Select aria-label="Default select example"
-            name="emirateID"
-            value={emirateID}
-            onChange={(e)=>setEmirateID(e.target.value)}
+            name="cityID"
+            value={cityID}
+            onChange={(e)=>setCityID(e.target.value)}
             >
               
-              <option value="">Select Emirate</option>
-             {emiratesArray?.length > 0 && emiratesArray?.map((item)=>(
+              <option value="">Select City</option>
+             {citiesArray?.length > 0 && citiesArray?.map((item)=>(
               <option key={item.id} value={item.id} >{item.name_en} </option>
              ))}
             </Form.Select>
@@ -308,7 +308,7 @@ const handlePageSizeChange = (newPageSize) => {
     {/* <th scope="col" rowSpan="2">#</th> */}
     <th scope="col" rowSpan="2">Year</th>
     <th scope="col" rowSpan="2">Vehicle Model Year</th>
-    <th scope="col" rowSpan="2">Emirate</th>
+    <th scope="col" rowSpan="2">City</th>
     <th scope="col" rowSpan="2">Group</th>
     <th scope="col" rowSpan="2">Months</th>
     <th scope="col" >Car Name</th>
@@ -346,7 +346,7 @@ Array.isArray(priceListArray) && priceListArray?.length > 0 && priceListArray?.m
               <td> {item.year}</td>
               <td>{item.vehicle_model_year || 'All Years'}</td>
               <td>
-             {item.emirate.name_en}
+             {item.city.name_en}
               </td>
               <td>{item.car_group.name_en}</td>
               <td>{item.months}</td>

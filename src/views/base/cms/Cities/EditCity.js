@@ -13,7 +13,7 @@ import {
   notifySuccess,
 } from "../../../../components/notify/notify";
 
-const EditEmirate = () => {
+const EditCity = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const EditEmirate = () => {
 
   const [errors, setErrors] = useState({});
   const timings = Array.from({ length: 25 }, (_, i) => `${i + 0}:00`);
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     const [day, shift, type] = name.split("_");
@@ -168,11 +168,11 @@ const EditEmirate = () => {
         buffer_hours: formData.buffer_hours,
         recipients: recipientsArray,
         contact_number : formData.contact_number,
-        emirate_opening_hours: transformedOpeningHours,
+        city_opening_hours: transformedOpeningHours,
       });
 
       const url = 
-         configWeb.PUT_EMIRATE_UPDATE(id);
+         configWeb.PUT_CITY_UPDATE(id);
         
       setLoading(true);
       const apiCall = simplePutCallAuth
@@ -185,7 +185,7 @@ const EditEmirate = () => {
             resolve(true);
 
             // if (id) {
-            navigate("/cms/emirates");
+            navigate("/cms/cities");
             // }
           } else {
             if (Array.isArray(res?.message)) {
@@ -261,7 +261,7 @@ const EditEmirate = () => {
   const getDetails = () => {
     return new Promise((resolve, reject) => {
       // setDeleteLoading(true);
-      const url = configWeb.GET_EMIRATE_DETAILS(id);
+      const url = configWeb.GET_CITY_DETAILS(id);
       simpleGetCallAuth(url)
         .then((res) => {
           if (res) {
@@ -277,7 +277,7 @@ const EditEmirate = () => {
                   res?.recipients
                 );
                 transformedData = await transformOpeningHours(
-                  res?.emirate_opening_hours
+                  res?.city_opening_hours
                 );
                 console.log("transformedData-->",transformedData)
 
@@ -327,8 +327,8 @@ const EditEmirate = () => {
             lg="12"
             className="mt-4 d-flex justify-content-end align-items-center"
           >
-            <Link to="/cms/emirates">
-              <Button className="btn-def">Emirate List</Button>
+            <Link to="/cms/cities">
+              <Button className="btn-def">City List</Button>
             </Link>
           </Col>
         </Row>
@@ -448,7 +448,7 @@ const EditEmirate = () => {
            
           </Row>
           {/* Weekly timing fields */}
-          <h5>Emirate Opening Hours</h5>
+          <h5>City Opening Hours</h5>
        
           <Row className="mb-3-">
             {formData?.location_opening_hours?.map((day, dayIndex) => (
@@ -547,4 +547,4 @@ const EditEmirate = () => {
   );
 };
 
-export default EditEmirate;
+export default EditCity;

@@ -322,7 +322,7 @@ const CreateCareerJob = () => {
                         name="location_en"
                         value={formData.location_en}
                         onChange={handleChange}
-                        placeholder="e.g. Dubai, UAE"
+                        placeholder="e.g. Casablanca, Morocco"
                       />
                       {errors.location_en && (
                         <span className="custom_error">{errors.location_en}</span>

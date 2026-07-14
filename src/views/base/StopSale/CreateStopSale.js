@@ -20,7 +20,7 @@ const CreateStopSale = () => {
   const [formData, setFormData] = useState({
     start_date: "",
     end_date: "",
-    emirate_id: "",
+    city_id: "",
 
     car_ids: {
       all: false,
@@ -38,7 +38,7 @@ const CreateStopSale = () => {
   const [mappedCarArray, setMappedCarArray] = useState([]);
   const [carArray, setCarArray] = useState([]);
   const [locationArray, setLocationArray] = useState([]);
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
 
   const carData = () => {
     const url = `${configWeb.GET_CAR}?page_size=9999`;
@@ -104,7 +104,7 @@ const CreateStopSale = () => {
       const body = JSON.stringify({
         start_date: formData?.start_date,
         end_date: formData?.end_date,
-        emirate_id: formData?.emirate_id,
+        city_id: formData?.city_id,
         location_id: formData?.location_id,
         car_ids: formData?.car_ids,
         status: formData?.status,
@@ -167,12 +167,12 @@ const CreateStopSale = () => {
       [fieldName]: !isAllSelected && selectedIds.length === 0,
     }));
   };
-  const emiratesData = () => {
-    const url = `${configWeb.GET_EMIRATES}?page_size=9999`;
+  const citiesData = () => {
+    const url = `${configWeb.GET_CITIES}?page_size=9999`;
 
     simpleGetCallAuth(url)
       .then((res) => {
-        setEmiratesArray(res?.data || []);
+        setCitiesArray(res?.data || []);
       })
       .catch((errr) => {
         console.log("errr", errr);
@@ -197,7 +197,7 @@ const CreateStopSale = () => {
 
   useEffect(() => {
     carData();
-    emiratesData();
+    citiesData();
     locationData();
   }, []);
   const getDetails = () => {
@@ -211,7 +211,7 @@ const CreateStopSale = () => {
               status: res?.status,
               start_date: res?.start_date,
               end_date: res?.end_date,
-              emirate_id: res?.emirate_id,
+              city_id: res?.city_id,
               location_id: res?.location_id,
               car_ids: res?.car_ids,
             }));
@@ -296,23 +296,23 @@ const CreateStopSale = () => {
             </Col>
             <Col sm={12} md={6} lg={6} className="mb-2">
               <Form.Group>
-                <Form.Label>Emirate</Form.Label>
+                <Form.Label>City</Form.Label>
                 <Form.Select
-                  name="emirate_id"
-                  value={formData.emirate_id}
+                  name="city_id"
+                  value={formData.city_id}
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Emirate</option>
-                  {emiratesArray?.length > 0 &&
-                    emiratesArray?.map((item) => (
+                  <option value="">Select City</option>
+                  {citiesArray?.length > 0 &&
+                    citiesArray?.map((item) => (
                       <option key={item.id} value={item.id}>
                         {item.name_en}{" "}
                       </option>
                     ))}
                 </Form.Select>
                 <Form.Control.Feedback type="invalid">
-                  Please select emirate.
+                  Please select city.
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>

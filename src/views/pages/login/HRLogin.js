@@ -132,7 +132,7 @@ const HRLogin = () => {
           {/* Left brand panel */}
           <div className="hr-login-brand">
             <div className="hr-login-brand-top">
-              <img src={logo} alt="Trasealla" className="hr-login-logo" />
+              <img src={logo} alt="Route Facile" className="hr-login-logo" />
               <span className="hr-login-pill">
                 <FaUserTie /> HR Portal
               </span>
@@ -178,7 +178,7 @@ const HRLogin = () => {
           <div className="hr-login-form-side">
             <div className="hr-login-form-wrap">
               <div className="hr-login-mobile-logo">
-                <img src={logo} alt="Trasealla" />
+                <img src={logo} alt="Route Facile" />
               </div>
 
               <div className="hr-login-form-header">
@@ -200,7 +200,7 @@ const HRLogin = () => {
                     id="hr-email"
                     type="email"
                     autoComplete="username"
-                    placeholder="you@trasealla.com"
+                    placeholder="you@routefacile.ma"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -269,7 +269,7 @@ const HRLogin = () => {
             </div>
 
             <div className="hr-login-footer">
-              © {new Date().getFullYear()} Trasealla · HR Portal
+              © {new Date().getFullYear()} Route Facile · HR Portal
             </div>
           </div>
         </motion.div>

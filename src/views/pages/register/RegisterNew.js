@@ -118,7 +118,7 @@ const handleChange = (e) => {
                                         <img src="assets/images/logo_new.png" alt="" height="110" style={{position:"absolute"}} />
                                     </a>
                                 </div>
-                                <p className="mt-3 fs-15 fw-medium text-danger">Trasealla Admin Control Panel</p>
+                                <p className="mt-3 fs-15 fw-medium text-danger">Route Facile Admin Control Panel</p>
 
                             </div>
                         </div>
@@ -131,7 +131,7 @@ const handleChange = (e) => {
                                 <div className="card-body p-4">
                                     <div className="text-center mt-2">
                                         <h5 className="text-primary">Welcome !</h5>
-                                        <p className="text-muted">Register to Continue to Trasealla Admin.</p>
+                                        <p className="text-muted">Register to Continue to Route Facile Admin.</p>
 
 
                                     </div>

@@ -350,7 +350,7 @@ const DownloadReport = () => {
         [""],
         ["Metric", "Value"],
         ["Total Bookings", filtered.length],
-        ["Total Revenue (AED)", totalRevenue.toFixed(2)],
+        ["Total Revenue (MAD)", totalRevenue.toFixed(2)],
         ["Pay Now Bookings", payNowCount],
         ["Pay Later Bookings", payLaterCount],
         ["Booked / Completed", bookedCount],
@@ -379,24 +379,24 @@ const DownloadReport = () => {
         "Car": b.car_name || "-",
         "Pickup Type": b.pickup_type || "-",
         "Pickup Location": b.pickup_location || "-",
-        "Pickup Emirate": b.pickup_emirate || "-",
+        "Pickup City": b.pickup_city || "-",
         "Pickup Date": b.pickup_date || "-",
         "Pickup Address": b.pickup_address || "-",
         "Dropoff Type": b.dropoff_type || "-",
         "Dropoff Location": b.dropoff_location || "-",
-        "Dropoff Emirate": b.dropoff_emirate || "-",
+        "Dropoff City": b.dropoff_city || "-",
         "Dropoff Date": b.dropoff_date || "-",
         "Dropoff Address": b.dropoff_address || "-",
         "Payfort ID": b.payfort_id || "-",
-        "Car Rate (AED)": b.car_rate ? Number(b.car_rate).toFixed(2) : "0.00",
-        "Inter Emirate Charges (AED)": (b.inter_emirates_charges || b.inter_emirate_charges) ? Number(b.inter_emirates_charges || b.inter_emirate_charges).toFixed(2) : "0.00",
-        "Parking Charges (AED)": b.parking_charges ? Number(b.parking_charges).toFixed(2) : "0.00",
-        "VMD Charges (AED)": b.vmd_charges ? Number(b.vmd_charges).toFixed(2) : "0.00",
-        "Delivery Charges (AED)": b.delivery_charges ? Number(b.delivery_charges).toFixed(2) : "0.00",
-        "Collection Charges (AED)": b.collection_charges ? Number(b.collection_charges).toFixed(2) : "0.00",
+        "Car Rate (MAD)": b.car_rate ? Number(b.car_rate).toFixed(2) : "0.00",
+        "Inter City Charges (MAD)": (b.inter_cities_charges || b.inter_city_charges) ? Number(b.inter_cities_charges || b.inter_city_charges).toFixed(2) : "0.00",
+        "Parking Charges (MAD)": b.parking_charges ? Number(b.parking_charges).toFixed(2) : "0.00",
+        "VMD Charges (MAD)": b.vmd_charges ? Number(b.vmd_charges).toFixed(2) : "0.00",
+        "Delivery Charges (MAD)": b.delivery_charges ? Number(b.delivery_charges).toFixed(2) : "0.00",
+        "Collection Charges (MAD)": b.collection_charges ? Number(b.collection_charges).toFixed(2) : "0.00",
         "Coupon Code": b.coupon_code || "-",
-        "VAT Amount (AED)": b.vat_amount ? Number(b.vat_amount).toFixed(2) : "0.00",
-        "Total Amount (AED)": b.total_amount ? Number(b.total_amount).toFixed(2) : "0.00",
+        "VAT Amount (MAD)": b.vat_amount ? Number(b.vat_amount).toFixed(2) : "0.00",
+        "Total Amount (MAD)": b.total_amount ? Number(b.total_amount).toFixed(2) : "0.00",
       }));
 
       const ws = XLSX.utils.json_to_sheet(rows);
@@ -418,17 +418,17 @@ const DownloadReport = () => {
         { wch: 20 }, // Car
         { wch: 12 }, // Pickup Type
         { wch: 35 }, // Pickup Location
-        { wch: 15 }, // Pickup Emirate
+        { wch: 15 }, // Pickup City
         { wch: 20 }, // Pickup Date
         { wch: 30 }, // Pickup Address
         { wch: 12 }, // Dropoff Type
         { wch: 35 }, // Dropoff Location
-        { wch: 15 }, // Dropoff Emirate
+        { wch: 15 }, // Dropoff City
         { wch: 20 }, // Dropoff Date
         { wch: 30 }, // Dropoff Address
         { wch: 20 }, // Payfort ID
         { wch: 14 }, // Car Rate
-        { wch: 22 }, // Inter Emirate Charges
+        { wch: 22 }, // Inter City Charges
         { wch: 18 }, // Parking Charges
         { wch: 14 }, // VMD Charges
         { wch: 18 }, // Delivery Charges
@@ -528,7 +528,7 @@ const DownloadReport = () => {
       <div className="report-print-logo text-center mb-3">
         <img
           src={logoPng}
-          alt="Trasealla"
+          alt="Route Facile"
           style={{ height: 60, objectFit: "contain" }}
         />
       </div>
@@ -626,7 +626,7 @@ const DownloadReport = () => {
       <Row className="mb-3">
         {[
           { label: "Total Bookings", value: stats.totalBookings, icon: <FaCalendarCheck size={20} />, color: "#1E3A8A" },
-          { label: "Total Revenue", value: `AED ${Number(stats.totalRevenue).toLocaleString()}`, icon: <FaMoneyBillWave size={20} />, color: "#059669" },
+          { label: "Total Revenue", value: `MAD ${Number(stats.totalRevenue).toLocaleString()}`, icon: <FaMoneyBillWave size={20} />, color: "#059669" },
           { label: "Pay Now", value: stats.payNow, icon: <FaCreditCard size={20} />, color: "#2563EB" },
           { label: "Pay Later", value: stats.payLater, icon: <FaHandHoldingUsd size={20} />, color: "#D97706" },
           { label: "Completed", value: stats.completed, icon: <FaCheckCircle size={20} />, color: "#10B981" },
@@ -752,7 +752,7 @@ const DownloadReport = () => {
                   <tr>
                     <td>Total Revenue</td>
                     <td className="text-end fw-semibold text-success">
-                      AED {Number(stats.totalRevenue).toLocaleString()}
+                      MAD {Number(stats.totalRevenue).toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -818,17 +818,17 @@ const DownloadReport = () => {
                       <th>Car</th>
                       <th>Pickup Type</th>
                       <th>Pickup Location</th>
-                      <th>Pickup Emirate</th>
+                      <th>Pickup City</th>
                       <th>Pickup Date</th>
                       <th>Pickup Address</th>
                       <th>Dropoff Type</th>
                       <th>Dropoff Location</th>
-                      <th>Dropoff Emirate</th>
+                      <th>Dropoff City</th>
                       <th>Dropoff Date</th>
                       <th>Dropoff Address</th>
                       <th>Payfort ID</th>
                       <th className="text-end">Car Rate</th>
-                      <th className="text-end">Inter Emirate</th>
+                      <th className="text-end">Inter City</th>
                       <th className="text-end">Parking</th>
                       <th className="text-end">VMD</th>
                       <th className="text-end">Delivery</th>
@@ -895,17 +895,17 @@ const DownloadReport = () => {
                           <td>{b.car_name || "-"}</td>
                           <td>{b.pickup_type || "-"}</td>
                           <td>{b.pickup_location || "-"}</td>
-                          <td>{b.pickup_emirate || "-"}</td>
+                          <td>{b.pickup_city || "-"}</td>
                           <td style={{whiteSpace: 'nowrap'}}>{b.pickup_date || "-"}</td>
                           <td>{b.pickup_address || "-"}</td>
                           <td>{b.dropoff_type || "-"}</td>
                           <td>{b.dropoff_location || "-"}</td>
-                          <td>{b.dropoff_emirate || "-"}</td>
+                          <td>{b.dropoff_city || "-"}</td>
                           <td style={{whiteSpace: 'nowrap'}}>{b.dropoff_date || "-"}</td>
                           <td>{b.dropoff_address || "-"}</td>
                           <td style={{fontSize: '0.75rem'}}>{b.payfort_id || "-"}</td>
                           <td className="text-end">{b.car_rate ? Number(b.car_rate).toFixed(2) : "0.00"}</td>
-                          <td className="text-end">{(b.inter_emirates_charges || b.inter_emirate_charges) ? Number(b.inter_emirates_charges || b.inter_emirate_charges).toFixed(2) : "0.00"}</td>
+                          <td className="text-end">{(b.inter_cities_charges || b.inter_city_charges) ? Number(b.inter_cities_charges || b.inter_city_charges).toFixed(2) : "0.00"}</td>
                           <td className="text-end">{b.parking_charges ? Number(b.parking_charges).toFixed(2) : "0.00"}</td>
                           <td className="text-end">{b.vmd_charges ? Number(b.vmd_charges).toFixed(2) : "0.00"}</td>
                           <td className="text-end">{b.delivery_charges ? Number(b.delivery_charges).toFixed(2) : "0.00"}</td>

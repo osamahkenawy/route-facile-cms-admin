@@ -1,12 +1,12 @@
 import { simpleGetCallAuth } from "../../../components/config.js/Setup";
 
 export function formatDateTimeUAE(dateTimeString) {
-  // Parse the input date string and convert to UAE time zone
+  // Parse the input date string and convert to Morocco time zone
   const date = new Date(dateTimeString);
 
-  // Format date and time for UAE time zone
+  // Format date and time for Morocco time zone
   const formatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Asia/Dubai", // UAE Time Zone (UTC+4)
+    timeZone: "Africa/Casablanca", // Morocco Time Zone (UTC+1)
     year: "numeric",
     month: "2-digit",
     day: "2-digit",

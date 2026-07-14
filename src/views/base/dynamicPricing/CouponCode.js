@@ -82,7 +82,7 @@ const CouponCode = () => {
     // if (carName) params.append("car_id", carName);
     // if (year) params.append("year", year);
     // if (carGroup) params.append("group_id", carGroup);
-    // if (emirateID) params.append("emirate_id", emirateID);
+    // if (cityID) params.append("city_id", cityID);
     params.append("page", currentPage);
     params.append("page_size", pageSize);
 
@@ -191,7 +191,7 @@ const CouponCode = () => {
                 Action
               </th>
               {/* <th scope="col">Cars</th>
-              <th scope="col">Emirates</th>
+              <th scope="col">Cities</th>
               <th scope="col">Groups</th>
               <th scope="col">Locatios</th> */}
             </tr>
@@ -235,7 +235,7 @@ const CouponCode = () => {
            {item.car_ids.all ? "All" : item.car_ids.ids.join(", ")}
               </td>
               <td>
-           {item.emirate_ids.all ? "All" : item.emirate_ids.ids.join(", ")}
+           {item.city_ids.all ? "All" : item.city_ids.ids.join(", ")}
               </td>
               <td>
            {item.group_ids.all ? "All" : item.group_ids.ids.join(", ")}

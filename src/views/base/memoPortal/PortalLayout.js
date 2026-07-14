@@ -1,4 +1,4 @@
-// Public layout shell for the Memo Portal. Renders Trasealla header (logo +
+// Public layout shell for the Memo Portal. Renders Route Facile header (logo +
 // user/email + Logout) and a footer. Embedded mode skips the header/footer
 // since the admin shell already provides chrome.
 
@@ -35,7 +35,7 @@ const PortalLayout = ({ children, embedded = false, email }) => {
     <div className="mp-shell">
       <header className="mp-header">
         <Link to="/memo-portal" className="mp-header__brand">
-          <img src={traseallaLogo} alt="Trasealla" className="mp-header__logo" />
+          <img src={traseallaLogo} alt="Route Facile" className="mp-header__logo" />
           <span className="mp-header__divider" />
           <span className="mp-header__brandText">
             <span className="mp-header__brandTitle">Memo Portal</span>
@@ -57,7 +57,7 @@ const PortalLayout = ({ children, embedded = false, email }) => {
       </header>
       <main className="mp-main">{children}</main>
       <footer className="mp-footer">
-        © {new Date().getFullYear()} Trasealla. Confidential — for internal use only.
+        © {new Date().getFullYear()} Route Facile. Confidential — for internal use only.
       </footer>
     </div>
   );

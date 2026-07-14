@@ -119,7 +119,7 @@ export const memoDocuments = [
   {
     id: 108,
     title: "Public Holiday Schedule 2026",
-    description: "All UAE public holidays and Trasealla-specific observances.",
+    description: "All Moroccan public holidays and Route Facile-specific observances.",
     category: "HR Policies",
     version: 1,
     status: "published",

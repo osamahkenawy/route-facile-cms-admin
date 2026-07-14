@@ -49,7 +49,7 @@ const CreateLocation = () => {
     timing_detail_en: "",
     timing_detail_ae: "",
     parking_charges: "",
-    emirate_id: "",
+    city_id: "",
 
     location_opening_hours: Array.from({ length: 7 }, (_, dayIndex) => ({
       day: dayIndex + 1,
@@ -62,7 +62,7 @@ const CreateLocation = () => {
 
   const [errors, setErrors] = useState({});
   const timings = Array.from({ length: 25 }, (_, i) => `${i + 0}:00`);
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     const [day, shift, type] = name.split("_");
@@ -146,7 +146,7 @@ const CreateLocation = () => {
     if (!formData.long) newErrors.long = "Longitude is required.";
     if (!formData.contact_number)
       newErrors.contact_number = "Contact Number is required.";
-    if (!formData.emirate_id) newErrors.emirate_id = "Emirate ID is required.";
+    if (!formData.city_id) newErrors.city_id = "City ID is required.";
 
     formData.location_opening_hours.forEach((day) => {
       if (!day.shifts[0].from && !day.shifts[0]?.is_closed)
@@ -210,7 +210,7 @@ const CreateLocation = () => {
         timing_detail_en: formData.timing_detail_en,
         timing_detail_ae: formData.timing_detail_ae,
         parking_charges: formData.parking_charges,
-        emirate_id: formData.emirate_id,
+        city_id: formData.city_id,
         // created_by: formData.created_by,
         // updated_by: formData.updated_by,
         // deleted_by: formData.deleted_by,
@@ -345,7 +345,7 @@ const CreateLocation = () => {
                   timing_detail_en: res?.timing_detail_en,
                   timing_detail_ae: res?.timing_detail_ae,
                   parking_charges: res?.parking_charges,
-                  emirate_id: res?.emirate_id,
+                  city_id: res?.city_id,
 
                   location_opening_hours: transformedData,
                 }));
@@ -506,12 +506,12 @@ const CreateLocation = () => {
     }
   }, []);
 
-  const emiratesData = () => {
-    const url = `${configWeb.GET_EMIRATES}?page_size=9999`;
+  const citiesData = () => {
+    const url = `${configWeb.GET_CITIES}?page_size=9999`;
 
     simpleGetCallAuth(url)
       .then((res) => {
-        setEmiratesArray(res?.data || []);
+        setCitiesArray(res?.data || []);
       })
       .catch((errr) => {
         console.log("errr", errr);
@@ -521,7 +521,7 @@ const CreateLocation = () => {
       });
   };
   useEffect(() => {
-    emiratesData();
+    citiesData();
   }, []);
 
   return (
@@ -580,15 +580,15 @@ const CreateLocation = () => {
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={6} lg={4} xl={3}>
-                  <Form.Group controlId="emirate_id" className="mb-3">
-                    <Form.Label style={{ fontSize: "13px", fontWeight: 600, color: "#555" }}>Emirate</Form.Label>
-                    <Form.Select name="emirate_id" value={formData.emirate_id} onChange={handleChange} isInvalid={!!errors.emirate_id} style={{ borderRadius: "8px" }}>
-                      <option value="">Select Emirate</option>
-                      {emiratesArray?.length > 0 && emiratesArray?.map((item) => (
+                  <Form.Group controlId="city_id" className="mb-3">
+                    <Form.Label style={{ fontSize: "13px", fontWeight: 600, color: "#555" }}>City</Form.Label>
+                    <Form.Select name="city_id" value={formData.city_id} onChange={handleChange} isInvalid={!!errors.city_id} style={{ borderRadius: "8px" }}>
+                      <option value="">Select City</option>
+                      {citiesArray?.length > 0 && citiesArray?.map((item) => (
                         <option key={item.id} value={item.id}>{item.name_en}</option>
                       ))}
                     </Form.Select>
-                    <Form.Control.Feedback type="invalid">{errors.emirate_id}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">{errors.city_id}</Form.Control.Feedback>
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={6} lg={4} xl={3}>

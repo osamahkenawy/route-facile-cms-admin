@@ -60,9 +60,9 @@ const IndiCarPricing = () => {
         </Col>
         <Col lg="2">
           <Form.Group className="mb-3">
-            <Form.Label>Emirate</Form.Label>
+            <Form.Label>City</Form.Label>
             <Form.Select aria-label="Default select example">
-              <option>Select Emirate</option>
+              <option>Select City</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>

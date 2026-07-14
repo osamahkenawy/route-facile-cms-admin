@@ -101,12 +101,12 @@ const AccountsDashboardView = ({
         "User Phone": b.user_phone || "",
         "Car Name": b.car_name || "",
         "Pickup Type": b.pickup_type || "",
-        "Pickup Emirate": b.pickup_emirate || "",
+        "Pickup City": b.pickup_city || "",
         "Pickup Location": b.pickup_location || "",
         "Pickup Address": b.pickup_address || "",
         "Pickup Date & Time": b.pickup_date || b.pickup_date_time || "",
         "Dropoff Type": b.dropoff_type || "",
-        "Dropoff Emirate": b.dropoff_emirate || "",
+        "Dropoff City": b.dropoff_city || "",
         "Dropoff Location": b.dropoff_location || "",
         "Dropoff Address": b.dropoff_address || "",
         "Dropoff Date & Time": b.dropoff_date || b.dropoff_date_time || "",
@@ -115,7 +115,7 @@ const AccountsDashboardView = ({
         "LOR": b.booking_days ?? "",
         "Advanced": b.advanced ?? "",
         "Car Rate": b.car_rate ?? "",
-        "Inter Emirate Change": b.inter_emirates_charges ?? b.inter_emirate_charges ?? "",
+        "Inter City Change": b.inter_cities_charges ?? b.inter_city_charges ?? "",
         "Parking Charges": b.parking_charges ?? "",
         "VMD Charges": b.vmd_charges ?? "",
         "Delivery Charges": b.delivery_charges ?? "",
@@ -172,7 +172,7 @@ const AccountsDashboardView = ({
       doc.rect(0, 0, pageW, 60, "F");
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(18);
-      doc.text("Trasealla - Dashboard Report", 40, 38);
+      doc.text("Route Facile - Dashboard Report", 40, 38);
       doc.setFontSize(10);
       doc.text(`Date Range: ${fromDate} to ${toDate}`, pageW - 40, 38, { align: "right" });
 
@@ -229,20 +229,20 @@ const AccountsDashboardView = ({
       doc.text(`Date Range: ${fromDate} to ${toDate}`, pageW - 40, 38, { align: "right" });
 
       const page2Cols = [
-        "ARC Number", "Pickup Type", "Pickup Emirate", "Pickup Location", "Pickup Address", "Pickup Date & Time",
-        "Dropoff Type", "Dropoff Emirate", "Dropoff Location", "Dropoff Address", "Dropoff Date & Time",
-        "Payfort ID", "LOR", "Advanced", "Car Rate", "Inter Emirate Change", "Parking", "VMD",
+        "ARC Number", "Pickup Type", "Pickup City", "Pickup Location", "Pickup Address", "Pickup Date & Time",
+        "Dropoff Type", "Dropoff City", "Dropoff Location", "Dropoff Address", "Dropoff Date & Time",
+        "Payfort ID", "LOR", "Advanced", "Car Rate", "Inter City Change", "Parking", "VMD",
         "Delivery", "Collect", "Coupon", "Tax", "Adv Days"
       ];
       const page2Rows = res.data.map((b) => [
         b.booking_number || b.arc_number || "",
         b.pickup_type || "",
-        b.pickup_emirate || "",
+        b.pickup_city || "",
         b.pickup_location || "",
         b.pickup_address || "",
         b.pickup_date || b.pickup_date_time || "",
         b.dropoff_type || "",
-        b.dropoff_emirate || "",
+        b.dropoff_city || "",
         b.dropoff_location || "",
         b.dropoff_address || "",
         b.dropoff_date || b.dropoff_date_time || "",
@@ -250,7 +250,7 @@ const AccountsDashboardView = ({
         b.booking_days ?? "",
         b.advanced ?? "",
         b.car_rate ?? "",
-        b.inter_emirates_charges ?? b.inter_emirate_charges ?? "",
+        b.inter_cities_charges ?? b.inter_city_charges ?? "",
         b.parking_charges ?? "",
         b.vmd_charges ?? "",
         b.delivery_charges ?? "",
@@ -491,10 +491,10 @@ const AccountsDashboardView = ({
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: '6px',
                     padding: '6px 18px', borderRadius: '50px', border: 'none',
-                    background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                    background: 'linear-gradient(135deg, #FF8A00 0%, #e97c00 100%)',
                     color: '#fff', fontWeight: 600, fontSize: '0.82rem',
                     cursor: overAllLoading ? 'not-allowed' : 'pointer',
-                    boxShadow: '0 2px 8px rgba(37,99,235,0.35)',
+                    boxShadow: '0 2px 8px rgba(255,138,0,0.35)',
                     whiteSpace: 'nowrap', transition: 'opacity 0.2s',
                     opacity: overAllLoading ? 0.7 : 1,
                   }}
@@ -569,7 +569,7 @@ const AccountsDashboardView = ({
               <div className="acc-kpi-content">
                 <span className="acc-kpi-label">Total Revenue</span>
                 <h2 className="acc-kpi-value">
-                  AED <AnimatedNumber value={Math.round(stats.totalRevenue)} />
+                  MAD <AnimatedNumber value={Math.round(stats.totalRevenue)} />
                 </h2>
               </div>
             </CardBody>

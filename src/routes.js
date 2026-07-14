@@ -14,7 +14,7 @@ import Userfeedback from "./views/base/user/Userfeedback.js";
 import HomepageBanner from "./views/base/cms/HomePageBanner/HomepageBanner.js";
 import FAQcategory from "./views/base/cms/FAQcategory.js";
 import FAQs from "./views/base/cms/FAQs.js";
-import Emirates from "./views/base/cms/Emirates/Emirates.js";
+import Cities from "./views/base/cms/Cities/Cities.js";
 import Locations from "./views/base/cms/Locations/Locations.js";
 import SpecialOffers from "./views/base/cms/SpecialOffers/SpecialOffers.js";
 import Aboutus from "./views/base/cms/Aboutus.js";
@@ -44,7 +44,7 @@ import HRRatings from "./views/base/HR/HRRatings";
 import HRStaff from "./views/base/HR/HRStaff";
 import PrivacyPolicy from "./views/base/cms/PrivacyPolicy.js";
 import TermsConditions from "./views/base/cms/TermsConditions.js";
-import Emiratewise from "./views/base/cms/Emiratewise.js";
+import Citywise from "./views/base/cms/Citywise.js";
 import Landmarkwise from "./views/base/cms/Landmarkwise.js";
 import Neighbourhood from "./views/base/cms/Neighbourhood.js";
 import AwardRecognition from "./views/base/cms/AwardsAndRecognition.js/AwardRecognition.js";
@@ -54,7 +54,7 @@ import Uploadmonthlypricing from "./views/base/pricing/Uploadmonthlypricing.js";
 import Monthlypricelist from "./views/base/pricing/Monthlypricelist.js";
 import IndiCarPricing from "./views/base/pricing/IndiCarPricing.js";
 import GroupcarPricing from "./views/base/pricing/GroupcarPricing.js";
-import InterEmiratePricing from "./views/base/pricing/InterEmiratePricing.js";
+import InterCityPricing from "./views/base/pricing/InterCityPricing.js";
 import UploadRangePricing from "./views/base/pricing/UploadRangePricing.js";
 import Rangepricinglist from "./views/base/pricing/Rangepricinglist.js";
 import RangePricing from "./views/base/dynamicPricing/RangePricing.js";
@@ -78,7 +78,7 @@ import AddPost from "./views/base/poost/AddPost";
 import CreateSurge from "./views/base/dynamicPricing/CreateSurge";
 import BookingLogs from "./views/base/Bookings/BookingLogs";
 import Bookings from "./views/base/Bookings/Bookings.js";
-import EditEmirate from "./views/base/cms/Emirates/EditEmirate";
+import EditCity from "./views/base/cms/Cities/EditCity";
 import CreateHomePageBanner from "./views/base/cms/HomePageBanner/CreateHomePageBanner";
 import CreateSpecialOffers from "./views/base/cms/SpecialOffers/CreateSpecialOffers";
 import CreateAwardsAndRecognition from "./views/base/cms/AwardsAndRecognition.js/CreateAwardAndRecognition";
@@ -105,7 +105,7 @@ import DocumentList from "./views/base/Users/documents";
 import StopSaleList from "./views/base/StopSale/StopSaleList";
 import CreateStopSale from "./views/base/StopSale/CreateStopSale";
 import OtherCharges from "./views/base/MiscSetting/OtherCharges";
-import InterEmirateCharges from "./views/base/MiscSetting/InterEmirateCharges";
+import InterCityCharges from "./views/base/MiscSetting/InterCityCharges";
 import UsersBookings from "./views/base/Users/UserBookings.js";
 import TeachersRental from "./views/base/cms/TeachersRental/TeachersRental.js";
 import TeachersRentalRates from "./views/base/cms/TeachersRental/TeachersRentalRates.js";
@@ -248,7 +248,7 @@ const routes = [
 
   { path: "/cms/FAQcategory", name: "FAQ Category", element: FAQcategory },
   { path: "/cms/faqs", name: "FAQs", element: FAQs },
-  { path: "/cms/emirates", name: "Emirates", element: Emirates },
+  { path: "/cms/cities", name: "Cities", element: Cities },
   { path: "/cms/locations", name: "Locations", element: Locations },
   {
     path: "/cms/special-offers",
@@ -381,7 +381,7 @@ const routes = [
     name: "Edit Admin Pages",
     element: CreateAdminPages,
   },
-  { path: "/cms/emiratewise", name: "Emirate wise", element: Emiratewise },
+  { path: "/cms/citywise", name: "City wise", element: Citywise },
   { path: "/cms/landmarkwise", name: "Landmark wise", element: Landmarkwise },
   {
     path: "/cms/neighbourhoodwise",
@@ -435,9 +435,9 @@ const routes = [
     element: GroupcarPricing,
   },
   {
-    path: "/pricing/interemiratepricing",
-    name: "Inter Emirate Pricing",
-    element: InterEmiratePricing,
+    path: "/pricing/intercitypricing",
+    name: "Inter City Pricing",
+    element: InterCityPricing,
   },
   {
     path: "/pricing/upload-range-pricing",
@@ -532,9 +532,9 @@ const routes = [
     element: CreateLocation,
   },
   {
-    path: "/cms/edit-emirate/:id",
-    name: "Edit Emirate",
-    element: EditEmirate,
+    path: "/cms/edit-city/:id",
+    name: "Edit City",
+    element: EditCity,
   },
   {
     path: "/dynamic-pricing/create-surge",
@@ -672,9 +672,9 @@ const routes = [
     element: OtherCharges,
   },
   {
-    path: "/misc-setting/inter-emirate-charges",
-    name: "Inter Emirate Charges",
-    element: InterEmirateCharges,
+    path: "/misc-setting/inter-city-charges",
+    name: "Inter City Charges",
+    element: InterCityCharges,
   },
   {
     path: "/cms/promo-ticker",

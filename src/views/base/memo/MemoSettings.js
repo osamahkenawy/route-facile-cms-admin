@@ -42,9 +42,9 @@ const Phase2Pill = () => (
 const MemoSettings = () => {
   const [watermark, setWatermark] = useState("{user_email} · {datetime}");
   const [sessionTimeout, setSessionTimeout] = useState(8);
-  const [emailSubject, setEmailSubject] = useState("Your Trasealla Memo Portal sign-in PIN");
+  const [emailSubject, setEmailSubject] = useState("Your Route Facile Memo Portal sign-in PIN");
   const [emailBody, setEmailBody] = useState(
-    "Hi,\n\nUse the PIN below to sign in to the Memo Portal. It expires in 10 minutes.\n\nPIN: {pin}\n\n— Trasealla"
+    "Hi,\n\nUse the PIN below to sign in to the Memo Portal. It expires in 10 minutes.\n\nPIN: {pin}\n\n— Route Facile"
   );
 
   const allowedTypes = [
@@ -125,7 +125,7 @@ const MemoSettings = () => {
             }}
           >
             {watermark
-              .replace("{user_email}", "user@trasealla.com")
+              .replace("{user_email}", "user@routefacile.ma")
               .replace("{datetime}", new Date().toISOString())
               .replace("{ip}", "10.0.0.42")}
           </div>

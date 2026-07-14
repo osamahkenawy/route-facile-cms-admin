@@ -54,20 +54,20 @@ export const formatDateTime = (val) => {
 
 export const documentTypeLabel = (type) => {
   switch (type) {
-    case "emirates_id":
-      return "Emirates ID";
-    case "emirates_id_front":
-      return "Emirates ID — Front";
-    case "emirates_id_back":
-      return "Emirates ID — Back";
+    case "cities_id":
+      return "National ID";
+    case "cities_id_front":
+      return "National ID — Front";
+    case "cities_id_back":
+      return "National ID — Back";
     case "passport_visa":
       return "Passport / Visa (optional)";
     case "uae_driving_license":
-      return "UAE Driving License";
+      return "Driving License";
     case "uae_driving_license_front":
-      return "UAE Driving License — Front";
+      return "Driving License — Front";
     case "uae_driving_license_back":
-      return "UAE Driving License — Back";
+      return "Driving License — Back";
     default:
       return type || "-";
   }
@@ -78,26 +78,26 @@ export const documentTypeLabel = (type) => {
 // single side per document. Optional slots render only when present.
 export const DOCUMENT_SLOTS = [
   {
-    key: "emirates_id_front",
-    label: "Emirates ID — Front",
+    key: "cities_id_front",
+    label: "National ID — Front",
     required: true,
-    legacy: "emirates_id",
+    legacy: "cities_id",
   },
   {
-    key: "emirates_id_back",
-    label: "Emirates ID — Back",
+    key: "cities_id_back",
+    label: "National ID — Back",
     required: true,
-    legacy: "emirates_id",
+    legacy: "cities_id",
   },
   {
     key: "uae_driving_license_front",
-    label: "UAE Driving License — Front",
+    label: "Driving License — Front",
     required: true,
     legacy: "uae_driving_license",
   },
   {
     key: "uae_driving_license_back",
-    label: "UAE Driving License — Back",
+    label: "Driving License — Back",
     required: true,
     legacy: "uae_driving_license",
   },
@@ -133,11 +133,11 @@ export const isDocumentsComplete = (attachments) => {
   const list = Array.isArray(attachments) ? attachments : [];
   const has = (t) => list.some((a) => a && a.document_type === t);
   const allNew =
-    has("emirates_id_front") &&
-    has("emirates_id_back") &&
+    has("cities_id_front") &&
+    has("cities_id_back") &&
     has("uae_driving_license_front") &&
     has("uae_driving_license_back");
-  const allLegacy = has("emirates_id") && has("uae_driving_license");
+  const allLegacy = has("cities_id") && has("uae_driving_license");
   return allNew || allLegacy;
 };
 

@@ -387,13 +387,13 @@ const DashboardView = ({
         <Row>
           <Col lg={4}>
             <Card className="card-height-100">
-              <ChartCardHeader title="Bookings By Emirate" />
+              <ChartCardHeader title="Bookings By City" />
               <CardBody>
-                {loadingStates["emirate"] ? (
+                {loadingStates["city"] ? (
                   <LoadingSpinner height="280px" />
                 ) : (
                   <div style={{ height: "280px" }}>
-                    {stats?.emirate && <Doughnut data={stats?.emirate} options={options} />}
+                    {stats?.city && <Doughnut data={stats?.city} options={options} />}
                   </div>
                 )}
               </CardBody>

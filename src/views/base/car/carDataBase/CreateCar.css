@@ -391,8 +391,8 @@
   border-radius: 50%;
 }
 
-/* Emirates Checkbox List */
-.emirates-checkbox-list {
+/* Cities Checkbox List */
+.cities-checkbox-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 10px;
@@ -404,7 +404,7 @@
   border: 1px solid #e2e8f0;
 }
 
-.emirate-checkbox-item {
+.city-checkbox-item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -416,17 +416,17 @@
   transition: all 0.2s ease;
 }
 
-.emirate-checkbox-item:hover {
+.city-checkbox-item:hover {
   border-color: #0ea5e9;
   background: #f0f9ff;
 }
 
-.emirate-checkbox-item.checked {
+.city-checkbox-item.checked {
   border-color: #0ea5e9;
   background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 }
 
-.emirate-checkbox-item span {
+.city-checkbox-item span {
   font-weight: 500;
   color: #475569;
   font-size: 0.9rem;
@@ -446,7 +446,7 @@
   background: #ffffff;
 }
 
-.emirate-checkbox-item.checked .checkbox-box {
+.city-checkbox-item.checked .checkbox-box {
   border-color: #0ea5e9;
   background: #0ea5e9;
 }

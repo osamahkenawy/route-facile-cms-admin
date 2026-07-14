@@ -147,7 +147,7 @@ const StopSaleList = () => {
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
 
-              <th scope="col">Emirate</th>
+              <th scope="col">City</th>
               <th scope="col">Location</th>
               <th scope="col">Status</th>
               <th scope="col">Cars</th>
@@ -178,7 +178,7 @@ const StopSaleList = () => {
 
                   <td>{formatDateTimeUAE(item?.end_date)}</td>
 
-                  <td>{item?.emirate?.name_en}</td>
+                  <td>{item?.city?.name_en}</td>
                   <td>{item?.location?.name_en}</td>
                   <td className="text-center-">
                     <div

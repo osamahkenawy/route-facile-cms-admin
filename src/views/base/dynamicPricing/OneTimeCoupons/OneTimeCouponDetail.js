@@ -45,14 +45,14 @@ const OneTimeCouponDetail = () => {
   const [coupon, setCoupon] = useState(null);
   const [showDel, setShowDel] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [emirates, setEmirates] = useState([]);
+  const [cities, setCities] = useState([]);
   const [cars, setCars] = useState([]);
   const [groups, setGroups] = useState([]);
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    simpleGetCallAuth(`${configWeb.GET_EMIRATES}?page_size=9999`)
-      .then((r) => setEmirates(r?.data || []))
+    simpleGetCallAuth(`${configWeb.GET_CITIES}?page_size=9999`)
+      .then((r) => setCities(r?.data || []))
       .catch(() => {});
     simpleGetCallAuth(`${configWeb.GET_CAR}?page_size=9999`)
       .then((r) => setCars(r?.data || []))
@@ -78,7 +78,7 @@ const OneTimeCouponDetail = () => {
     });
     return map;
   };
-  const emirateLookup = useMemo(() => buildLookup(emirates), [emirates]);
+  const cityLookup = useMemo(() => buildLookup(cities), [cities]);
   const carLookup = useMemo(() => buildLookup(cars), [cars]);
   const groupLookup = useMemo(() => buildLookup(groups), [groups]);
   const locationLookup = useMemo(() => buildLookup(locations), [locations]);
@@ -277,8 +277,8 @@ const OneTimeCouponDetail = () => {
                   <dl className="otc-kv">
                     <dt>Cars</dt>
                     <dd>{renderScopeWithNames(coupon.car_ids, carLookup)}</dd>
-                    <dt>Emirates</dt>
-                    <dd>{renderScopeWithNames(coupon.emirate_ids, emirateLookup)}</dd>
+                    <dt>Cities</dt>
+                    <dd>{renderScopeWithNames(coupon.city_ids, cityLookup)}</dd>
                     <dt>Groups</dt>
                     <dd>{renderScopeWithNames(coupon.group_ids, groupLookup)}</dd>
                     <dt>Locations</dt>

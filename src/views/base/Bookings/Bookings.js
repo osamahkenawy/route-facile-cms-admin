@@ -84,7 +84,7 @@ const Bookings = () => {
   const [pageSize, setPageSize] = useState(25);
   const [totalRecords, setTotalRecords] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [locationArray, setLocationArray] = useState([]);
   const [filteredlocationArray, setFilteredLocationArray] = useState([]);
   const [summaryData, setSummaryData] = useState(null);
@@ -98,7 +98,7 @@ const Bookings = () => {
     payment_type: "",
     type: "",
     status: "",
-    emirate_id: "",
+    city_id: "",
     location_id: "",
     booking_source:"",
     coupon_code: ""
@@ -129,8 +129,8 @@ const Bookings = () => {
       params.append("pickup_type", paramsData.pickup_type);
     if (paramsData.dropoff_type)
       params.append("dropoff_type", paramsData.dropoff_type);
-    if (paramsData.emirate_id)
-      params.append("emirate_id", paramsData.emirate_id);
+    if (paramsData.city_id)
+      params.append("city_id", paramsData.city_id);
     if (paramsData.location_id)
       params.append("location_id", paramsData.location_id);
     if (paramsData.booking_source)
@@ -210,7 +210,7 @@ const Bookings = () => {
       ...prevData,
       [name]: value,
     }));
-    if (name === "emirate_id") {
+    if (name === "city_id") {
       setParamsData((prevData) => ({
         ...prevData,
         location_id: "",
@@ -222,7 +222,7 @@ const Bookings = () => {
       ...prevData,
       [name]: "",
     }));
-    if (name === "emirate_id") {
+    if (name === "city_id") {
       setParamsData((prevData) => ({
         ...prevData,
         location_id: "",
@@ -245,7 +245,7 @@ const Bookings = () => {
       payment_type: "",
       type: "",
       status: "",
-      emirate_id: "",
+      city_id: "",
       location_id: "",
       booking_source: "",
       coupon_code: "",
@@ -371,8 +371,8 @@ const Bookings = () => {
       {
         label: "Total Revenue",
         value: total_revenue
-          ? `AED ${Number(total_revenue).toLocaleString()}`
-          : "AED 0",
+          ? `MAD ${Number(total_revenue).toLocaleString()}`
+          : "MAD 0",
       },
       { label: "Booking Date Range", value: getDateRangeStr() },
       { label: "Page Records", value: priceListArray.length },
@@ -438,17 +438,17 @@ const Bookings = () => {
       { header: "ARC No", dataKey: "arc_number" },
       { header: "Pickup Type", dataKey: "pickup_type" },
       { header: "Pickup Location", dataKey: "pickup_location" },
-      { header: "Pickup Emirate", dataKey: "pickup_emirate" },
+      { header: "Pickup City", dataKey: "pickup_city" },
       { header: "Pickup Date", dataKey: "pickup_date" },
       { header: "Pickup Address", dataKey: "pickup_address" },
       { header: "Dropoff Type", dataKey: "dropoff_type" },
       { header: "Dropoff Location", dataKey: "dropoff_location" },
-      { header: "Dropoff Emirate", dataKey: "dropoff_emirate" },
+      { header: "Dropoff City", dataKey: "dropoff_city" },
       { header: "Dropoff Date", dataKey: "dropoff_date" },
       { header: "Dropoff Address", dataKey: "dropoff_address" },
       { header: "Payfort ID", dataKey: "payfort_id" },
       { header: "Car Rate", dataKey: "car_rate" },
-      { header: "Inter Emirate", dataKey: "inter_emirate_charges" },
+      { header: "Inter City", dataKey: "inter_city_charges" },
       { header: "Parking", dataKey: "parking_charges" },
       { header: "VMD", dataKey: "vmd_charges" },
       { header: "Delivery", dataKey: "delivery_charges" },
@@ -474,18 +474,18 @@ const Bookings = () => {
       car_name: truncate(item.car_name, 14),
       pickup_type: item.pickup_type || "-",
       pickup_location: truncate(item.pickup_location, 22),
-      pickup_emirate: item.pickup_emirate || "-",
+      pickup_city: item.pickup_city || "-",
       pickup_date: item.pickup_date ? item.pickup_date.split(" ")[0] : "-",
       pickup_address: truncate(item.pickup_address, 22),
       dropoff_type: item.dropoff_type || "-",
       dropoff_location: truncate(item.dropoff_location, 22),
-      dropoff_emirate: item.dropoff_emirate || "-",
+      dropoff_city: item.dropoff_city || "-",
       dropoff_date: item.dropoff_date ? item.dropoff_date.split(" ")[0] : "-",
       dropoff_address: truncate(item.dropoff_address, 22),
       payfort_id: truncate(item.payfort_id, 16),
       car_rate: item.car_rate ? `${Number(item.car_rate).toFixed(2)}` : "0.00",
-      inter_emirate_charges: (item.inter_emirates_charges || item.inter_emirate_charges)
-        ? `${Number(item.inter_emirates_charges || item.inter_emirate_charges).toFixed(2)}`
+      inter_city_charges: (item.inter_cities_charges || item.inter_city_charges)
+        ? `${Number(item.inter_cities_charges || item.inter_city_charges).toFixed(2)}`
         : "0.00",
       parking_charges: item.parking_charges ? `${Number(item.parking_charges).toFixed(2)}` : "0.00",
       vmd_charges: item.vmd_charges ? `${Number(item.vmd_charges).toFixed(2)}` : "0.00",
@@ -494,8 +494,8 @@ const Bookings = () => {
       coupon_code: item.coupon_code || "-",
       vat_amount: item.vat_amount ? `${Number(item.vat_amount).toFixed(2)}` : "0.00",
       total_amount: item.total_amount
-        ? `AED ${Number(item.total_amount).toFixed(2)}`
-        : "AED 0.00",
+        ? `MAD ${Number(item.total_amount).toFixed(2)}`
+        : "MAD 0.00",
     }));
 
     const commonHeadStyles = {
@@ -638,7 +638,7 @@ const Bookings = () => {
 
     // Always add Summary Sheet
     const excelTotalBookings = summaryData?.total_bookings ?? totalRecords ?? priceListArray.length;
-    const excelTotalRevenue = summaryData?.total_revenue ? `AED ${Number(summaryData.total_revenue).toLocaleString()}` : "AED 0";
+    const excelTotalRevenue = summaryData?.total_revenue ? `MAD ${Number(summaryData.total_revenue).toLocaleString()}` : "MAD 0";
 
     const summaryDataArray = [
       ["Bookings Report Summary"],
@@ -688,24 +688,24 @@ const Bookings = () => {
       "Car": item.car_name || "-",
       "Pickup Type": item.pickup_type || "-",
       "Pickup Location": item.pickup_location || "-",
-      "Pickup Emirate": item.pickup_emirate || "-",
+      "Pickup City": item.pickup_city || "-",
       "Pickup Date": item.pickup_date || "-",
       "Pickup Address": item.pickup_address || "-",
       "Dropoff Type": item.dropoff_type || "-",
       "Dropoff Location": item.dropoff_location || "-",
-      "Dropoff Emirate": item.dropoff_emirate || "-",
+      "Dropoff City": item.dropoff_city || "-",
       "Dropoff Date": item.dropoff_date || "-",
       "Dropoff Address": item.dropoff_address || "-",
       "Payfort ID": item.payfort_id || "-",
-      "Car Rate": item.car_rate ? `AED ${Number(item.car_rate).toFixed(2)}` : "AED 0.00",
-      "Inter Emirate Charges": (item.inter_emirates_charges || item.inter_emirate_charges) ? `AED ${Number(item.inter_emirates_charges || item.inter_emirate_charges).toFixed(2)}` : "AED 0.00",
-      "Parking Charges": item.parking_charges ? `AED ${Number(item.parking_charges).toFixed(2)}` : "AED 0.00",
-      "VMD Charges": item.vmd_charges ? `AED ${Number(item.vmd_charges).toFixed(2)}` : "AED 0.00",
-      "Delivery Charges": item.delivery_charges ? `AED ${Number(item.delivery_charges).toFixed(2)}` : "AED 0.00",
-      "Collection Charges": item.collection_charges ? `AED ${Number(item.collection_charges).toFixed(2)}` : "AED 0.00",
+      "Car Rate": item.car_rate ? `MAD ${Number(item.car_rate).toFixed(2)}` : "MAD 0.00",
+      "Inter City Charges": (item.inter_cities_charges || item.inter_city_charges) ? `MAD ${Number(item.inter_cities_charges || item.inter_city_charges).toFixed(2)}` : "MAD 0.00",
+      "Parking Charges": item.parking_charges ? `MAD ${Number(item.parking_charges).toFixed(2)}` : "MAD 0.00",
+      "VMD Charges": item.vmd_charges ? `MAD ${Number(item.vmd_charges).toFixed(2)}` : "MAD 0.00",
+      "Delivery Charges": item.delivery_charges ? `MAD ${Number(item.delivery_charges).toFixed(2)}` : "MAD 0.00",
+      "Collection Charges": item.collection_charges ? `MAD ${Number(item.collection_charges).toFixed(2)}` : "MAD 0.00",
       "Coupon Code": item.coupon_code || "-",
-      "VAT Amount": item.vat_amount ? `AED ${Number(item.vat_amount).toFixed(2)}` : "AED 0.00",
-      "Total Amount": item.total_amount ? `AED ${Number(item.total_amount).toFixed(2)}` : "AED 0.00",
+      "VAT Amount": item.vat_amount ? `MAD ${Number(item.vat_amount).toFixed(2)}` : "MAD 0.00",
+      "Total Amount": item.total_amount ? `MAD ${Number(item.total_amount).toFixed(2)}` : "MAD 0.00",
     }));
 
     // Create worksheet from data
@@ -730,17 +730,17 @@ const Bookings = () => {
       { wch: 20 }, // Car
       { wch: 12 }, // Pickup Type
       { wch: 35 }, // Pickup Location
-      { wch: 15 }, // Pickup Emirate
+      { wch: 15 }, // Pickup City
       { wch: 20 }, // Pickup Date
       { wch: 30 }, // Pickup Address
       { wch: 12 }, // Dropoff Type
       { wch: 35 }, // Dropoff Location
-      { wch: 15 }, // Dropoff Emirate
+      { wch: 15 }, // Dropoff City
       { wch: 20 }, // Dropoff Date
       { wch: 30 }, // Dropoff Address
       { wch: 20 }, // Payfort ID
       { wch: 12 }, // Car Rate
-      { wch: 20 }, // Inter Emirate Charges
+      { wch: 20 }, // Inter City Charges
       { wch: 15 }, // Parking Charges
       { wch: 12 }, // VMD Charges
       { wch: 15 }, // Delivery Charges
@@ -761,8 +761,8 @@ const Bookings = () => {
 
   useEffect(() => {
     fetchData({
-      url: `${configWeb.GET_EMIRATES}?page_size=9999`,
-      setter: setEmiratesArray,
+      url: `${configWeb.GET_CITIES}?page_size=9999`,
+      setter: setCitiesArray,
     });
     fetchData({
       url: configWeb.GET_LOCATIONS,
@@ -770,17 +770,17 @@ const Bookings = () => {
     });
   }, []);
   useEffect(() => {
-    if (locationArray && paramsData.emirate_id) {
+    if (locationArray && paramsData.city_id) {
       const filteredLocations = filterArrayByProperty(
         locationArray,
-        paramsData.emirate_id,
-        "emirate_id"
+        paramsData.city_id,
+        "city_id"
       );
       setFilteredLocationArray(filteredLocations);
     } else {
       setFilteredLocationArray([]);
     }
-  }, [paramsData.emirate_id, locationArray]);
+  }, [paramsData.city_id, locationArray]);
 
   return (
     <Container fluid className="bookings-container">
@@ -1182,26 +1182,26 @@ const Bookings = () => {
         </Col>
         <Col xs={12} md={6} lg={4} xl={3} className="mb-3">
             <Form.Group className="mb-3">
-              <Form.Label>Emirate</Form.Label>
+              <Form.Label>City</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                name="emirate_id"
-                value={paramsData.emirate_id}
+                name="city_id"
+                value={paramsData.city_id}
                 onChange={handleParamChange}
               >
                 <option value="">Select</option>
-                {emiratesArray?.length > 0 &&
-                  emiratesArray?.map((item) => (
+                {citiesArray?.length > 0 &&
+                  citiesArray?.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name_en}{" "}
                     </option>
                   ))}
               </Form.Select>
-              {paramsData.emirate_id && (
+              {paramsData.city_id && (
                 <div className="clear-btn">
                   <Button
                     variant="outline-secondary mt-1 "
-                    onClick={() => clearDate("emirate_id")}
+                    onClick={() => clearDate("city_id")}
                     size="sm"
                   >
                     Clear
@@ -1222,10 +1222,10 @@ const Bookings = () => {
                 value={paramsData.location_id}
                 onChange={handleParamChange}
               >
-                <option value="" disabled={!paramsData.emirate_id}>
-                  {paramsData.emirate_id
+                <option value="" disabled={!paramsData.city_id}>
+                  {paramsData.city_id
                     ? "Select location"
-                    : "Select Emirate First"}
+                    : "Select City First"}
                 </option>
                 {filteredlocationArray?.length > 0 &&
                   filteredlocationArray?.map((item) => (
@@ -1332,17 +1332,17 @@ const Bookings = () => {
                 <th scope="col">Car</th>
                 <th scope="col">Pickup</th>
                 <th scope="col">Pickup Location</th>
-                <th scope="col">Pickup Emirate</th>
+                <th scope="col">Pickup City</th>
                 <th scope="col">Pickup Date Time</th>
                 <th scope="col">Pickup Address</th>
                 <th scope="col">Dropoff</th>
                 <th scope="col">Dropoff Location</th>
-                <th scope="col">Dropoff Emirate</th>
+                <th scope="col">Dropoff City</th>
                 <th scope="col">Dropoff Date Time</th>
                 <th scope="col">Dropoff Address</th>
                 <th scope="col">Payfort ID</th>
                 <th scope="col">Car Rate</th>
-                <th scope="col">Inter Emirate Charges</th>
+                <th scope="col">Inter City Charges</th>
                 <th scope="col">Parking Charges</th>
                 <th scope="col">VMD Charges</th>
                 <th scope="col">Delivery Charges</th>
@@ -1386,19 +1386,19 @@ const Bookings = () => {
 
                     <td>{item.pickup_type}</td>
                     <td>{item.pickup_location}</td>
-                    <td>{item.pickup_emirate}</td>
+                    <td>{item.pickup_city}</td>
                     <td>{item.pickup_date}</td>
                     <td>{item.pickup_address}</td>
 
                     <td>{item.dropoff_type}</td>
                     <td>{item.dropoff_location}</td>
-                    <td>{item.dropoff_emirate}</td>
+                    <td>{item.dropoff_city}</td>
                     <td>{item.dropoff_date}</td>
                     <td>{item.dropoff_address}</td>
 
                     <td>{item.payfort_id}</td>
                     <td>{item.car_rate}</td>
-                    <td>{item.inter_emirate_charges}</td>
+                    <td>{item.inter_city_charges}</td>
                     <td>{item.parking_charges}</td>
                     <td>{item.vmd_charges}</td>
                     <td>{item.delivery_charges}</td>

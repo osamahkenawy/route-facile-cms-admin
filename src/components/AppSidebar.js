@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import "../views/dashboard/accountsDashboard.css";
 
 import {
   CCloseButton,
@@ -15,12 +16,8 @@ import navigation from "../_nav";
 import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
-// Import the small logo for collapsed sidebar
-import logoSmall from "../assets/images/trasealla_t_mark.png";
-import logoNewTrasealla from "../assets/images/arc_white_logo.png";
-
-// Import accounts sidebar styles
-import "../views/dashboard/accountsDashboard.css";
+// RouteFacile sidebar logo: white lockup from public/ (expanded); collapsed mark is inline SVG below
+const logoRouteFacileWhite = `${process.env.PUBLIC_URL}/logo-white.png`;
 
 const AppSidebar = () => {
   const dispatch = useDispatch();
@@ -85,18 +82,24 @@ const AppSidebar = () => {
           {/* Full logo - shown when sidebar is expanded */}
           <Link to="/" className="sidebar-brand-full" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             <img
-              src={logoNewTrasealla}
+              src={logoRouteFacileWhite}
               alt="logo"
               style={{ width: '200px', objectFit: 'contain' }}
             />
           </Link>
-          {/* Small logo - shown when sidebar is collapsed */}
-          <img
-            src={logoSmall}
-            alt="logo"
-            height={28}
-            className="p-1 rounded-2 sidebar-brand-narrow"
-          />
+          {/* Small mark - shown when sidebar is collapsed (inline white RF monogram) */}
+          <svg
+            className="sidebar-brand-narrow"
+            width={34}
+            height={30}
+            viewBox="0 0 60 44"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="RF"
+          >
+            <text x="-1" y="34" fontFamily="Poppins, Arial, sans-serif" fontWeight="800" fontSize="40" fill="#f2421b">R</text>
+            <text x="28" y="34" fontFamily="Poppins, Arial, sans-serif" fontWeight="800" fontSize="40" fill="#FFFFFF">F</text>
+            <path d="M2 40 q14 -7 30 -2" stroke="#f2421b" strokeWidth="3" fill="none" strokeLinecap="round" />
+          </svg>
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"

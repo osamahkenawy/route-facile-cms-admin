@@ -20,13 +20,13 @@ import daily_range_bms_template from "../../../assets/Files/daily_range_bms_temp
 import useFilterById from "../CustomHooks/useFilterById";
 
 const UploadRangePricing = () => {
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [locationArray, setLocationArray] = useState([]);
-  const handleEmirateChange = (selectedOptions) => {
-    setEmirateError(
+  const handleCityChange = (selectedOptions) => {
+    setCityError(
       !selectedOptions /*  || selectedOptions?.value?.length === 0 */
     );
-    setEmirate(selectedOptions);
+    setCity(selectedOptions);
   };
   const handleLocationChange = (selectedOptions) => {
     
@@ -37,16 +37,16 @@ const UploadRangePricing = () => {
   };
   const [formData, setFormData] = useState({
     year: "",
-    emirate: [],
+    city: [],
     excel_file: "",
-    emiratesRate: false,
+    citiesRate: false,
     start_date: "",
     end_date: "",
   });
-  const [emirate, setEmirate] = useState([]);
+  const [city, setCity] = useState([]);
   const [location, setLocation] = useState([]);
 
-  const [emirateError, setEmirateError] = useState(false);
+  const [cityError, setCityError] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [dateError, setDateError] = useState("");
 
@@ -61,11 +61,11 @@ const UploadRangePricing = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target || {};
 
-    if (name === "emiratesRate") {
+    if (name === "citiesRate") {
      
       setFormData((prevData) => ({
         ...prevData,
-        emiratesRate: !prevData.emiratesRate,
+        citiesRate: !prevData.citiesRate,
       }));
       setLocation([]);
       setLocationError(false); // Clear location error when toggling delivery rates
@@ -130,7 +130,7 @@ const UploadRangePricing = () => {
     e.preventDefault();
     const form = e.currentTarget;
     let valid = true;
-    let locationValidation = formData?.emiratesRate
+    let locationValidation = formData?.citiesRate
       ? true
       : location.length > 0
       ? true
@@ -143,17 +143,17 @@ const UploadRangePricing = () => {
     if (
       form.checkValidity() === false ||
       !valid ||
-      emirate.length === 0 ||
+      city.length === 0 ||
       !locationValidation ||
       dateValidationError
     ) {
       e.stopPropagation();
       setValidated(true);
-      setEmirateError(emirate.length === 0);
+      setCityError(city.length === 0);
       setLocationError(location.length === 0);
     } else {
       // Handle form submission
-      setEmirateError(false);
+      setCityError(false);
       setLocationError(false);
       setDateError("");
       handleFormSubmit();
@@ -161,11 +161,11 @@ const UploadRangePricing = () => {
     }
   };
 
-  const emiratesData = () => {
-    const url = `${configWeb.GET_EMIRATES}?page_size=9999`;
+  const citiesData = () => {
+    const url = `${configWeb.GET_CITIES}?page_size=9999`;
     simpleGetCallAuth(url)
       .then((res) => {
-        setEmiratesArray(res?.data || []);
+        setCitiesArray(res?.data || []);
       })
       .catch((errr) => {
         console.log("errr", errr);
@@ -190,13 +190,13 @@ const UploadRangePricing = () => {
       });
   };
   useEffect(() => {
-    emiratesData();
+    citiesData();
     locationData();
   }, []);
-  const [mappedEmiratesArray, setMappedEmiratesArray] = useState([]);
+  const [mappedCitiesArray, setMappedCitiesArray] = useState([]);
   const [mappedLocationArray, setMappedLocationArray] = useState([]);
 
-  const selectedIds = useMemo(() => emirate?.map((loc) => loc.value), [emirate]);
+  const selectedIds = useMemo(() => city?.map((loc) => loc.value), [city]);
 
 
   const filteredLocationArray = useFilterById(locationArray, selectedIds);
@@ -222,14 +222,14 @@ const UploadRangePricing = () => {
     }
   }, [filteredLocationArray]);
   useEffect(() => {
-    if (emiratesArray?.length > 0) {
-      const emiratesArrayTemp = emiratesArray?.map((emirate) => ({
-        value: emirate.id,
-        label: emirate.name_en,
+    if (citiesArray?.length > 0) {
+      const citiesArrayTemp = citiesArray?.map((city) => ({
+        value: city.id,
+        label: city.name_en,
       }));
-      setMappedEmiratesArray(emiratesArrayTemp);
+      setMappedCitiesArray(citiesArrayTemp);
     }
-  }, [emiratesArray]);
+  }, [citiesArray]);
 
   const handleFormSubmit = () => {
     return new Promise((resolve, reject) => {
@@ -237,11 +237,11 @@ const UploadRangePricing = () => {
 
       appendFormData.append("file", formData?.excel_file);
       appendFormData.append(
-        "emirate_ids",
-        emirate?.map((item) => item.value)
+        "city_ids",
+        city?.map((item) => item.value)
       );
 
-      !formData.emiratesRate &&
+      !formData.citiesRate &&
         appendFormData.append(
           "location_ids",
           location?.map((item) => item.value)
@@ -265,13 +265,13 @@ const UploadRangePricing = () => {
             resolve(true);
             setFormData({
               year: "",
-              emirate: [],
+              city: [],
               excel_file: "",
-              emiratesRate: false,
+              citiesRate: false,
               start_date: "",
               end_date: "",
             });
-            setEmirate([]);
+            setCity([]);
             setLocation([]);
             setDateError("");
             // Clear the file input after successful form submission
@@ -313,24 +313,24 @@ const UploadRangePricing = () => {
       >
         <Row className="mb-3">
           <Col sm={12} md={12} lg={6}>
-          <Form.Group controlId="emirate">
-              <Form.Label>Emirate</Form.Label>
+          <Form.Group controlId="city">
+              <Form.Label>City</Form.Label>
              
               <Select
-                value={emirate}
+                value={city}
                 isMulti
-                name="emirate"
-                options={mappedEmiratesArray}
+                name="city"
+                options={mappedCitiesArray}
                 isSearchable
                 className="basic-multi-select"
                 // classNamePrefix="select"
                 required
                
-                onChange={handleEmirateChange}
+                onChange={handleCityChange}
               />
-              {emirateError && (
+              {cityError && (
                 <div className="custom_error">
-                  Please select at least one emirate.
+                  Please select at least one city.
                 </div>
               )}
             </Form.Group>
@@ -339,12 +339,12 @@ const UploadRangePricing = () => {
       
         <Row className="mb-3">
           <Col sm={12} md={12} lg={6}>
-            <Form.Group controlId="emiratesRate">
+            <Form.Group controlId="citiesRate">
               <Form.Check
                 type="checkbox"
-                name="emiratesRate"
+                name="citiesRate"
                 label="Delivery Rates"
-                checked={formData.emiratesRate}
+                checked={formData.citiesRate}
                 onChange={handleChange}
                 isValid={false}
              
@@ -362,23 +362,23 @@ const UploadRangePricing = () => {
                 value={location}
                 isMulti
                 name="location"
-                options={mappedLocationArray?.length > 0 ? mappedLocationArray   : [{ value: "", label: "Please select emirate first", isDisabled: true }]}
+                options={mappedLocationArray?.length > 0 ? mappedLocationArray   : [{ value: "", label: "Please select city first", isDisabled: true }]}
                 // options={filteredLocationArray}
                 isSearchable
                 className="basic-multi-select"
                 // classNamePrefix="select"
-                placeholder={mappedLocationArray?.length > 0 ? "Select locations (includes virtual locations)" : "Please select emirate first"}
-                required={!formData.emiratesRate}
-                isDisabled={formData.emiratesRate}
+                placeholder={mappedLocationArray?.length > 0 ? "Select locations (includes virtual locations)" : "Please select city first"}
+                required={!formData.citiesRate}
+                isDisabled={formData.citiesRate}
                             
                 onChange={handleLocationChange}
               />
-              {locationError && !formData.emiratesRate && (
+              {locationError && !formData.citiesRate && (
                 <div className="custom_error">
                   Please select at least one location.
                 </div>
               )}
-              {!formData.emiratesRate && mappedLocationArray?.length > 0 && (
+              {!formData.citiesRate && mappedLocationArray?.length > 0 && (
                 <Form.Text className="text-muted">
                   Virtual locations are marked with (Virtual) suffix
                 </Form.Text>

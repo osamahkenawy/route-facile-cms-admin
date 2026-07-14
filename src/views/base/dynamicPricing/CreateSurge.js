@@ -37,7 +37,7 @@ const CreateSurge = () => {
       all: false,
       ids: [],
     },
-    emirate_ids: {
+    city_ids: {
       all: false,
       ids: [],
     },
@@ -52,14 +52,14 @@ const CreateSurge = () => {
   });
   const [carGroupArray, setCarGroupArray] = useState([]);
   const [locationArray, setLocationArray] = useState([]);
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [carArray, setCarArray] = useState([]);
   const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [errors, setErrors] = useState({
     car_ids: false,
-    emirate_ids: false,
+    city_ids: false,
     group_ids: false,
     location_ids: false,
   });
@@ -92,7 +92,7 @@ const CreateSurge = () => {
               driver: data.driver ,
               status: data.status || prevData.status,
               car_ids: data.car_ids || prevData.car_ids,
-              emirate_ids: data.emirate_ids || prevData.emirate_ids,
+              city_ids: data.city_ids || prevData.city_ids,
               group_ids: data.group_ids || prevData.group_ids,
               location_ids: data.location_ids || prevData.location_ids,
             }));
@@ -162,8 +162,8 @@ if(id){
   const validateForm = () => {
     const newErrors = {
       car_ids: !formData.car_ids.all && formData.car_ids.ids.length === 0,
-      emirate_ids:
-        !formData.emirate_ids.all && formData.emirate_ids.ids.length === 0,
+      city_ids:
+        !formData.city_ids.all && formData.city_ids.ids.length === 0,
       group_ids: !formData.group_ids.all && formData.group_ids.ids.length === 0,
       location_ids:
         !formData.location_ids.all && formData.location_ids.ids.length === 0,
@@ -215,12 +215,12 @@ if(id){
         // set_loading(false);
       });
   };
-  const emiratesData = () => {
-    const url = `${configWeb.GET_EMIRATES}?page_size=9999`;
+  const citiesData = () => {
+    const url = `${configWeb.GET_CITIES}?page_size=9999`;
 
     simpleGetCallAuth(url)
       .then((res) => {
-        setEmiratesArray(res?.data || []);
+        setCitiesArray(res?.data || []);
       })
       .catch((errr) => {
         console.log("errr", errr);
@@ -243,35 +243,35 @@ if(id){
       });
   };
   useEffect(() => {
-    emiratesData();
+    citiesData();
     carGroupData();
     carData();
     locationData();
   }, []);
-  const [mappedEmiratesArray, setMappedEmiratesArray] = useState([]);
+  const [mappedCitiesArray, setMappedCitiesArray] = useState([]);
   useEffect(() => {
-    if (emiratesArray?.length > 0) {
-      const emiratesArrayTemp = emiratesArray?.map((emirate) => ({
-        value: emirate.id,
-        label: emirate.name_en,
+    if (citiesArray?.length > 0) {
+      const citiesArrayTemp = citiesArray?.map((city) => ({
+        value: city.id,
+        label: city.name_en,
       }));
-      setMappedEmiratesArray([
+      setMappedCitiesArray([
         { value: "all", label: "All" },
-        ...emiratesArrayTemp,
+        ...citiesArrayTemp,
       ]);
     }
-  }, [emiratesArray]);
+  }, [citiesArray]);
   const [mappedLocationArray, setMappedLocationArray] = useState([
     /* {value:"all", label:"All"} */
   ]);
 
-  // const emirate = useMemo(() => {
-  //   return formData.emirate_ids.all 
-  //     ? mappedEmiratesArray.filter(option => option.value !== "all") // Exclude "all"
-  //     : mappedEmiratesArray?.filter(option => formData.emirate_ids.ids.includes(option.value));
-  // }, [formData.emirate_ids, mappedEmiratesArray]);
+  // const city = useMemo(() => {
+  //   return formData.city_ids.all 
+  //     ? mappedCitiesArray.filter(option => option.value !== "all") // Exclude "all"
+  //     : mappedCitiesArray?.filter(option => formData.city_ids.ids.includes(option.value));
+  // }, [formData.city_ids, mappedCitiesArray]);
 
-  // const selectedIds = useMemo(() => emirate?.map((loc) => loc.value), [emirate]);
+  // const selectedIds = useMemo(() => city?.map((loc) => loc.value), [city]);
 
   //  const filteredLocationArray = useFilterByIds(locationArray, selectedIds);
 
@@ -327,7 +327,7 @@ if(id){
         baby_seat: formData.baby_seat,
         driver: formData.driver,
         car_ids: formData.car_ids,
-        emirate_ids: formData.emirate_ids,
+        city_ids: formData.city_ids,
         group_ids: formData.group_ids,
         location_ids: formData.location_ids,
         status: formData.status,
@@ -372,7 +372,7 @@ if(id){
                 all: false,
                 ids: [],
               },
-              emirate_ids: {
+              city_ids: {
                 all: false,
                 ids: [],
               },
@@ -385,7 +385,7 @@ if(id){
                 ids: [],
               },
             });
-            // setEmirate([]);
+            // setCity([]);
             // setLocation([]);
             // // Clear the file input after successful form submission
             if(id){
@@ -647,7 +647,7 @@ if(id){
           </Col>
           {/* </Row> */}
 
-          {/* Separate Multi-Select Dropdowns for car_ids, emirate_ids, group_ids, location_ids */}
+          {/* Separate Multi-Select Dropdowns for car_ids, city_ids, group_ids, location_ids */}
           {/* <Row className="mb-3"> */}
           <Col className="mb-3" xs={12} md={6} lg={4}>
             <Form.Group controlId="car_ids">
@@ -677,27 +677,27 @@ if(id){
           </Col>
 
           <Col className="mb-3" xs={12} md={6} lg={4}>
-            <Form.Group controlId="emirate_ids">
-              <Form.Label>Emirate</Form.Label>
+            <Form.Group controlId="city_ids">
+              <Form.Label>City</Form.Label>
               <Select
                 isMulti
-                name="emirate_ids"
-                value={mappedEmiratesArray?.filter((option) =>
-                  formData.emirate_ids.all
+                name="city_ids"
+                value={mappedCitiesArray?.filter((option) =>
+                  formData.city_ids.all
                     ? option.value === "all"
-                    : formData.emirate_ids.ids.includes(option.value)
+                    : formData.city_ids.ids.includes(option.value)
                 )}
-                options={mappedEmiratesArray}
+                options={mappedCitiesArray}
                 onChange={(selectedOptions) =>
-                  handleMultiSelectChange(selectedOptions, "emirate_ids")
+                  handleMultiSelectChange(selectedOptions, "city_ids")
                 }
                 // className="basic-multi-select"
-                className={`basic-multi-select ${errors.emirate_ids ? "is-invalid" : ""}`}
+                className={`basic-multi-select ${errors.city_ids ? "is-invalid" : ""}`}
                 classNamePrefix="select"
               />
-              {errors.emirate_ids && (
+              {errors.city_ids && (
                 <div className="invalid-feedback custom_error---">
-                  Please select at least one emirate or choose "All".
+                  Please select at least one city or choose "All".
                 </div>
               )}
             </Form.Group>

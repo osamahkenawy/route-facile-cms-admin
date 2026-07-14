@@ -481,3 +481,77 @@
    Navy Header Bar for Accounts Role
    ============================================= */
 /* Header reverted to default light theme for all roles */
+
+/* ============================================================
+   RouteFacile dashboard theme (navy + orange) — 2026-07 enhancement
+   Layered over the base rules above; brand colors + extra polish.
+   ============================================================ */
+.accounts-dashboard {
+  background:
+    radial-gradient(1200px 400px at 80% -10%, #eef2f7 0%, transparent 60%),
+    linear-gradient(135deg, #f4f7fb 0%, #e9eef5 100%);
+}
+
+/* ---- Header: navy gradient + orange accent ---- */
+.acc-dash-header {
+  background: linear-gradient(120deg, #0D1B2A 0%, #14273e 55%, #1c3c5e 100%);
+  border-bottom: 3px solid #FF8A00;
+  box-shadow: 0 10px 30px rgba(13, 27, 42, 0.25);
+}
+.acc-dash-header::before { background: radial-gradient(circle, rgba(255, 138, 0, 0.28) 0%, transparent 68%); }
+.acc-dash-header::after  { background: radial-gradient(circle, rgba(37, 99, 235, 0.16) 0%, transparent 70%); }
+.acc-header-icon-wrap {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.92), rgba(255, 138, 0, 0.55));
+  box-shadow: 0 8px 20px rgba(255, 138, 0, 0.35);
+  backdrop-filter: none;
+}
+.acc-dash-title { font-size: 1.6rem; font-weight: 800; }
+.acc-refresh-btn:hover { background: #FF8A00 !important; border-color: #FF8A00 !important; }
+
+/* ---- KPI cards: gloss + brand palette + colored glow ---- */
+.acc-kpi-card { border-radius: 18px !important; }
+.acc-kpi-card::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 46%);
+}
+.acc-kpi-card::after {
+  width: 150px; height: 150px; opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.10) !important; transform: translate(30px, -30px);
+}
+.acc-kpi-bookings   { background: linear-gradient(135deg, #0D1B2A, #1e3a5f); box-shadow: 0 14px 30px rgba(13, 27, 42, 0.32); }
+.acc-kpi-revenue    { background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 14px 30px rgba(5, 150, 105, 0.30); }
+.acc-kpi-incomplete { background: linear-gradient(135deg, #f59e0b, #FF8A00); box-shadow: 0 14px 30px rgba(255, 138, 0, 0.32); }
+.acc-kpi-refunds    { background: linear-gradient(135deg, #dc2626, #ef4444); box-shadow: 0 14px 30px rgba(220, 38, 38, 0.30); }
+.acc-kpi-card:hover { transform: translateY(-5px); }
+.acc-kpi-card:hover.acc-kpi-bookings   { box-shadow: 0 22px 46px rgba(13, 27, 42, 0.42); }
+.acc-kpi-card:hover.acc-kpi-revenue    { box-shadow: 0 22px 46px rgba(5, 150, 105, 0.40); }
+.acc-kpi-card:hover.acc-kpi-incomplete { box-shadow: 0 22px 46px rgba(255, 138, 0, 0.42); }
+.acc-kpi-card:hover.acc-kpi-refunds    { box-shadow: 0 22px 46px rgba(220, 38, 38, 0.40); }
+.acc-kpi-icon { width: 58px; height: 58px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25); }
+.acc-kpi-value { font-size: 2rem; }
+
+/* ---- Mini cards: brand left-accent (via icon soft class) ---- */
+.acc-mini-card { border-radius: 16px !important; position: relative; overflow: hidden; }
+.acc-mini-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #cbd5e1; }
+.acc-mini-card:has(.bg-success-soft)::before { background: #10b981; }
+.acc-mini-card:has(.bg-warning-soft)::before { background: #FF8A00; }
+.acc-mini-card:has(.bg-primary-soft)::before { background: #0D1B2A; }
+.acc-mini-card:has(.bg-danger-soft)::before  { background: #ef4444; }
+.acc-mini-card .bg-warning-soft { background: rgba(255, 138, 0, 0.12); color: #FF8A00; }
+.acc-mini-card .bg-primary-soft { background: rgba(13, 27, 42, 0.10); color: #0D1B2A; }
+.acc-mini-value { font-weight: 800; color: #1f2d3d; }
+
+/* ---- Chart title: orange accent bar ---- */
+.acc-chart-title { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; }
+.acc-chart-title::before { content: ''; width: 5px; height: 20px; border-radius: 3px; background: #FF8A00; display: inline-block; }
+
+/* ---- Sidebar active state -> brand orange ---- */
+.accounts-sidebar.sidebar {
+  --cui-sidebar-nav-link-active-bg: #FF8A00 !important;
+  --cui-tertiary-bg: #FF8A00 !important;
+}
+.accounts-sidebar .sidebar-nav .nav-link.active { background: #FF8A00 !important; border-left-color: #FF8A00 !important; }
+.accounts-sidebar .sidebar-nav .nav-group-items .nav-link.active { background: rgba(255, 138, 0, 0.16) !important; }
+.accounts-sidebar .sidebar-nav .nav-group-items .nav-link.active::before { background-color: #FF8A00 !important; }
+.accounts-sidebar .sidebar-nav .nav-group.show > .nav-group-toggle .nav-icon { color: #FF8A00 !important; }

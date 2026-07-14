@@ -33,7 +33,7 @@ const initialForm = {
   note: "",
   usage_limit: 1,
   car_ids: { ...blankScope },
-  emirate_ids: { ...blankScope },
+  city_ids: { ...blankScope },
   group_ids: { ...blankScope },
   location_ids: { ...blankScope },
 };
@@ -84,14 +84,14 @@ const OneTimeCouponBulk = () => {
   const [csvDownloaded, setCsvDownloaded] = useState(false);
 
   // lookups
-  const [emiratesArray, setEmiratesArray] = useState([]);
+  const [citiesArray, setCitiesArray] = useState([]);
   const [carArray, setCarArray] = useState([]);
   const [carGroupArray, setCarGroupArray] = useState([]);
   const [locationArray, setLocationArray] = useState([]);
 
   useEffect(() => {
-    simpleGetCallAuth(`${configWeb.GET_EMIRATES}?page_size=9999`)
-      .then((r) => setEmiratesArray(r?.data || []))
+    simpleGetCallAuth(`${configWeb.GET_CITIES}?page_size=9999`)
+      .then((r) => setCitiesArray(r?.data || []))
       .catch(() => {});
     simpleGetCallAuth(`${configWeb.GET_CAR}?page_size=9999`)
       .then((r) => setCarArray(r?.data || []))
@@ -108,22 +108,22 @@ const OneTimeCouponBulk = () => {
     { value: "all", label: "All" },
     ...(arr || []).map((x) => ({ value: x.id, label: x[labelKey] })),
   ];
-  const emirateOpts = useMemo(() => opts(emiratesArray), [emiratesArray]);
+  const cityOpts = useMemo(() => opts(citiesArray), [citiesArray]);
   const carOpts = useMemo(() => opts(carArray), [carArray]);
   const groupOpts = useMemo(() => opts(carGroupArray), [carGroupArray]);
   const filteredLocations = useMemo(() => {
     if (!locationArray?.length) return [];
-    if (formData.emirate_ids.all) return locationArray;
-    if (formData.emirate_ids.ids?.length) {
+    if (formData.city_ids.all) return locationArray;
+    if (formData.city_ids.ids?.length) {
       return locationArray.filter((l) =>
-        formData.emirate_ids.ids.includes(l.emirate_id)
+        formData.city_ids.ids.includes(l.city_id)
       );
     }
     return locationArray;
-  }, [locationArray, formData.emirate_ids.all, formData.emirate_ids.ids]);
+  }, [locationArray, formData.city_ids.all, formData.city_ids.ids]);
   const locationOpts = useMemo(() => opts(filteredLocations), [filteredLocations]);
 
-  // Reconcile location_ids when the emirate scope narrows.
+  // Reconcile location_ids when the city scope narrows.
   useEffect(() => {
     if (!locationArray.length) return;
     if (formData.location_ids.all) return;
@@ -239,7 +239,7 @@ const OneTimeCouponBulk = () => {
       if (parsedCodes.length > 5000) e.codes = "Maximum 5000 codes per batch";
     }
 
-    ["car_ids", "emirate_ids", "group_ids", "location_ids"].forEach((k) => {
+    ["car_ids", "city_ids", "group_ids", "location_ids"].forEach((k) => {
       if (!formData[k].all && (formData[k].ids?.length ?? 0) === 0) e[k] = true;
     });
     setErrors(e);
@@ -267,7 +267,7 @@ const OneTimeCouponBulk = () => {
       note: formData.note || "",
       usage_limit: Number(formData.usage_limit),
       car_ids: formData.car_ids,
-      emirate_ids: formData.emirate_ids,
+      city_ids: formData.city_ids,
       group_ids: formData.group_ids,
       location_ids: formData.location_ids,
     };
@@ -796,13 +796,13 @@ const OneTimeCouponBulk = () => {
             <div className="otc-card-body">
               <div className="otc-form-grid">
                 <div className="otc-field span-6">
-                  <label className="otc-label">Emirates</label>
+                  <label className="otc-label">Cities</label>
                   <Select
                     isMulti
-                    options={emirateOpts}
-                    value={valueFor("emirate_ids", emirateOpts)}
-                    onChange={(s, m) => handleScope(s, "emirate_ids", m)}
-                    placeholder={`Pick from ${emiratesArray.length} emirate(s)…`}
+                    options={cityOpts}
+                    value={valueFor("city_ids", cityOpts)}
+                    onChange={(s, m) => handleScope(s, "city_ids", m)}
+                    placeholder={`Pick from ${citiesArray.length} city(s)…`}
                     classNamePrefix="select" menuPortalTarget={typeof document !== "undefined" ? document.body : null} menuPosition="fixed" styles={{ menuPortal: (b) => ({ ...b, zIndex: 9999 }) }}
                   />
                 </div>

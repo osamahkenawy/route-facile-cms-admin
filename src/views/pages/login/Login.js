@@ -139,16 +139,16 @@ const Login = () => {
               <div className="login-form-container">
                 {/* Logo */}
                 <div className="login-logo">
-                  <img src={logo} alt="Trasealla" height="60" />
+                  <img src={logo} alt="Route Facile" height="60" />
                 </div>
 
                 {/* Welcome Text */}
                 <div className="login-header">
                   <h4>
-                    Welcome to <span className="fw-bold">Trasealla</span>
+                    Welcome to <span className="fw-bold">Route Facile</span>
                   </h4>
                   <p className="text-muted">
-                    Sign in to continue to Trasealla Admin.
+                    Sign in to continue to Route Facile Admin.
                   </p>
                 </div>
 

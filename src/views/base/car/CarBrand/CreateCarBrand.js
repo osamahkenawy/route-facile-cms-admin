@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Container, Spinner } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import "./CreateCarBrand.css";
 import configWeb from "../../../../components/config.js/ConfigWeb";
 import { multipartPostCall, multipartPutWithAuthCall, simpleGetCallAuth } from "../../../../components/config.js/Setup";
 import { notifyError, notifySuccess } from "../../../../components/notify/notify";
@@ -146,26 +147,25 @@ if(id){
   
 
   return (
-    <Container className="container">
-    <div className="post_header">
-      <Row>
-        <Col
-          lg="12"
-          className="mt-4 d-flex justify-content-end align-items-center"
-        >
-          <Link to="/car/brand">
-            <Button className="btn-def">Brand List</Button>
-          </Link>
-        </Col>
-      </Row>
-    </div>
+    <Container className="rf-form-page">
+      <div className="rf-page-header">
+        <div className="rf-page-heading">
+          <h3 className="rf-page-title">
+            <span className="rf-title-bar" /> {id ? "Edit" : "Add"} Car Brand
+          </h3>
+          <p className="rf-page-sub">Fill in the brand details below</p>
+        </div>
+        <Link to="/car/brand">
+          <Button className="rf-outline-btn">&#8592;&nbsp; Brand List</Button>
+        </Link>
+      </div>
     {editLoading ? (
       <div className="text-center">
         {" "}
         <Spinner />{" "}
       </div>
     ) : (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="rf-form-card">
       <Row>
         <Col sm={12} md={6} lg={4} xl={3} className="mb-3">
           <Form.Group>
@@ -241,7 +241,9 @@ if(id){
       </Row>
     
 
-      <Button type="submit"  disabled={loading} className="my-4 px-4 py-2 "> {loading ? <Spinner/> : "Submit"}</Button>
+      <div className="rf-form-actions">
+        <Button type="submit" disabled={loading} className="rf-submit-btn"> {loading ? <Spinner size="sm" /> : "Submit"}</Button>
+      </div>
     </Form>
     )}
    </Container>

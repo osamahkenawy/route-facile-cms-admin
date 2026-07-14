@@ -9,25 +9,25 @@ import { notifyError, notifySuccess } from "../../../components/notify/notify";
 import Pricing_Master_sample from "../../../assets/Files/Pricing_Master_sample.xlsx"
 
 const Uploaddailypricing = () => {
-  const [emiratesArray, setEmiratesArray] = useState([]);
-     const handleEmirateChange =(selectedOptions)=>{
-      setEmirateError(!selectedOptions/*  || selectedOptions?.value?.length === 0 */);
-      setEmirate(selectedOptions);
+  const [citiesArray, setCitiesArray] = useState([]);
+     const handleCityChange =(selectedOptions)=>{
+      setCityError(!selectedOptions/*  || selectedOptions?.value?.length === 0 */);
+      setCity(selectedOptions);
 
      }
   const [formData, setFormData] = useState({
     year: "",
-    emirate: [],
+    city: [],
     excel_file: "",
   
   });
-  const [emirate, setEmirate] = useState([]);
+  const [city, setCity] = useState([]);
 
   const [previews, setPreviews] = useState({
     mainImage: "",
     thumbnailImage: "",
   });
-  const [emirateError, setEmirateError] = useState(false);
+  const [cityError, setCityError] = useState(false);
  
 const [loading,  setLoading]= useState(false);
   const [validated, setValidated] = useState(false);
@@ -96,13 +96,13 @@ const [loading,  setLoading]= useState(false);
    
   
 
-    if (form.checkValidity() === false || !valid || emirate.length === 0) {
+    if (form.checkValidity() === false || !valid || city.length === 0) {
       e.stopPropagation();
       setValidated(true);
-      setEmirateError(emirate.length === 0); // Show error if emirate is empty
+      setCityError(city.length === 0); // Show error if city is empty
     } else {
       // Handle form submission
-      setEmirateError(false);
+      setCityError(false);
       handleFormSubmit()
       setValidated(false);
        
@@ -111,11 +111,11 @@ const [loading,  setLoading]= useState(false);
   };
 
 
-  const emiratesData = () => {
-    const url = configWeb.GET_EMIRATES;
+  const citiesData = () => {
+    const url = configWeb.GET_CITIES;
     simpleGetCallAuth(url)
       .then((res) => {
-        setEmiratesArray(res?.data || []) ;
+        setCitiesArray(res?.data || []) ;
       })
       .catch((errr) => {
         console.log("errr", errr);
@@ -125,24 +125,24 @@ const [loading,  setLoading]= useState(false);
       });
   };
   useEffect(()=>{
-    emiratesData();
+    citiesData();
   },[])
-  const [mappedEmiratesArray, setMappedEmiratesArray]= useState([]);
+  const [mappedCitiesArray, setMappedCitiesArray]= useState([]);
   useEffect(()=>{
-if(emiratesArray?.length > 0){
-const emiratesArrayTemp = emiratesArray?.map((emirate)=>({
-  value : emirate.id, label: emirate.name_en
+if(citiesArray?.length > 0){
+const citiesArrayTemp = citiesArray?.map((city)=>({
+  value : city.id, label: city.name_en
 }));
-setMappedEmiratesArray(emiratesArrayTemp);
+setMappedCitiesArray(citiesArrayTemp);
 }
-  },[emiratesArray])
+  },[citiesArray])
    
   const handleFormSubmit = () => {
     return new Promise((resolve, reject) => {
       const appendFormData = new FormData();
       appendFormData.append("year", formData?.year);
       appendFormData.append("file", formData?.excel_file);
-      appendFormData.append("emirate_ids", emirate?.map((item)=>item.value));
+      appendFormData.append("city_ids", city?.map((item)=>item.value));
       const url = configWeb.POST_DAILY_PRICE;
       setLoading(true);
       multipartPostCall(url, appendFormData)
@@ -154,10 +154,10 @@ setMappedEmiratesArray(emiratesArrayTemp);
             resolve(true);
             setFormData({
              year: "" ,
-             emirate :[],
+             city :[],
              excel_file : ""
             });
-            setEmirate([]);
+            setCity([]);
              // Clear the file input after successful form submission
         setFormData((prevData) => ({ ...prevData, excel_file: "" }));
         if (fileInputRef.current) {
@@ -215,43 +215,43 @@ setMappedEmiratesArray(emiratesArrayTemp);
     </Row>
     <Row className="mb-3">
     <Col sm={12} md={12} lg={6}>
-        <Form.Group controlId="emirate">
-          <Form.Label>Emirate</Form.Label>
+        <Form.Group controlId="city">
+          <Form.Label>City</Form.Label>
           {/* <Form.Select
-          name="emirate"
-          value={formData.emirate} // Directly use the array here
+          name="city"
+          value={formData.city} // Directly use the array here
           onChange={handleChange}
           multiple // Enable multiple selection
           required
         >
-          <option value="">Select Emirate</option>
-          {emiratesArray?.map((emirate) => (
-            <option key={emirate.id} value={emirate.id}>
-              {emirate.name_en}
+          <option value="">Select City</option>
+          {citiesArray?.map((city) => (
+            <option key={city.id} value={city.id}>
+              {city.name_en}
             </option>
           ))}
         </Form.Select> */}
          <Select 
   
-  // value={mappedEmiratesArray.filter((option) => formData.emirate.includes(option.value))}
-  value={emirate}
+  // value={mappedCitiesArray.filter((option) => formData.city.includes(option.value))}
+  value={city}
   isMulti
-    name="emirate"
+    name="city"
     
-    options= {mappedEmiratesArray}
+    options= {mappedCitiesArray}
     isSearchable
     className="basic-multi-select"
     // classNamePrefix="select"
     required
     
-    // defaultValue="Select Emirate"
+    // defaultValue="Select City"
     // onChange={(selectedOptions) =>
-    //   handleChange({ target: { name: 'emirate', value: selectedOptions } })
+    //   handleChange({ target: { name: 'city', value: selectedOptions } })
     // }
-    onChange={handleEmirateChange}
+    onChange={handleCityChange}
   />
-            {emirateError && (
-              <div className="custom_error">Please select at least one emirate.</div>
+            {cityError && (
+              <div className="custom_error">Please select at least one city.</div>
             )}
         </Form.Group>
       </Col>

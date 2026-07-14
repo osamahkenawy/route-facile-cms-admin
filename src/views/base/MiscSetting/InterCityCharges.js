@@ -18,10 +18,10 @@ import {
 import { notifyError, notifySuccess } from "../../../components/notify/notify";
 import { fetchData } from "../CustomHooks/reusableFunctions";
 
-const InterEmirateCharges = () => {
+const InterCityCharges = () => {
   const [editLoading, setEditLoading] = useState(true);
 
-  const [pickupEmiratesArray, setPickupEmiratesArray] = useState(false);
+  const [pickupCitiesArray, setPickupCitiesArray] = useState(false);
   const [showdel, setShowdel] = useState(false);
   const handleShowDel = (id) => {
     setDeleteID(id);
@@ -34,7 +34,7 @@ const InterEmirateCharges = () => {
   });
 
   const [formRows_cdw, setFormRows_cdw] = useState([
-    { pickup_emirate_id: "", dropoff_emirate_id: "", charges: "", type: "cdw" },
+    { pickup_city_id: "", dropoff_city_id: "", charges: "", type: "cdw" },
   ]);
 
   // Handle form field change for a specific row
@@ -55,7 +55,7 @@ const InterEmirateCharges = () => {
       case "cdw":
         setFormRows_cdw([
           ...formRows_cdw,
-          { pickup_emirate_id: "", dropoff_emirate_id: "", charges: "" },
+          { pickup_city_id: "", dropoff_city_id: "", charges: "" },
         ]);
         break;
     }
@@ -97,8 +97,8 @@ const InterEmirateCharges = () => {
     switch (type) {
       case "cdw":
         body = {
-          pickup_emirate_id: formRows_cdw[index].pickup_emirate_id,
-          dropoff_emirate_id: formRows_cdw[index].dropoff_emirate_id,
+          pickup_city_id: formRows_cdw[index].pickup_city_id,
+          dropoff_city_id: formRows_cdw[index].dropoff_city_id,
           charges: formRows_cdw[index].charges,
         };
         if (formRows_cdw[index].id) {
@@ -108,7 +108,7 @@ const InterEmirateCharges = () => {
         break;
     }
 
-    const url = configWeb.PUT_INTER_EMIRATE_CHARGES;
+    const url = configWeb.PUT_INTER_CITY_CHARGES;
     const apiCall = simplePutCallAuth;
     apiCall(url, JSON.stringify(body))
       .then((res) => {
@@ -157,7 +157,7 @@ const InterEmirateCharges = () => {
     params.append("page", currentPage);
     params.append("page_size", pageSize);
 
-    const url = `${configWeb.GET_INTER_EMIRATE_CHARGES_LIST}?${params.toString()}`;
+    const url = `${configWeb.GET_INTER_CITY_CHARGES_LIST}?${params.toString()}`;
 
     simpleGetCallAuth(url)
       .then((res) => {
@@ -189,11 +189,11 @@ const InterEmirateCharges = () => {
     const cdwData = [];
 
     data.forEach((item) => {
-      const { pickup_emirate_id, dropoff_emirate_id, charges, id } = item;
+      const { pickup_city_id, dropoff_city_id, charges, id } = item;
 
       const row = {
-        pickup_emirate_id,
-        dropoff_emirate_id,
+        pickup_city_id,
+        dropoff_city_id,
         charges,
         type: "cdw",
         id,
@@ -207,8 +207,8 @@ const InterEmirateCharges = () => {
         ? cdwData
         : [
             {
-              pickup_emirate_id: "",
-              dropoff_emirate_id: "",
+              pickup_city_id: "",
+              dropoff_city_id: "",
               charges: "",
               type: "cdw",
             },
@@ -230,7 +230,7 @@ const InterEmirateCharges = () => {
   const deleteCharges = (id) => {
     return new Promise((resolve, reject) => {
       setDeleteLoading(true);
-      const url = configWeb.DELETE_INTER_EMIRATE_CHARGES(id);
+      const url = configWeb.DELETE_INTER_CITY_CHARGES(id);
       simpleDeleteCallAuth(url)
         .then((res) => {
           if (res?.status === "success") {
@@ -258,8 +258,8 @@ const InterEmirateCharges = () => {
 
   useEffect(() => {
     fetchData({
-      url: `${configWeb.GET_EMIRATES}?page_size=9999`,
-      setter: setPickupEmiratesArray,
+      url: `${configWeb.GET_CITIES}?page_size=9999`,
+      setter: setPickupCitiesArray,
     });
   }, []);
 
@@ -281,16 +281,16 @@ const InterEmirateCharges = () => {
                 <Row className="mb-3">
                   <Col md={3}>
                     <Form.Group controlId={`fromDays-${index}`}>
-                      <Form.Label>Pickup Emirate</Form.Label>
+                      <Form.Label>Pickup City</Form.Label>
                       <Form.Select
                         aria-label="Default select example"
-                        name="pickup_emirate_id"
-                        value={row.pickup_emirate_id}
+                        name="pickup_city_id"
+                        value={row.pickup_city_id}
                         onChange={(e) => handleChange(e, index, "cdw")}
                       >
                         <option value="">Select</option>
-                        {pickupEmiratesArray?.length > 0 &&
-                          pickupEmiratesArray?.map((item) => (
+                        {pickupCitiesArray?.length > 0 &&
+                          pickupCitiesArray?.map((item) => (
                             <option key={item.id} value={item.id}>
                               {item.name_en}{" "}
                             </option>
@@ -300,16 +300,16 @@ const InterEmirateCharges = () => {
                   </Col>
                   <Col md={3}>
                     <Form.Group controlId={`fromDays-${index}`}>
-                      <Form.Label>Dropoff Emirate</Form.Label>
+                      <Form.Label>Dropoff City</Form.Label>
                       <Form.Select
                         aria-label="Default select example"
-                        name="dropoff_emirate_id"
-                        value={row.dropoff_emirate_id}
+                        name="dropoff_city_id"
+                        value={row.dropoff_city_id}
                         onChange={(e) => handleChange(e, index, "cdw")}
                       >
                         <option value="">Select</option>
-                        {pickupEmiratesArray?.length > 0 &&
-                          pickupEmiratesArray?.map((item) => (
+                        {pickupCitiesArray?.length > 0 &&
+                          pickupCitiesArray?.map((item) => (
                             <option key={item.id} value={item.id}>
                               {item.name_en}{" "}
                             </option>
@@ -407,4 +407,4 @@ const InterEmirateCharges = () => {
   );
 };
 
-export default InterEmirateCharges;
+export default InterCityCharges;
